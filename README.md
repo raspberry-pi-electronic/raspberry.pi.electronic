@@ -4,7 +4,9 @@
 
 ### Seven Segment Display
 
-[![Seven Segment Display Video](media/seven-segment.jpg)](media/seven-segment.mp4)
+[The blog](https://raspberry-pi-electronic.blogspot.com/2024/06/the-grand-plan.html)
+
+[![Seven Segment Display Video](media/seven-segment.jpg)](https://youtube.com/shorts/jwA8GI-k0ws?feature=share)
 
 
 ## Setup Github
