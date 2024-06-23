@@ -4,7 +4,7 @@
 
 ### Seven Segment Display
 
-[![Seven Segment Display Video](media/seven-segment.jpg)](media/seven-segment.mov)
+[![Seven Segment Display Video](media/seven-segment.jpg)](media/seven-segment.mp4)
 
 
 ## Setup Github
