@@ -156,7 +156,7 @@ def main():
 method_name = "main"
 method_list = [
     "main",
-    "one", "two", "three", "four", "five"
+    "one", "two", "three", "four", "five",
     "six", "seven", "eight", "nine", "zero"
 ]
 if len(sys.argv) > 1:
@@ -167,4 +167,5 @@ if len(sys.argv) > 1:
 
 reset()
 globals()[method_name]()
+
 
