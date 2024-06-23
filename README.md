@@ -6,9 +6,6 @@
 
 [The blog](https://raspberry-pi-electronic.blogspot.com/2024/06/the-grand-plan.html)
 
-[![Seven Segment Display Video](media/seven-segment.jpg)](https://youtube.com/shorts/9vY8CQ8Jes0?feature=share)
-
-
 ## Setup Github
 
 ### New ssh keys
