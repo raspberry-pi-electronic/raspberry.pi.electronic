@@ -1,5 +1,12 @@
 # raspberry.pi.electronic
 
+## Current Project
+
+### Seven Segment Display
+
+[![Seven Segment Display Video](media/seven-segment.jpg)](media/seven-segment.mov)
+
+
 ## Setup Github
 
 ### New ssh keys
