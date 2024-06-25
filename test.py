@@ -2,7 +2,8 @@ from RPi import GPIO
 import sys
 import time
 
-all_out = [ 17, 27, 22, 23, 24, 25, 6, 13 ]
+all_out = [ 17, 27, 22, 23, 24, 25, 6, 13, 
+            5, 26, 16, 12, 2, 3 ]
 state = True
 port = None
 

@@ -23,13 +23,13 @@ def setState(_port, _state):
 ####################
 #
 
-N = 17
-S = 24
-NW = 13
+N = 24
+S = 22
+NW = 17
 SW = 23
-NE = 27
-SE = 22
-C = 25
+NE = 25
+SE = 6
+C = 27
 
 
 def reset():
