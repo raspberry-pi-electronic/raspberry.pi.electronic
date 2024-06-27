@@ -132,9 +132,7 @@ class SevenSegment:
             for i in self.num_list:
                 self.reset()
                 i()
-                time.sleep(1)
-
-
+                time.sleep(0.5)
 
 
 class Ones(SevenSegment):
@@ -164,12 +162,14 @@ def main():
     ones.display()
     tens.display()
 
-
+    ones.reset()
+    tens.reset()
 
 ###################
 #
 # test and debug use
 #
+
 
 method_name = "main"
 method_list = [
