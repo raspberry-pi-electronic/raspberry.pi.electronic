@@ -124,11 +124,15 @@ class SevenSegment:
         self.setOn(self.C)
         self.setOn(self.SE)
 
-    def display(self):
-        for i in self.num_list:
+    def display(self, index=-1):
+        if index > -1:
             self.reset()
-            i()
-            time.sleep(1)
+            self.num_list[index]()
+        else:
+            for i in self.num_list:
+                self.reset()
+                i()
+                time.sleep(1)
 
 
 
@@ -169,16 +173,22 @@ def main():
 
 method_name = "main"
 method_list = [
-    "main",
+    "main", "zero",
     "one", "two", "three", "four", "five",
-    "six", "seven", "eight", "nine", "zero"
+    "six", "seven", "eight", "nine"
 ]
+num_index = -1
 if len(sys.argv) > 1:
     arg = sys.argv[1].lower()
     if arg in method_list:
         method_name = arg
+        num_index = method_list.index(method_name) - 1
 
-if method_name is "main":
+
+if num_index > -1:
+    Ones().display(num_index)
+    Tens().display(num_index)
+else:
     main()
 
 # do math problem
