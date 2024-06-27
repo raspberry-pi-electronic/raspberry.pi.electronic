@@ -17,7 +17,23 @@ class SevenSegment:
     NE = None
     SE = None
     C = None
-
+    
+    num_list = [
+    ]
+    
+    def __init__(self):
+        self.num_list = [
+            self.zero,
+            self.one,
+            self.two,
+            self.three,
+            self.four,
+            self.five,
+            self.six,
+            self.seven,
+            self.eight,
+            self.nine
+        ]
 
     def setState(self, _port, _state):
         _port = int(_port)
@@ -31,77 +47,88 @@ class SevenSegment:
         self.setState(_port, off)
 
     def reset(self):
-        self.setState(self.N, off)
-
+        self.setOff(self.N)
+        self.setOff(self.NE)
+        self.setOff(self.SE)
+        self.setOff(self.S)
+        self.setOff(self.SW)
+        self.setOff(self.NW)
+        self.setOff(self.C)
 
 
     def zero(self):
-        self.setState(self.N, on)
-        self.setState(self.NE, on)
-        self.setState(self.SE, on)
-        self.setState(self.S, on)
-        self.setState(self.SW, on)
-        self.setState(self.NW, on)
+        self.setOn(self.N)
+        self.setOn(self.NE)
+        self.setOn(self.SE)
+        self.setOn(self.S)
+        self.setOn(self.SW)
+        self.setOn(self.NW)
 
     def one(self):
-        self.setState(self.NE, on)
-        self.setState(self.SE, on)
+        self.setOn(self.NE)
+        self.setOn(self.SE)
 
     def two(self):
-        self.setState(self.N, on)
-        self.setState(self.NE, on)
-        self.setState(self.C, on)
-        self.setState(self.SW, on)
-        self.setState(self.S, on)
+        self.setOn(self.N)
+        self.setOn(self.NE)
+        self.setOn(self.C)
+        self.setOn(self.SW)
+        self.setOn(self.S)
 
     def three(self):
-        self.setState(self.N, on)
-        self.setState(self.NE, on)
-        self.setState(self.C, on)
-        self.setState(self.SE, on)
-        self.setState(self.S, on)
+        self.setOn(self.N)
+        self.setOn(self.NE)
+        self.setOn(self.C)
+        self.setOn(self.SE)
+        self.setOn(self.S)
 
     def four(self):
-        self.setState(self.NE, on)
-        self.setState(self.SE, on)
-        self.setState(self.C, on)
-        self.setState(self.NW, on)
+        self.setOn(self.NE)
+        self.setOn(self.SE)
+        self.setOn(self.C)
+        self.setOn(self.NW)
 
     def five(self):
-        self.setState(self.N, on)
-        self.setState(self.NW, on)
-        self.setState(self.C, on)
-        self.setState(self.SE, on)
-        self.setState(self.S, on)
+        self.setOn(self.N)
+        self.setOn(self.NW)
+        self.setOn(self.C)
+        self.setOn(self.SE)
+        self.setOn(self.S)
 
     def six(self):
-        self.setState(self.N, on)
-        self.setState(self.NW, on)
-        self.setState(self.SW, on)
-        self.setState(self.S, on)
-        self.setState(self.SE, on)
-        self.setState(self.C, on)
+        self.setOn(self.N)
+        self.setOn(self.NW)
+        self.setOn(self.SW)
+        self.setOn(self.S)
+        self.setOn(self.SE)
+        self.setOn(self.C)
 
     def seven(self):
-        self.setState(self.N, on)
-        self.setState(self.NE, on)
-        self.setState(self.SE, on)
+        self.setOn(self.N)
+        self.setOn(self.NE)
+        self.setOn(self.SE)
 
     def eight(self):
-        self.setState(self.N, on)
-        self.setState(self.NE, on)
-        self.setState(self.S, on)
-        self.setState(self.SW, on)
-        self.setState(self.SE, on)
-        self.setState(self.NW, on)
-        self.setState(self.C, on)
+        self.setOn(self.N)
+        self.setOn(self.NE)
+        self.setOn(self.S)
+        self.setOn(self.SW)
+        self.setOn(self.SE)
+        self.setOn(self.NW)
+        self.setOn(self.C)
 
     def nine(self):
-        self.setState(self.NW, on)
-        self.setState(self.N, on)
-        self.setState(self.NE, on)
-        self.setState(self.C, on)
-        self.setState(self.SE, on)
+        self.setOn(self.NW)
+        self.setOn(self.N)
+        self.setOn(self.NE)
+        self.setOn(self.C)
+        self.setOn(self.SE)
+
+    def display(self):
+        for i in self.num_list:
+            self.reset()
+            self.num_list[i]()
+            time.sleep(1)
 
 
 
@@ -126,8 +153,34 @@ class Tens(SevenSegment):
     C = 26
 
 
+def main():
+    ones = Ones()
+    tens = Tens()
+
+    ones.display()
+    tens.display()
 
 
-do math problem
+
+###################
+#
+# test and debug use
+#
+
+method_name = "main"
+method_list = [
+    "main",
+    "one", "two", "three", "four", "five",
+    "six", "seven", "eight", "nine", "zero"
+]
+if len(sys.argv) > 1:
+    arg = sys.argv[1].lower()
+    if arg in method_list:
+        method_name = arg
+
+if method_name is "main":
+    main()
+
+# do math problem
 
 
