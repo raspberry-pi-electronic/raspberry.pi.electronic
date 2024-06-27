@@ -127,7 +127,7 @@ class SevenSegment:
     def display(self):
         for i in self.num_list:
             self.reset()
-            self.num_list[i]()
+            i()
             time.sleep(1)
 
 
