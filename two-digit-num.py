@@ -135,7 +135,7 @@ class SevenSegment:
                 time.sleep(0.5)
 
 
-class Ones(SevenSegment):
+class Tens(SevenSegment):
     N = 24
     S = 22
     NW = 17
@@ -145,7 +145,7 @@ class Ones(SevenSegment):
     C = 27
 
 
-class Tens(SevenSegment):
+class Ones(SevenSegment):
     N = 3
     S = 16
     NW = 5
@@ -155,12 +155,34 @@ class Tens(SevenSegment):
     C = 26
 
 
-def main():
+def getTens(n):
+    x = n/10
+    y = int(x)
+    return y
+
+def getOnes(n):
+    x = n/10  # take the tens digit
+    y = int(x)   # drop the decimal point
+    a = x - y + 0.05  # takes the decimal point and force round up
+    b = int(a * 10)  # shift the decimal to right one place
+    return b
+
+
+def display_number(n):
+    t = getTens(n)
+    o = getOnes(n)
+    ones = Ones()
+    tens = Tens()
+    tens.display(t)
+    ones.display(o)
+
+
+def main(n):
     ones = Ones()
     tens = Tens()
 
-    ones.display()
     tens.display()
+    ones.display()
 
     ones.reset()
     tens.reset()
@@ -173,24 +195,29 @@ def main():
 
 method_name = "main"
 method_list = [
-    "main", "zero",
+    "main", "display_number", "zero",
     "one", "two", "three", "four", "five",
     "six", "seven", "eight", "nine"
 ]
 num_index = -1
+num = 0
 if len(sys.argv) > 1:
     arg = sys.argv[1].lower()
     if arg in method_list:
         method_name = arg
-        num_index = method_list.index(method_name) - 1
+        num_index = method_list.index(method_name) - 2
+
+if len(sys.argv) > 2:
+    num = int(sys.argv[2].lower())
 
 
 if num_index > -1:
     Ones().display(num_index)
     Tens().display(num_index)
 else:
-    main()
+    print(f"method name: {method_name}")
+    print(f"-- display number: {num}")
+    globals()[method_name](num)
 
-# do math problem
 
 
