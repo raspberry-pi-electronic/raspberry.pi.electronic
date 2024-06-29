@@ -192,32 +192,32 @@ def main(n):
 # test and debug use
 #
 
+if __name__ == "__main__":
+    method_name = "main"
+    method_list = [
+        "main", "display_number", "zero",
+        "one", "two", "three", "four", "five",
+        "six", "seven", "eight", "nine"
+    ]
+    num_index = -1
+    num = 0
+    if len(sys.argv) > 1:
+        arg = sys.argv[1].lower()
+        if arg in method_list:
+            method_name = arg
+            num_index = method_list.index(method_name) - 2
 
-method_name = "main"
-method_list = [
-    "main", "display_number", "zero",
-    "one", "two", "three", "four", "five",
-    "six", "seven", "eight", "nine"
-]
-num_index = -1
-num = 0
-if len(sys.argv) > 1:
-    arg = sys.argv[1].lower()
-    if arg in method_list:
-        method_name = arg
-        num_index = method_list.index(method_name) - 2
-
-if len(sys.argv) > 2:
-    num = int(sys.argv[2].lower())
+    if len(sys.argv) > 2:
+        num = int(sys.argv[2].lower())
 
 
-if num_index > -1:
-    Ones().display(num_index)
-    Tens().display(num_index)
-else:
-    print(f"method name: {method_name}")
-    print(f"-- display number: {num}")
-    globals()[method_name](num)
+    if num_index > -1:
+        Ones().display(num_index)
+        Tens().display(num_index)
+    else:
+        print(f"method name: {method_name}")
+        print(f"-- display number: {num}")
+        globals()[method_name](num)
 
 
 
