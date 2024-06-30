@@ -9,9 +9,10 @@ async function invokeApi(api, callback=null, method="GET", data=null) {
     try {
         response = null
         if (data) {
+            console.log("invokeApi '" + api + "' via method '" + method + "'")
             response = await fetch(api, {
-                "method": method,
-                "body": JSON.stringify(data)
+                method: method,
+                body: JSON.stringify(data)
             });
         }
         else {
@@ -34,8 +35,9 @@ async function invokeApi(api, callback=null, method="GET", data=null) {
     }
 }
 
-function sendNumber(num) {
-    invokeApi("/showNumber", callback=showNumber_callback, method="POST", data={"num": num})
+function sendNumber() {
+    num = document.getElementById("num").value
+    invokeApi("/showNumber", showNumber_callback, "POST", {"num": num})
 }
 
 function showNumber_callback(data) {
