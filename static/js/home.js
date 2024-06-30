@@ -41,6 +41,10 @@ function sendNumber() {
     invokeApi("/showNumber", showNumber_callback, "POST", {"num": num})
 }
 
+function clearNumber() {
+    invokeApi("/clearNumber")
+}
+
 function showNumber_callback(data) {
     console.log("showNumber callback")
     console.log(JSON.stringify(data))

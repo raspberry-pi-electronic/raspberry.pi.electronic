@@ -177,6 +177,11 @@ def display_number(n):
     ones.display(o)
 
 
+def resetAll():
+    Ones().reset()
+    Tens().reset()
+
+
 def main(n):
     ones = Ones()
     tens = Tens()

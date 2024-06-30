@@ -1,6 +1,6 @@
 import os
 from flask import Flask, request, send_from_directory
-from two_digit_num import display_number
+from two_digit_num import display_number, resetAll
 import json
 
 #
@@ -22,7 +22,8 @@ def send_static(path):
 def send_static_js(path):
     return send_from_directory('static/js', path)
 
-@app.route("/showNumber", methods = ['GET', 'POST'])
+
+@app.route("/showNumber", methods=['GET', 'POST'])
 def showNumber():
     num = 0
     if request.method == 'GET':
@@ -38,4 +39,11 @@ def showNumber():
     display_number(num)
     
     return json.dumps({"result": "OK", "number: ": num}), 200, {'content-type': 'application/json'}
+
+
+@app.route("/clearNumber", methods=['GET', 'POST'])
+def clearNumber():
+    resetAll()
+    return json.dumps({"result": "OK"}), 200, {'content-type': 'application/json'}
+
 
