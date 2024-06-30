@@ -3,13 +3,13 @@ async function invokeApi(api, callback=null, method="GET", data=null) {
     try {
         response = null
         if (data) {
-            response = await fetch(url, {
+            response = await fetch(api, {
                 "method": method,
                 "body": JSON.stringify(data)
             });
         }
         else {
-            response = await fetch(url, {"method": method});
+            response = await fetch(api, {"method": method});
         }
 
         if (!response.ok) {
