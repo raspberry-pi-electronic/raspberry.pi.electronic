@@ -42,6 +42,7 @@ function sendNumber() {
 }
 
 function clearNumber() {
+    document.getElementById("num").value = ""
     invokeApi("/clearNumber")
 }
 
