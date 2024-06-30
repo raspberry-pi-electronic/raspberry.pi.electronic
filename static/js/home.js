@@ -1,4 +1,10 @@
 
+/*
+https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest_API/Using_FormData_Objects
+https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
+
+*/
+
 async function invokeApi(api, callback=null, method="GET", data=null) {
     try {
         response = null

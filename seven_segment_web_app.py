@@ -29,7 +29,11 @@ def showNumber():
         num = request.args.get('num', default=0, type=int)
 
     else:
-        num = int(request.form.get('num'))
+        try:
+            num = int(request.form.get('num'))
+        except:
+            data = request.json
+            num = int(data["num"])
 
     display_number(num)
     
