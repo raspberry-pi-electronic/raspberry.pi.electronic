@@ -1,5 +1,5 @@
 import os
-from flask import Flask, request
+from flask import Flask, request, send_from_directory
 from two_digit_num import display_number
 
 #
@@ -11,19 +11,11 @@ app = Flask(__name__)
 
 @app.route("/")
 def hello_world():
-    return """
-<enter><h2>Show number on 7-segment display</h2></center>
-<form action="/showNumber" method="POST">
-   <div>
-      <span>Enter a two-digit number: </span>
-      <input type="text" name="num" value="">
-   </div>
-   <div>
-      <input type="submit" value="Show Number">
-   </div>
-</form>
-"""
+    return send_from_directory("static", "home.html")
 
+@app.route('/static/<path:path>')
+def send_report(path):
+    return send_from_directory('reports', path)
 
 @app.route("/showNumber", methods = ['GET', 'POST'])
 def showNumber():
