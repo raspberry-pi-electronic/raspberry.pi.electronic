@@ -14,8 +14,12 @@ def hello_world():
     return send_from_directory("static", "home.html")
 
 @app.route('/static/<path:path>')
-def send_report(path):
-    return send_from_directory('reports', path)
+def send_static(path):
+    return send_from_directory('static', path)
+
+#@app.route('/static/js/<path:path>')
+#def send_static_js(path):
+#    return send_from_directory('static/js', path)
 
 @app.route("/showNumber", methods = ['GET', 'POST'])
 def showNumber():
