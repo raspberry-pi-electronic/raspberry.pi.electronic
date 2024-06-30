@@ -4,13 +4,13 @@
 </head>
 <body>
 <div style="text-align: center"><h2>Show number on 7-segment display</h2></div>
-<form action="/showNumber" method="POST">
+<form action="javascript:">
    <div>
       <span>Enter a two-digit number: </span>
-      <input type="text" name="num" value="">
+      <input type="text" id="num" name="num" value="">
    </div>
    <div>
-      <input type="submit" value="Show Number">
+      <input type="button" value="Show Number" onclick="sendNumber(document.getElementById('num').value)">
    </div>
 </form>
 </body>

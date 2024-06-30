@@ -1,6 +1,7 @@
 import os
 from flask import Flask, request, send_from_directory
 from two_digit_num import display_number
+import json
 
 #
 # flask --app seven_segment_web_app run --host=0.0.0.0
@@ -32,5 +33,5 @@ def showNumber():
 
     display_number(num)
     
-    return hello_world()
+    return json.dumps({"result": "OK", "number: ": num}), 200, {'content-type': 'application/json'}
 
