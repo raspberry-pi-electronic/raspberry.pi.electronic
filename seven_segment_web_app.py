@@ -17,9 +17,9 @@ def hello_world():
 def send_static(path):
     return send_from_directory('static', path)
 
-#@app.route('/static/js/<path:path>')
-#def send_static_js(path):
-#    return send_from_directory('static/js', path)
+@app.route('/static/js/<path:path>')
+def send_static_js(path):
+    return send_from_directory('static/js', path)
 
 @app.route("/showNumber", methods = ['GET', 'POST'])
 def showNumber():
