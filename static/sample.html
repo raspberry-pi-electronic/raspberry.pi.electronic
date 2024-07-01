@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>a wed page</title>
+    <script>
+        function showMessage(obj) {
+            console.log("You have clicked on " + obj.innerHTML);
+        }
+
+        function showImage(obj) {
+            console.log("You have clicked on image: " + obj.src)
+        }
+
+        function mouseEnter() {
+           console.log("mouse has entered")
+        }
+
+        function mouseLeave() {
+            console.log("mouse has left")
+        }
+    </script>
+</head>
+<body>
+
+<div onclick="showMessage(this)">welcome earthlings</div>
+<br>
+<img src="img/IMG_3212.jpeg" onclick="showImage(this)" onmouseover="mouseEnter()" onmouseout="mouseLeave()">
+
+<iframe src="InnerPage.html">
+
+</iframe>
+
+<!--
+
+onclick
+onmousedown
+onmouseup
+
+onkeydown
+onkeyup
+onkeypress
+
+-->
+
+
+
+
+
+
+
+</body>
+</html>

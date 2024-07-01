@@ -37,6 +37,10 @@ async function invokeApi(api, callback=null, method="GET", data=null) {
     }
 }
 
+function sendValue(num) {
+    invokeApi("/showNumber", showNumber_callback, "POST", {num: num})
+}
+
 function sendNumber(eleId) {
     ele = document.getElementById(eleId)
     num = ele.value
