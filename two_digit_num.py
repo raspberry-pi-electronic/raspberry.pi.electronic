@@ -155,26 +155,36 @@ class Ones(SevenSegment):
     C = 26
 
 
-def getTens(n):
-    x = n/10
-    y = int(x)
-    return y
+class TwoDigitDisplay:
+    num = None
 
-def getOnes(n):
-    x = n/10  # take the tens digit
-    y = int(x)   # drop the decimal point
-    a = x - y + 0.05  # takes the decimal point and force round up
-    b = int(a * 10)  # shift the decimal to right one place
-    return b
+    def __init__(self, num):
+        self.num = num
+
+    def getTens(self):
+        x = self.num / 10
+        y = int(x)
+        return y
+
+    def getOnes(self):
+        x = self.num / 10  # take the tens digit
+        y = int(x)  # drop the decimal point
+        a = x - y + 0.05  # takes the decimal point and force round up
+        b = int(a * 10)  # shift the decimal to right one place
+        return b
+
+    def display(self):
+        t = self.getTens()
+        o = self.getOnes()
+        ones = Ones()
+        tens = Tens()
+        tens.display(t)
+        ones.display(o)
 
 
 def display_number(n):
-    t = getTens(n)
-    o = getOnes(n)
-    ones = Ones()
-    tens = Tens()
-    tens.display(t)
-    ones.display(o)
+    twoDigitNum = TwoDigitDisplay(n)
+    twoDigitNum.display()
 
 
 def resetAll():
