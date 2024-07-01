@@ -234,5 +234,3 @@ if __name__ == "__main__":
         print(f"-- display number: {num}")
         globals()[method_name](num)
 
-
-

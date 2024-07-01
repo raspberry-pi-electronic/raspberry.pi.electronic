@@ -10,6 +10,7 @@ async function invokeApi(api, callback=null, method="GET", data=null) {
         response = null
         if (data) {
             console.log("invokeApi '" + api + "' via method '" + method + "'")
+            console.log("sending: " + JSON.stringify(data))
             response = await fetch(api, {
                 method: method,
                 headers: new Headers({'content-type': 'application/json'}),
