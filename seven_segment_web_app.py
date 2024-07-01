@@ -24,7 +24,7 @@ def send_static_js(path):
 
 
 @app.route('/static/img/<path:path>')
-def send_static_js(path):
+def send_static_img(path):
     return send_from_directory('static/img', path)
 
 
