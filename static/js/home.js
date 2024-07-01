@@ -36,13 +36,15 @@ async function invokeApi(api, callback=null, method="GET", data=null) {
     }
 }
 
-function sendNumber() {
-    num = document.getElementById("num").value
-    invokeApi("/showNumber", showNumber_callback, "POST", {"num": num})
+function sendNumber(eleId) {
+    ele = document.getElementById(eleId)
+    num = ele.value
+    name = ele.getAttribute("name")
+    invokeApi("/showNumber", showNumber_callback, "POST", {name: num})
 }
 
-function clearNumber() {
-    document.getElementById("num").value = ""
+function clearNumber(eleId) {
+    document.getElementById(eleId).value = ""
     invokeApi("/clearNumber")
 }
 
