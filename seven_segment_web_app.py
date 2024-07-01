@@ -23,6 +23,11 @@ def send_static_js(path):
     return send_from_directory('static/js', path)
 
 
+@app.route('/static/img/<path:path>')
+def send_static_js(path):
+    return send_from_directory('static/img', path)
+
+
 @app.route("/showNumber", methods=['GET', 'POST'])
 def showNumber():
     num = 0
