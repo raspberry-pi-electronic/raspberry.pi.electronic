@@ -40,8 +40,7 @@ async function invokeApi(api, callback=null, method="GET", data=null) {
 function sendNumber(eleId) {
     ele = document.getElementById(eleId)
     num = ele.value
-    name = ele.getAttribute("name")
-    invokeApi("/showNumber", showNumber_callback, "POST", {name: num})
+    invokeApi("/showNumber", showNumber_callback, "POST", {num: num})
 }
 
 function clearNumber(eleId) {
