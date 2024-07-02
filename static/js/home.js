@@ -5,6 +5,8 @@ https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
 
 */
 
+enable_mouse_x_send = 0
+
 async function invokeApi(api, callback=null, method="GET", data=null) {
     try {
         response = null
@@ -38,9 +40,16 @@ async function invokeApi(api, callback=null, method="GET", data=null) {
 }
 
 function showX(e) {
+    if (!enable_mouse_x_send) {
+        return;
+    }
     let x = e.clientX;
     let y = e.clientY;
     sendValue(x);
+}
+
+function toggleMouseXSend() {
+    enable_mouse_x_send = 1 - enable_mouse_x_send;
 }
 
 function sendValue(num) {
