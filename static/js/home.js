@@ -40,6 +40,7 @@ async function invokeApi(api, callback=null, method="GET", data=null) {
 function showX(e) {
     let x = e.clientX;
     let y = e.clientY;
+    console.log("mouse x: " + x)
     sendValue(x);
 }
 
