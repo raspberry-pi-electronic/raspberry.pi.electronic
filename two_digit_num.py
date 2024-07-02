@@ -159,6 +159,10 @@ class TwoDigitDisplay:
     num = None
 
     def __init__(self, num):
+        if num > 99:
+            over_100 = int(num / 100) * 100
+            num = num - over_100
+            
         self.num = num
 
     def getTens(self):
