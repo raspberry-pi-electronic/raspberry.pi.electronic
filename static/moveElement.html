@@ -18,10 +18,12 @@
             h = parseInt(obj.offsetHeight);
             w = parseInt(obj.offsetWidth);
 
+            console.log(obj.id + " size (" + h + " x " + w + ")");
+
             /*
                 setting the 'mouse move' event handler
             */
-            obj.onmousemove = function(evt) {
+            function setLocation() {
                 /*
                     the current mouse location:
                     evt.clientX
@@ -32,8 +34,8 @@
 
 
                 */
-                x = evt.clientX - w / 2;
-                y = evt.clientY - h / 2;
+                x = mouse_location[0] - w/2;
+                y = mouse_location[1] - h/2;
 
                 /*
                     setting the HTML object's location
@@ -41,8 +43,11 @@
                 obj.style.left = x + "px";
                 obj.style.top = y + "px";
 
+                console.log(obj.id + " size (" + h + " x " + w + ")");
                 console.log("move element: " + obj.id + " to (" + x + ", " + y + ")");
-            };
+            }
+
+            obj.onmousemove = setLocation
 
             /*
                setting up the 'mouse up' event handler
@@ -55,6 +60,11 @@
                setting up the 'mouse out' event handler
             */
             obj.onmouseout = obj.onmouseup;
+
+            /*
+                set the location on mouse click
+            */
+            setLocation()
         }
 
         function moveByKey(evt) {
@@ -492,7 +502,13 @@
 </body>
 
 <script>
-    document.body.onkeydown = moveByKey
+    document.body.onkeydown = moveByKey;
+
+    mouse_location = [0, 0];
+    document.body.onmousemove = function(evt) {
+        mouse_location[0] = evt.clientX;
+        mouse_location[1] = evt.clientY;
+    }
 </script>
 
 </html>
