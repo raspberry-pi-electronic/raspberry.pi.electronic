@@ -22,8 +22,6 @@
             h = parseInt(obj.offsetHeight);
             w = parseInt(obj.offsetWidth);
 
-            //console.log(obj.id + " size (" + h + " x " + w + ")");
-
             /*
                 setting the 'mouse move' event handler
             */
@@ -39,7 +37,7 @@
 
                 */
                 x = mouse_location[0] - w/2;
-                y = mouse_location[1] - h/2;
+                y = mouse_location[1] + h/4;
 
                 /*
                     setting the HTML object's location
@@ -47,10 +45,12 @@
                 obj.style.left = x + "px";
                 obj.style.top = y + "px";
 
-                //console.log(obj.id + " size (" + h + " x " + w + ")");
-                //console.log("move element: " + obj.id + " to (" + x + ", " + y + ")");
+                console.log(obj.id + " size (" + h + " x " + w + ")");
+                console.log("mouse location: (" + mouse_location[0] + ", " + mouse_location[1] + ")");
+
+                console.log("move element: " + obj.id + " to (" + x + ", " + y + ")");
                 if (target_board_square) {
-                    console.log("entered: " + target_board_square.id )
+                    console.log("Chess piece " + obj.id + " entered: " + target_board_square.id )
                 }
             }
 
@@ -151,10 +151,11 @@
 
     <style>
         .chess_board {
-            width:50px;
-            height: 25px;
+            width:60px;
+            height: 60px;
             border: 1px solid black;
             text-align: center;
+            vertical-align: middle;
         }
 
         .disable_high_light {
@@ -528,16 +529,24 @@
     target_board_square = null;
     mouse_location = [0, 0];
     document.body.onmousemove = function(evt) {
-        target_board_square = null;
-        mouse_location[0] = evt.clientX;
-        mouse_location[1] = evt.clientY;
+        mouse_location = getMouseLocation(evt);
+        target_board_square = getBoardSquareOnMouseLocation();
+    }
+
+    function getMouseLocation(evt) {
+        return [evt.clientX, evt.clientY];
+    }
+
+    function getBoardSquareOnMouseLocation() {
         all_target_element = document.elementsFromPoint(mouse_location[0], mouse_location[1]);
         if( all_target_element.length > 1 ) {
             if( all_target_element[1].getAttribute("isBoard") ) {
-                target_board_square = all_target_element[1]
+                return all_target_element[1]
             }
         }
+        return null;
     }
+
 </script>
 
 </html>
