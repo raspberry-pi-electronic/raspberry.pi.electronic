@@ -149,6 +149,20 @@
             border: 1px solid black;
             text-align: center;
         }
+
+        .disable_high_light {
+            cursor:default; 
+            user-select: none; 
+            -webkit-user-select: none;
+        }
+
+        .player_1 {
+            color: black;
+        }
+
+        .player_2 {
+            color: blue;
+        }
     </style>
     <meta charset="UTF-8">
     <title>Move Element</title>
@@ -160,56 +174,56 @@
 <table>
     <tr>
         <td class="chess_board">
-            <span style="cursor:default; user-select: none; -webkit-user-select: none;"
+            <span class="disable_high_light player_1"
                  onmousedown="moveByMouse(this)"
                  id="black_rook_1">
                 Rook
             </span>
         </td>
         <td class="chess_board">
-            <span style="cursor:default; user-select: none; -webkit-user-select: none;"
+            <span class="disable_high_light player_1"
                  onmousedown="moveByMouse(this)"
                  id="black_knight_1">
                 Knight
             </span>
         </td>
         <td class="chess_board">
-            <span style="cursor:default; user-select: none; -webkit-user-select: none;"
+            <span class="disable_high_light player_1"
                  onmousedown="moveByMouse(this)"
                  id="black_bishop_1">
                 Bishop
             </span>
         </td>
         <td class="chess_board">
-            <span style="cursor:default; user-select: none; -webkit-user-select: none;"
+            <span class="disable_high_light player_1"
                  onmousedown="moveByMouse(this)"
                  id="black_queen">
                 Queen
             </span>
         </td>
         <td class="chess_board">
-            <span style="cursor:default; user-select: none; -webkit-user-select: none;"
+            <span class="disable_high_light player_1"
                  onmousedown="moveByMouse(this)"
                  id="black_king">
                 King
             </span>
         </td>
         <td class="chess_board">
-            <span style="cursor:default; user-select: none; -webkit-user-select: none;"
+            <span class="disable_high_light player_1"
                  onmousedown="moveByMouse(this)"
                  id="black_bishop_2">
                 bishop
             </span>
         </td>
         <td class="chess_board">
-            <span style="cursor:default; user-select: none; -webkit-user-select: none;"
+            <span class="disable_high_light player_1"
                  onmousedown="moveByMouse(this)"
                  id="black_Knight_2">
                 Knight
             </span>
         </td>
         <td class="chess_board">
-            <span style="cursor:default; user-select: none; -webkit-user-select: none;"
+            <span class="disable_high_light player_1"
                  onmousedown="moveByMouse(this)"
                  id="black_Rook_2">
                 Rook
@@ -218,56 +232,56 @@
     </tr>
     <tr>
         <td  class="chess_board">
-            <span style="cursor:default; user-select: none; -webkit-user-select: none;"
+            <span class="disable_high_light player_1"
                  onmousedown="moveByMouse(this)"
                  id="black_pawn_1">
                 Pawn
             </span>
         </td>
         <td  class="chess_board">
-            <span style="cursor:default; user-select: none; -webkit-user-select: none;"
+            <span class="disable_high_light player_1"
                  onmousedown="moveByMouse(this)"
                  id="black_pawn_2">
                 Pawn
             </span>
         </td>
         <td  class="chess_board">
-            <span style="cursor:default; user-select: none; -webkit-user-select: none;"
+            <span class="disable_high_light player_1"
                  onmousedown="moveByMouse(this)"
                  id="black_pawn_3">
                 Pawn
             </span>
         </td>
         <td  class="chess_board">
-            <span style="cursor:default; user-select: none; -webkit-user-select: none;"
+            <span class="disable_high_light player_1"
                  onmousedown="moveByMouse(this)"
                  id="black_pawn_4">
                 Pawn
             </span>
         </td>
         <td  class="chess_board">
-            <span style="cursor:default; user-select: none; -webkit-user-select: none;"
+            <span class="disable_high_light player_1"
                  onmousedown="moveByMouse(this)"
                  id="black_pawn_5">
                 Pawn
             </span>
         </td>
         <td  class="chess_board">
-            <span style="cursor:default; user-select: none; -webkit-user-select: none;"
+            <span class="disable_high_light player_1"
                  onmousedown="moveByMouse(this)"
                  id="black_pawn_6">
                 Pawn
             </span>
         </td>
         <td  class="chess_board">
-            <span style="cursor:default; user-select: none; -webkit-user-select: none;"
+            <span class="disable_high_light player_1"
                  onmousedown="moveByMouse(this)"
                  id="black_pawn_7">
                 Pawn
             </span>
         </td>
         <td  class="chess_board">
-            <span style="cursor:default; user-select: none; -webkit-user-select: none;"
+            <span class="disable_high_light player_1"
                  onmousedown="moveByMouse(this)"
                  id="black_pawn_8">
                 Pawn
@@ -381,115 +395,115 @@
     </tr>
      <tr>
         <td  class="chess_board">
-            <span style="cursor:default; user-select: none; -webkit-user-select: none;"
+            <span class="disable_high_light player_2"
                  onmousedown="moveByMouse(this)"
-                 id="black_pawn_1">
+                 id="white_pawn_1">
                 Pawn
             </span>
         </td>
         <td  class="chess_board">
-            <span style="cursor:default; user-select: none; -webkit-user-select: none;"
+            <span class="disable_high_light player_2"
                  onmousedown="moveByMouse(this)"
-                 id="black_pawn_2">
+                 id="white_pawn_2">
                 Pawn
             </span>
         </td>
         <td  class="chess_board">
-            <span style="cursor:default; user-select: none; -webkit-user-select: none;"
+            <span class="disable_high_light player_2"
                  onmousedown="moveByMouse(this)"
-                 id="black_pawn_3">
+                 id="white_pawn_3">
                 Pawn
             </span>
         </td>
         <td  class="chess_board">
-            <span style="cursor:default; user-select: none; -webkit-user-select: none;"
+            <span class="disable_high_light player_2"
                  onmousedown="moveByMouse(this)"
-                 id="black_pawn_4">
+                 id="white_pawn_4">
                 Pawn
             </span>
         </td>
         <td  class="chess_board">
-            <span style="cursor:default; user-select: none; -webkit-user-select: none;"
+            <span class="disable_high_light player_2"
                  onmousedown="moveByMouse(this)"
-                 id="black_pawn_5">
+                 id="white_pawn_5">
                 Pawn
             </span>
         </td>
         <td  class="chess_board">
-            <span style="cursor:default; user-select: none; -webkit-user-select: none;"
+            <span class="disable_high_light player_2"
                  onmousedown="moveByMouse(this)"
-                 id="black_pawn_6">
+                 id="white_pawn_6">
                 Pawn
             </span>
         </td>
         <td  class="chess_board">
-            <span style="cursor:default; user-select: none; -webkit-user-select: none;"
+            <span class="disable_high_light player_2"
                  onmousedown="moveByMouse(this)"
-                 id="black_pawn_7">
+                 id="white_pawn_7">
                 Pawn
             </span>
         </td>
         <td  class="chess_board">
-            <span style="cursor:default; user-select: none; -webkit-user-select: none;"
+            <span class="disable_high_light player_2"
                  onmousedown="moveByMouse(this)"
-                 id="black_pawn_8">
+                 id="white_pawn_8">
                 Pawn
             </span>
         </td>
     <tr>
         <td class="chess_board">
-            <span style="cursor:default; user-select: none; -webkit-user-select: none;"
+            <span class="disable_high_light player_2"
                  onmousedown="moveByMouse(this)"
-                 id="black_rook_1">
+                 id="white_rook_1">
                 Rook
             </span>
         </td>
         <td class="chess_board">
-            <span style="cursor:default; user-select: none; -webkit-user-select: none;"
+            <span class="disable_high_light player_2"
                  onmousedown="moveByMouse(this)"
-                 id="black_knight_1">
+                 id="white_knight_1">
                 Knight
             </span>
         </td>
         <td class="chess_board">
-            <span style="cursor:default; user-select: none; -webkit-user-select: none;"
+            <span class="disable_high_light player_2"
                  onmousedown="moveByMouse(this)"
-                 id="black_bishop_1">
+                 id="white_bishop_1">
                 Bishop
             </span>
         </td>
         <td class="chess_board">
-            <span style="cursor:default; user-select: none; -webkit-user-select: none;"
+            <span class="disable_high_light player_2"
                  onmousedown="moveByMouse(this)"
-                 id="black_queen">
+                 id="white_queen">
                 Queen
             </span>
         </td>
         <td class="chess_board">
-            <span style="cursor:default; user-select: none; -webkit-user-select: none;"
+            <span class="disable_high_light player_2"
                  onmousedown="moveByMouse(this)"
-                 id="black_king">
+                 id="white_king">
                 King
             </span>
         </td>
         <td class="chess_board">
-            <span style="cursor:default; user-select: none; -webkit-user-select: none;"
+            <span class="disable_high_light player_2"
                  onmousedown="moveByMouse(this)"
-                 id="black_bishop_2">
+                 id="white_bishop_2">
                 bishop
             </span>
         </td>
         <td class="chess_board">
-            <span style="cursor:default; user-select: none; -webkit-user-select: none;"
+            <span class="disable_high_light player_2"
                  onmousedown="moveByMouse(this)"
-                 id="black_Knight_2">
+                 id="white_Knight_2">
                 Knight
             </span>
         </td>
         <td class="chess_board">
-            <span style="cursor:default; user-select: none; -webkit-user-select: none;"
+            <span class="disable_high_light player_2"
                  onmousedown="moveByMouse(this)"
-                 id="black_Rook_2">
+                 id="white_Rook_2">
                 Rook
             </span>
         </td>
