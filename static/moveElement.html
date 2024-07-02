@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--
+        https://www.w3schools.com/jsref/event_onmousemove.asp
+    -->
+    <script>
+        function moveByMouse(obj) {
+            /*
+                setting the HTML object to absolute position
+            */
+            obj.style.position = "absolute";
+
+            /*
+                get the HTML object's height -- it contains a unit, such as 200 px
+                'parseInt' is to parse (extract or read) the integer value
+            */
+            h = parseInt(obj.offsetHeight);
+            w = parseInt(obj.offsetWidth);
+
+            /*
+                setting the 'mouse move' event handler
+            */
+            obj.onmousemove = function(evt) {
+                /*
+                    the current mouse location:
+                    evt.clientX
+                    evt.clientY
+
+                    the x coordinate, subtract (move to the left) by half of the width length
+                    the y coordinate, subtract (move to the top) by half of the height length
+
+
+                */
+                x = evt.clientX - w / 2;
+                y = evt.clientY - h / 2;
+
+                /*
+                    setting the HTML object's location
+                */
+                obj.style.left = x + "px";
+                obj.style.top = y + "px";
+
+                console.log("move element: " + obj.id + " to (" + x + ", " + y + ")");
+            };
+
+            /*
+               setting up the 'mouse up' event handler
+            */
+            obj.onmouseup = function() {
+                obj.onmousemove = null;
+            };
+
+            /*
+               setting up the 'mouse out' event handler
+            */
+            obj.onmouseout = obj.onmouseup;
+        }
+
+        function moveByKey(evt) {
+            /*
+                'document' is the whole web page
+                'getElementById' is a method to get the element by its id
+
+                 we have an element with id set to 'move_by_key'
+            */
+            element_to_be_moved = document.getElementById("move_by_key");
+
+            /*
+                the event object is passed in by javascript engine.
+                the name I gave is 'evt'
+
+                to get the key code: evt.keyCode
+
+                37, 38, 39, 40
+                <-  ^   ->   v
+            */
+
+            /*
+               from any element, we can get its location.
+
+               the location y is offsetTop
+               the location x is offsetLeft
+            */
+            y = element_to_be_moved.offsetTop;
+            x = element_to_be_moved.offsetLeft;
+
+            /*
+                in html we set element position with these values:
+                -- relative
+                ---- <div>top<div>
+                ---- <div>middle</div>
+                ---- <div>bottom</div>
+
+                ---- <span>left</span>
+                ---- <span>middle</span>
+                ---- <span>right</span>
+
+                -- aboslute
+                the element will be placed at the x and y you specified.
+            */
+            element_to_be_moved.style.position = "absolute";
+
+            switch( evt.keyCode ) {
+                case 37:
+                    /*
+                        to set the location of the element:
+                        element_to_be_moved.style.left = 5 + "px";
+                        element_to_be_moved.style.top = 5 + "px";
+                    */
+                    element_to_be_moved.style.left = x - 5 + "px";
+
+                    /*
+                       for a 'switch' statement,
+                       we need to have a 'break' at the end of the 'case'
+
+                       'break' means to break out of the 'switch' test
+                    */
+                    break;
+                case 38:
+                    element_to_be_moved.style.top = y - 5 + "px";
+                    break;
+                case 39:
+                    element_to_be_moved.style.left = x + 5 + "px";
+                    break;
+                case 40:
+                    element_to_be_moved.style.top = y + 5 + "px";
+                    break;
+            }
+
+            console.log(" -- move to location: (" + x + ", " + y + ")");
+        }
+    </script>
+    <meta charset="UTF-8">
+    <title>Move Element</title>
+</head>
+<body>
+<div style="text-align:center">Move Element</div>
+<br>
+
+<div style="cursor:default; user-select: none; -webkit-user-select: none;" onmousedown="moveByMouse(this)" id="move_by_mouse">Move me with mouse</div>
+
+<br>
+<div style="cursor:default; user-select: none; -webkit-user-select: none;" id="move_by_key">Move me with keyboard</div>
+
+</body>
+
+<script>
+    document.body.onkeydown = moveByKey
+</script>
+
+</html>

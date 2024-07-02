@@ -39,9 +39,9 @@ async function invokeApi(api, callback=null, method="GET", data=null) {
     }
 }
 
-<!--
+/*
 https://www.w3schools.com/jsref/event_onmousemove.asp
--->
+*/
 
 function showX(e) {
     if (!enable_mouse_x_send) {
@@ -50,52 +50,6 @@ function showX(e) {
     let x = e.clientX;
     let y = e.clientY;
     sendValue(x);
-}
-
-function moveElement(obj) {
-    obj.style.position = "absolute"; // setting the HTML object to absolute positioning
-    /*
-    get the HTML object's height -- it contains a unit, such as 200 px
-    'parseInt' is to parse (extract or read) the integer value
-    */
-    h = parseInt(obj.offsetHeight);
-    w = parseInt(obj.offsetWidth);
-
-    /*
-        setting the 'mouse move' event handler
-    */
-    obj.onmousemove = function(evt) {
-        /*
-            the current mouse location:
-            evt.clientX
-            evt.clientY
-
-            the x coordinate, subtract (move to the left) by half of the width length
-            the y coordinate, subtract (move to the top) by half of the height length
-
-
-        */
-        x = evt.clientX - w / 2;
-        y = evt.clientY - h / 2;
-
-        /*
-            setting the HTML object's location
-        */
-        obj.style.left = x;
-        obj.style.top = y;
-    };
-
-    /*
-       setting up the 'mouse up' event handler
-    */
-    obj.onmouseup = function() {
-        obj.onmousemove = null;
-    };
-
-    /*
-       setting up the 'mouse out' event handler
-    */
-    obj.onmouseout = obj.onmouseup;
 }
 
 function toggleMouseXSend() {
