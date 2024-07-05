@@ -63,6 +63,85 @@ class KeyboardEventHandler {
 
 /* ================================================ */
 
+class Piece {
+    element = null;
+    style = null;
+
+    constructor(element) {
+        this.element = element;
+        
+    }
+
+    init() {
+        this.style = this.element.style;
+    }
+
+    getAttribute(name) {
+        return this.element.getAttribute(name);
+    }
+}
+
+class ChessPiece extends Piece {
+    id = null;
+
+    constructor(id = null, element = null) {
+        super( element );
+        if(id) {
+            this.id = id;
+            this.elemenet = document.getElementById(id);
+        }
+        else {
+            this.id = element.id;
+        }
+        this.init();
+    }
+
+    isPawn() {
+        var pieceId = this.element.id;
+        return pieceId.indexOf("_pawn_") > -1
+    }
+
+    isWhitePiece() {
+        var pieceId = this.element.id;
+        console.log("piece id: " + pieceId);
+        return pieceId.indexOf("white_") > -1
+    }
+
+    offsetHeight() {
+        return this.element.offsetHeight;
+    }
+    
+    offsetWidth() {
+        return this.element.offsetWidth;
+    }
+}
+
+class ChessBoardSquare extends Piece {
+    id = null;
+
+    constructor(id = null, element = null) {
+        super(element);
+        if( id ) {
+            this.id = id;
+            this.element = document.getElementById(id);
+        }
+        else if( element ) {
+            this.id = element.id;
+        }
+        this.init();
+    }
+
+    isAtTopEdge() {
+        return this.element.getAttribute("row") == 1;
+    }
+
+    isAtBottomEdge() {
+        return this.element.getAttribute("row") == 8;
+    }
+}
+
+/* ================================================ */
+
 class ChessBoard {
 
     /*
@@ -119,11 +198,11 @@ class ChessBoard {
         for( const targetElement of all_target_element) {
             if( targetElement.getAttribute("isChessPiece") ) {
                 if((this.active_chess_piece == null) || (this.active_chess_piece.id != targetElement.id)) {
-                    this.target_chess_piece = targetElement;
+                    this.target_chess_piece = new ChessPiece(null, targetElement);
                 }
             }
             else if( targetElement.getAttribute("isBoard") ) {
-                this.target_board_square = targetElement;
+                this.target_board_square = new ChessBoardSquare(null, targetElement);
             }
         }
     }
@@ -146,8 +225,8 @@ class ChessBoard {
 
             https://www.w3schools.com/jsref/prop_element_offsettop.asp
         */
-        const h = parseInt(this.active_chess_piece.offsetHeight);
-        const w = parseInt(this.active_chess_piece.offsetWidth);
+        const h = parseInt(this.active_chess_piece.offsetHeight());
+        const w = parseInt(this.active_chess_piece.offsetWidth());
 
         /*
             the current mouse location:
@@ -185,7 +264,7 @@ class ChessBoard {
         const all_target_element = document.elementsFromPoint(evt.clientX, evt.clientY);
         for( const targetElement of all_target_element) {
             if( targetElement.getAttribute("isChessPiece") ) {
-                obj.active_chess_piece = targetElement;
+                obj.active_chess_piece = new ChessPiece(null, targetElement);
                 console.log("targetElement.id = " + targetElement.id);
                 obj.moveChessPiece();
                 obj.showAllowLocation()
@@ -217,13 +296,8 @@ class ChessBoard {
 
     /* ==== write some rules here */
 
-    isPawn() {
-        var pieceId = this.active_chess_piece.id;
-        return pieceId.indexOf("_pawn_") > -1
-    }
-
     showAllowLocation() {
-        if( this.isPawn() ) {
+        if( this.active_chess_piece.isPawn() ) {
             this.pawnRules();
         }
         else {
@@ -231,20 +305,12 @@ class ChessBoard {
         }
     }
 
-    isWhitePiece() {
-        var pieceId = this.active_chess_piece.id;
-        console.log("piece id: " + pieceId);
-        return pieceId.indexOf("white_") > -1
-    }
-
     pawnRules() {
         /*
            simple rule, only one space
 
-           javascript: define variable 
-           var -- is a variable that gets defined a load time
-           let -- is a variable that gets create at run time
-           const -- is a constant -- the value cannot be change
+           javascript: define variable
+           https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Grammar_and_types
         */
         this.target_board_square.style.border = "solid 1px red";
         var col = this.target_board_square.getAttribute("col");
@@ -255,11 +321,11 @@ class ChessBoard {
 
         console.log("start from : (" + row + ", " + col + ")");
 
-        if( !this.isWhitePiece() ) {
+        if( !this.active_chess_piece.isWhitePiece() ) {
             /*
                white piece moves down -- means + y direction
             */
-            if( row < 9 ) {
+            if( !this.target_board_square.isAtBottomEdge()) {
                 row = row + 1;
             }
 
@@ -268,7 +334,7 @@ class ChessBoard {
             /*
                 black piece moves up -- means - y direction
             */
-            if( row > 0 ) {
+            if( !this.target_board_square.isAtTopEdge() ) {
                 row = row - 1;
             }
         }
@@ -278,7 +344,7 @@ class ChessBoard {
         var allowSquareId = rowLetter + col;
 
         console.log("destination id: " + allowSquareId);
-        var allowSquare = document.getElementById(allowSquareId);
+        var allowSquare = new ChessBoardSquare(allowSquareId);
         allowSquare.style.border = "solid 1px orange";
     }
 
