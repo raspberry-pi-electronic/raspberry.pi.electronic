@@ -13,13 +13,20 @@ class MouseEventHandler {
     mouseHandlerList = [];
 
     constructor() {
-
+        this.mouseHandlerList = [];
     }
 
     handleMouseEvent(evt) {
-        for( handler of this.mouseHandlerList ) {
-            invokeHandler(handler, evt);
+
+        for( var i in this.mouseHandlerList) {
+            this.invokeHandler(this.mouseHandlerList[i], evt);
         }
+        
+        /*
+        for( const handler of this.mouseHandlerList ) {
+            this.invokeHandler(handler, evt);
+        }
+        */
     }
 
     async invokeHandler( handler, evt ) {
@@ -124,7 +131,18 @@ class ChessBoard {
         if (this.target_board_square) {
             console.log("Chess piece " + this.target_chess_piece.id + " entered: " + this.target_board_square.id )
         }
+    }
 
+    /* ================================================ */
+
+    handleMouseDown(evt) {
+        console.log("mouse bt down")
+        this.target_chess_piece = document.elementFromPoint(mouse_location[0], mouse_location[1]);
+    }
+
+    handleMouseUp(evt) {
+        console.log("mouse bt up")
+        this.target_chess_piece = null;
     }
 }
 
@@ -152,9 +170,13 @@ function setupEventHandlers() {
     document.body.onmousemove =  PageMouseEventHandlers.MOUSE_MOVE.handleMouseEvent;
     document.body.onmousedown =  PageMouseEventHandlers.MOUSE_DOWN.handleMouseEvent;
     document.body.onmouseup =  PageMouseEventHandlers.MOUSE_UP.handleMouseEvent;
+
+    console.log("document mouse event handler configured");
 }
 
 
 setTimeout( setupEventHandlers, 100 );
-PageMouseEventHandlers.MOUSE_MOVE.addHandler(ChessBoard().handleMouseMove)
+PageMouseEventHandlers.MOUSE_MOVE.addHandler(new ChessBoard().handleMouseMove)
+PageMouseEventHandlers.MOUSE_DOWN.addHandler(new ChessBoard().handleMouseDown)
+PageMouseEventHandlers.MOUSE_UP.addHandler(new ChessBoard().handleMouseUp)
 
