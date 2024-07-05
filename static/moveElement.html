@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script src="js/DocEvent.js"></script>
     <!--
         https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements
         https://www.w3schools.com/jsref/event_onmousemove.asp
@@ -8,73 +9,6 @@
     <script>
         function enterBlock(obj) {
             console.log("entered: " + obj.getAttribute("row") + "," + obj.getAttribute("col") )
-        }
-
-        function moveByMouse(obj) {
-            /*
-                setting the HTML object to absolute position
-            */
-            obj.style.position = "absolute";
-
-            /*
-                get the HTML object's height -- it contains a unit, such as 200 px
-                'parseInt' is to parse (extract or read) the integer value
-
-                https://www.w3schools.com/jsref/prop_element_offsettop.asp
-            */
-            h = parseInt(obj.offsetHeight);
-            w = parseInt(obj.offsetWidth);
-
-            /*
-                setting the 'mouse move' event handler
-            */
-            function setLocation() {
-                /*
-                    the current mouse location:
-                    evt.clientX
-                    evt.clientY
-
-                    the x coordinate, subtract (move to the left) by half of the width length
-                    the y coordinate, subtract (move to the top) by half of the height length
-
-
-                */
-                x = mouse_location[0] - w/2;
-                y = mouse_location[1] - h/2;
-
-                /*
-                    setting the HTML object's location
-                */
-                obj.style.left = x + "px";
-                obj.style.top = y + "px";
-
-                console.log(obj.id + " size (" + h + " x " + w + ")");
-                console.log("mouse location: (" + mouse_location[0] + ", " + mouse_location[1] + ")");
-
-                console.log("move element: " + obj.id + " to (" + x + ", " + y + ")");
-                if (target_board_square) {
-                    console.log("Chess piece " + obj.id + " entered: " + target_board_square.id )
-                }
-            }
-
-            obj.onmousemove = setLocation
-
-            /*
-               setting up the 'mouse up' event handler
-            */
-            obj.onmouseup = function() {
-                obj.onmousemove = null;
-            };
-
-            /*
-               setting up the 'mouse out' event handler
-            */
-            obj.onmouseout = obj.onmouseup;
-
-            /*
-                set the location on mouse click
-            */
-            setLocation()
         }
 
         function moveByKey(evt) {
@@ -190,116 +124,116 @@
 
 <table>
     <tr>
-        <td id="A1" isBoard="true" class="chess_board">
+        <td id="A1" isBoard="true" col="1" row="1" class="chess_board">
             <span class="disable_high_light player_1"
-                 onmousedown="moveByMouse(this)"
+                 isChessPiece="true"
                  id="black_rook_1">
                 Rook
             </span>
         </td>
-        <td id="A2" isBoard="true" class="chess_board">
+        <td id="A2" isBoard="true" col="1" row="1" class="chess_board">
             <span class="disable_high_light player_1"
-                 onmousedown="moveByMouse(this)"
+                 isChessPiece="true"
                  id="black_knight_1">
                 Knight
             </span>
         </td>
-        <td id="A3" isBoard="true" class="chess_board">
+        <td id="A3" isBoard="true" col="1" row="1" class="chess_board">
             <span class="disable_high_light player_1"
-                 onmousedown="moveByMouse(this)"
+                 isChessPiece="true"
                  id="black_bishop_1">
                 Bishop
             </span>
         </td>
-        <td id="A4" isBoard="true" class="chess_board">
+        <td id="A4" isBoard="true" col="1" row="1" class="chess_board">
             <span class="disable_high_light player_1"
-                 onmousedown="moveByMouse(this)"
+                 isChessPiece="true"
                  id="black_queen">
                 Queen
             </span>
         </td>
-        <td id="A5" isBoard="true" class="chess_board">
+        <td id="A5" isBoard="true" col="1" row="1" class="chess_board">
             <span class="disable_high_light player_1"
-                 onmousedown="moveByMouse(this)"
+                 isChessPiece="true"
                  id="black_king">
                 King
             </span>
         </td>
-        <td id="A6" isBoard="true" class="chess_board">
+        <td id="A6" isBoard="true" col="1" row="1" class="chess_board">
             <span class="disable_high_light player_1"
-                 onmousedown="moveByMouse(this)"
+                 isChessPiece="true"
                  id="black_bishop_2">
                 bishop
             </span>
         </td>
-        <td id="A7" isBoard="true" class="chess_board">
+        <td id="A7" isBoard="true" col="1" row="1" class="chess_board">
             <span class="disable_high_light player_1"
-                 onmousedown="moveByMouse(this)"
+                 isChessPiece="true"
                  id="black_Knight_2">
                 Knight
             </span>
         </td>
-        <td id="A8" isBoard="true" class="chess_board">
+        <td id="A8" isBoard="true" col="1" row="1" class="chess_board">
             <span class="disable_high_light player_1"
-                 onmousedown="moveByMouse(this)"
+                 isChessPiece="true"
                  id="black_Rook_2">
                 Rook
             </span>
         </td>
     </tr>
     <tr>
-        <td id="B1"  isBoard="true" class="chess_board">
+        <td id="B1"  isBoard="true" col="1" row="1" class="chess_board">
             <span class="disable_high_light player_1"
-                 onmousedown="moveByMouse(this)"
+                 isChessPiece="true"
                  id="black_pawn_1">
                 Pawn
             </span>
         </td>
-        <td id="B2" isBoard="true" class="chess_board">
+        <td id="B2" isBoard="true" col="1" row="1" class="chess_board">
             <span class="disable_high_light player_1"
-                 onmousedown="moveByMouse(this)"
+                 isChessPiece="true"
                  id="black_pawn_2">
                 Pawn
             </span>
         </td>
-        <td id="B3" isBoard="true" class="chess_board">
+        <td id="B3" isBoard="true" col="1" row="1" class="chess_board">
             <span class="disable_high_light player_1"
-                 onmousedown="moveByMouse(this)"
+                 isChessPiece="true"
                  id="black_pawn_3">
                 Pawn
             </span>
         </td>
-        <td id="B4" isBoard="true" class="chess_board">
+        <td id="B4" isBoard="true" col="1" row="1" class="chess_board">
             <span class="disable_high_light player_1"
-                 onmousedown="moveByMouse(this)"
+                 isChessPiece="true"
                  id="black_pawn_4">
                 Pawn
             </span>
         </td>
-        <td id="B5" isBoard="true" class="chess_board">
+        <td id="B5" isBoard="true" col="1" row="1" class="chess_board">
             <span class="disable_high_light player_1"
-                 onmousedown="moveByMouse(this)"
+                 isChessPiece="true"
                  id="black_pawn_5">
                 Pawn
             </span>
         </td>
-        <td id="B6" isBoard="true" class="chess_board">
+        <td id="B6" isBoard="true" col="1" row="1" class="chess_board">
             <span class="disable_high_light player_1"
-                 onmousedown="moveByMouse(this)"
+                 isChessPiece="true"
                  id="black_pawn_6">
                 Pawn
             </span>
         </td>
-        <td id="B7" isBoard="true" class="chess_board">
+        <td id="B7" isBoard="true" col="1" row="1" class="chess_board">
             <span class="disable_high_light player_1"
-                 onmousedown="moveByMouse(this)"
+                 isChessPiece="true"
                  id="black_pawn_7">
                 Pawn
             </span>
         </td>
-        <td id="B8" isBoard="true" class="chess_board">
+        <td id="B8" isBoard="true" col="1" row="1" class="chess_board">
             <span class="disable_high_light player_1"
-                 onmousedown="moveByMouse(this)"
+                 isChessPiece="true"
                  id="black_pawn_8">
                 Pawn
             </span>
@@ -307,219 +241,219 @@
     </tr>
 
     <tr>
-        <td id="C1" isBoard="true" class="chess_board">
+        <td id="C1" isBoard="true" col="1" row="1" class="chess_board">
 
         </td>
-        <td id="C2" isBoard="true" class="chess_board">
+        <td id="C2" isBoard="true" col="1" row="1" class="chess_board">
 
         </td>
-        <td id="C3" isBoard="true" class="chess_board">
+        <td id="C3" isBoard="true" col="1" row="1" class="chess_board">
 
         </td>
-        <td id="C4" isBoard="true" class="chess_board">
+        <td id="C4" isBoard="true" col="1" row="1" class="chess_board">
 
         </td>
-        <td id="C5" isBoard="true" class="chess_board">
+        <td id="C5" isBoard="true" col="1" row="1" class="chess_board">
 
         </td>
-        <td id="C6" isBoard="true" class="chess_board">
+        <td id="C6" isBoard="true" col="1" row="1" class="chess_board">
 
         </td>
-        <td id="C7" isBoard="true" class="chess_board">
+        <td id="C7" isBoard="true" col="1" row="1" class="chess_board">
 
         </td>
-        <td id="C8" isBoard="true" class="chess_board">
-
-        </td>
-    </tr>
-    <tr>
-        <td id="D81" isBoard="true" class="chess_board">
-
-        </td>
-        <td id="D2" isBoard="true" class="chess_board">
-
-        </td>
-        <td id="D3" isBoard="true" class="chess_board">
-
-        </td>
-        <td id="D4" isBoard="true" class="chess_board">
-
-        </td>
-        <td id="D5" isBoard="true" class="chess_board">
-
-        </td>
-        <td id="D6" isBoard="true" class="chess_board">
-
-        </td>
-        <td id="D7" isBoard="true" class="chess_board">
-
-        </td>
-        <td id="D8" isBoard="true" class="chess_board">
+        <td id="C8" isBoard="true" col="1" row="1" class="chess_board">
 
         </td>
     </tr>
     <tr>
-        <td id="E1" isBoard="true" class="chess_board">
+        <td id="D81" isBoard="true" col="1" row="1" class="chess_board">
 
         </td>
-        <td id="E2" isBoard="true" class="chess_board">
+        <td id="D2" isBoard="true" col="1" row="1" class="chess_board">
 
         </td>
-        <td id="E3" isBoard="true" class="chess_board">
+        <td id="D3" isBoard="true" col="1" row="1" class="chess_board">
 
         </td>
-        <td id="E4" isBoard="true" class="chess_board">
+        <td id="D4" isBoard="true" col="1" row="1" class="chess_board">
 
         </td>
-        <td id="E5" isBoard="true" class="chess_board">
+        <td id="D5" isBoard="true" col="1" row="1" class="chess_board">
 
         </td>
-        <td id="E6" isBoard="true" class="chess_board">
+        <td id="D6" isBoard="true" col="1" row="1" class="chess_board">
 
         </td>
-        <td id="E7" isBoard="true" class="chess_board">
+        <td id="D7" isBoard="true" col="1" row="1" class="chess_board">
 
         </td>
-        <td id="E8" isBoard="true" class="chess_board">
+        <td id="D8" isBoard="true" col="1" row="1" class="chess_board">
 
         </td>
     </tr>
     <tr>
-        <td id="F1" isBoard="true" class="chess_board" row="6" col="A">
+        <td id="E1" isBoard="true" col="1" row="1" class="chess_board">
 
         </td>
-        <td id="F2" isBoard="true" class="chess_board" row="6" col="B">
+        <td id="E2" isBoard="true" col="1" row="1" class="chess_board">
 
         </td>
-        <td id="F3" isBoard="true" class="chess_board" row="6" col="C">
+        <td id="E3" isBoard="true" col="1" row="1" class="chess_board">
 
         </td>
-        <td id="F4" isBoard="true" class="chess_board" row="6" col="D">
+        <td id="E4" isBoard="true" col="1" row="1" class="chess_board">
 
         </td>
-        <td id="F5" isBoard="true" class="chess_board" row="6" col="E">
+        <td id="E5" isBoard="true" col="1" row="1" class="chess_board">
 
         </td>
-        <td id="F6" isBoard="true" class="chess_board" row="6" col="F">
+        <td id="E6" isBoard="true" col="1" row="1" class="chess_board">
 
         </td>
-        <td id="F7" isBoard="true" class="chess_board" row="6" col="G">
+        <td id="E7" isBoard="true" col="1" row="1" class="chess_board">
 
         </td>
-        <td id="F8" isBoard="true" class="chess_board" row="6" col="H">
+        <td id="E8" isBoard="true" col="1" row="1" class="chess_board">
+
+        </td>
+    </tr>
+    <tr>
+        <td id="F1" isBoard="true" col="1" row="1" class="chess_board" row="6" col="A">
+
+        </td>
+        <td id="F2" isBoard="true" col="1" row="1" class="chess_board" row="6" col="B">
+
+        </td>
+        <td id="F3" isBoard="true" col="1" row="1" class="chess_board" row="6" col="C">
+
+        </td>
+        <td id="F4" isBoard="true" col="1" row="1" class="chess_board" row="6" col="D">
+
+        </td>
+        <td id="F5" isBoard="true" col="1" row="1" class="chess_board" row="6" col="E">
+
+        </td>
+        <td id="F6" isBoard="true" col="1" row="1" class="chess_board" row="6" col="F">
+
+        </td>
+        <td id="F7" isBoard="true" col="1" row="1" class="chess_board" row="6" col="G">
+
+        </td>
+        <td id="F8" isBoard="true" col="1" row="1" class="chess_board" row="6" col="H">
 
         </td>
     </tr>
      <tr>
-        <td id="G1" isBoard="true" class="chess_board">
+        <td id="G1" isBoard="true" col="1" row="1" class="chess_board">
             <span class="disable_high_light player_2"
-                 onmousedown="moveByMouse(this)"
+                 isChessPiece="true"
                  id="white_pawn_1">
                 Pawn
             </span>
         </td>
-        <td id="G2" isBoard="true" class="chess_board">
+        <td id="G2" isBoard="true" col="1" row="1" class="chess_board">
             <span class="disable_high_light player_2"
-                 onmousedown="moveByMouse(this)"
+                 isChessPiece="true"
                  id="white_pawn_2">
                 Pawn
             </span>
         </td>
-        <td id="G3" isBoard="true" class="chess_board">
+        <td id="G3" isBoard="true" col="1" row="1" class="chess_board">
             <span class="disable_high_light player_2"
-                 onmousedown="moveByMouse(this)"
+                 isChessPiece="true"
                  id="white_pawn_3">
                 Pawn
             </span>
         </td>
-        <td id="G4" isBoard="true" class="chess_board">
+        <td id="G4" isBoard="true" col="1" row="1" class="chess_board">
             <span class="disable_high_light player_2"
-                 onmousedown="moveByMouse(this)"
+                 isChessPiece="true"
                  id="white_pawn_4">
                 Pawn
             </span>
         </td>
-        <td id="G5" isBoard="true" class="chess_board">
+        <td id="G5" isBoard="true" col="1" row="1" class="chess_board">
             <span class="disable_high_light player_2"
-                 onmousedown="moveByMouse(this)"
+                 isChessPiece="true"
                  id="white_pawn_5">
                 Pawn
             </span>
         </td>
-        <td id="G6" isBoard="true" class="chess_board">
+        <td id="G6" isBoard="true" col="1" row="1" class="chess_board">
             <span class="disable_high_light player_2"
-                 onmousedown="moveByMouse(this)"
+                 isChessPiece="true"
                  id="white_pawn_6">
                 Pawn
             </span>
         </td>
-        <td id="G7" isBoard="true" class="chess_board">
+        <td id="G7" isBoard="true" col="1" row="1" class="chess_board">
             <span class="disable_high_light player_2"
-                 onmousedown="moveByMouse(this)"
+                 isChessPiece="true"
                  id="white_pawn_7">
                 Pawn
             </span>
         </td>
-        <td id="G8" isBoard="true" class="chess_board">
+        <td id="G8" isBoard="true" col="1" row="1" class="chess_board">
             <span class="disable_high_light player_2"
-                 onmousedown="moveByMouse(this)"
+                 isChessPiece="true"
                  id="white_pawn_8">
                 Pawn
             </span>
         </td>
     <tr>
-        <td id="H1"isBoard="true" class="chess_board">
+        <td id="H1"isBoard="true" col="1" row="1" class="chess_board">
             <span class="disable_high_light player_2"
-                 onmousedown="moveByMouse(this)"
+                 isChessPiece="true"
                  id="white_rook_1">
                 Rook
             </span>
         </td>
-        <td id="H2" isBoard="true" class="chess_board">
+        <td id="H2" isBoard="true" col="1" row="1" class="chess_board">
             <span class="disable_high_light player_2"
-                 onmousedown="moveByMouse(this)"
+                 isChessPiece="true"
                  id="white_knight_1">
                 Knight
             </span>
         </td>
-        <td id="H3" isBoard="true" class="chess_board">
+        <td id="H3" isBoard="true" col="1" row="1" class="chess_board">
             <span class="disable_high_light player_2"
-                 onmousedown="moveByMouse(this)"
+                 isChessPiece="true"
                  id="white_bishop_1">
                 Bishop
             </span>
         </td>
-        <td id="H4" isBoard="true" class="chess_board">
+        <td id="H4" isBoard="true" col="1" row="1" class="chess_board">
             <span class="disable_high_light player_2"
-                 onmousedown="moveByMouse(this)"
+                 isChessPiece="true"
                  id="white_queen">
                 Queen
             </span>
         </td>
-        <td id="H5" isBoard="true" class="chess_board">
+        <td id="H5" isBoard="true" col="1" row="1" class="chess_board">
             <span class="disable_high_light player_2"
-                 onmousedown="moveByMouse(this)"
+                 isChessPiece="true"
                  id="white_king">
                 King
             </span>
         </td>
-        <td id="H6" isBoard="true" class="chess_board">
+        <td id="H6" isBoard="true" col="1" row="1" class="chess_board">
             <span class="disable_high_light player_2"
-                 onmousedown="moveByMouse(this)"
+                 isChessPiece="true"
                  id="white_bishop_2">
                 bishop
             </span>
         </td>
-        <td id="H7" isBoard="true" class="chess_board">
+        <td id="H7" isBoard="true" col="1" row="1" class="chess_board">
             <span class="disable_high_light player_2"
-                 onmousedown="moveByMouse(this)"
+                 isChessPiece="true"
                  id="white_Knight_2">
                 Knight
             </span>
         </td>
-        <td id="H8" isBoard="true" class="chess_board">
+        <td id="H8" isBoard="true" col="1" row="1" class="chess_board">
             <span class="disable_high_light player_2"
-                 onmousedown="moveByMouse(this)"
+                 isChessPiece="true"
                  id="white_Rook_2">
                 Rook
             </span>
@@ -534,30 +468,6 @@
 
 <script>
     //document.body.onkeydown = moveByKey;
-
-    target_board_square = null;
-    mouse_location = [0, 0];
-    document.body.onmousemove = function(evt) {
-        mouse_location = getMouseLocation(evt);
-        target_board_square = getBoardSquareOnMouseLocation();
-    }
-
-    function getMouseLocation(evt) {
-        return [evt.clientX, evt.clientY];
-    }
-
-    function getBoardSquareOnMouseLocation() {
-    /*
-         https://developer.mozilla.org/en-US/docs/Web/API/Document/elementsFromPoint
-    */
-        all_target_element = document.elementsFromPoint(mouse_location[0], mouse_location[1]);
-        if( all_target_element.length > 1 ) {
-            if( all_target_element[1].getAttribute("isBoard") ) {
-                return all_target_element[1]
-            }
-        }
-        return null;
-    }
 
 </script>
 
