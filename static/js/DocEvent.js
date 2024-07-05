@@ -65,10 +65,38 @@ class KeyboardEventHandler {
 
 class ChessBoard {
 
+    /*
+       the 'active_chess_piece' is the one that the user has clicked on
+       this will be the piece that gets moved
+    */
     active_chess_piece = null;
+
+    /*
+        this is the square on the board the mouse is moving into
+    */
     target_board_square = null;
+
+    /*
+        When the user is moving an piece (active_chess_piece), and
+        when this the 'active_chess_piece' moved into a square already occupied.  
+        the occupied piece is 'target_chess_piece'
+    */
     target_chess_piece = null;
+
+    /*
+        this saves the mouse location.  This is an Array.
+
+        Array is a list of data -- ex: [2, 3, 5, 6, 8]
+
+        Array data is read by the index and index starts with 0 (zero) -- ex: index 3 will give you the value 6.
+
+         mouse_location[0] will give you the x
+         mouse_location[1] will give you the y
+
+    */
     mouse_location = null;
+
+    boardIdRowMapping = ["", "A", "B", "C", "D", "E", "F", "G", "H"]
 
     constructor() {
         this.active_chess_piece = null;
@@ -84,9 +112,9 @@ class ChessBoard {
     }
 
     setBoardPiecesOnMouseLocation() {
-    /*
-         https://developer.mozilla.org/en-US/docs/Web/API/Document/elementsFromPoint
-    */
+        /*
+            https://developer.mozilla.org/en-US/docs/Web/API/Document/elementsFromPoint
+        */
         const all_target_element = document.elementsFromPoint(this.mouse_location[0], this.mouse_location[1]);
         for( const targetElement of all_target_element) {
             if( targetElement.getAttribute("isChessPiece") ) {
@@ -97,7 +125,6 @@ class ChessBoard {
             else if( targetElement.getAttribute("isBoard") ) {
                 this.target_board_square = targetElement;
             }
-            // target_chess_piece
         }
     }
 
@@ -161,6 +188,7 @@ class ChessBoard {
                 obj.active_chess_piece = targetElement;
                 console.log("targetElement.id = " + targetElement.id);
                 obj.moveChessPiece(evt);
+                obj.showAllowLocation()
                 break;
             }
         }
@@ -169,6 +197,93 @@ class ChessBoard {
     handleMouseUp(obj, evt) {
         console.log("mouse bt up")
         obj.active_chess_piece = null;
+        obj.clearAllSquares();
+    }
+
+    clearAllSquares() {
+        for( var i = 1; i < 9; i++ ) {
+            var rowLetter = this.boardIdRowMapping[i];
+            for( var k = 1; k < 9; k++ ) {
+                var sq = document.getElementById(rowLetter + k);
+                sq.style.border = "solid 1px black";
+            }
+        }
+    }
+
+    /* ==== write some rules here */
+
+    isPawn() {
+        var pieceId = this.active_chess_piece.id;
+        return pieceId.indexOf("_pawn_") > -1
+    }
+
+    showAllowLocation() {
+        if( this.isPawn() ) {
+            this.pawnRules();
+        }
+        else {
+            this.knightRules();
+        }
+    }
+
+    isWhitePiece() {
+        var pieceId = this.active_chess_piece.id;
+        console.log("piece id: " + pieceId);
+        return pieceId.indexOf("white_") > -1
+    }
+
+    pawnRules() {
+        /*
+           simple rule, only one space
+
+           javascript: define variable 
+           var -- is a variable that gets defined a load time
+           let -- is a variable that gets create at run time
+           const -- is a constant -- the value cannot be change
+        */
+        this.target_board_square.style.border = "solid 1px red";
+        var col = this.target_board_square.getAttribute("col");
+        var row = this.target_board_square.getAttribute("row");
+
+        col = parseInt(col);
+        row = parseInt(row);
+
+        console.log("start from : (" + row + ", " + col + ")");
+
+        if( !this.isWhitePiece() ) {
+            /*
+               white piece moves down -- means + y direction
+            */
+            if( row < 9 ) {
+                row = row + 1;
+            }
+
+        }
+        else {
+            /*
+                black piece moves up -- means - y direction
+            */
+            if( row > 0 ) {
+                row = row - 1;
+            }
+        }
+
+        console.log("move to : (" + row + ", " + col + ")");
+        var rowLetter = this.boardIdRowMapping[row];
+        var allowSquareId = rowLetter + col;
+
+        console.log("destination id: " + allowSquareId);
+        var allowSquare = document.getElementById(allowSquareId);
+        allowSquare.style.border = "solid 1px orange";
+    }
+
+    knightRules() {
+        /*
+            this.active_chess_piece = null;
+            this.target_board_square = null;
+            this.target_chess_piece = null;
+            this.mouse_location = new Array(0, 0);
+        */
     }
 }
 
