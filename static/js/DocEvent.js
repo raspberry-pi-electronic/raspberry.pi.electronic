@@ -108,7 +108,7 @@ class ChessBoard {
     handleMouseMove(obj, evt) {
         obj.mouse_location = new Array(evt.clientX, evt.clientY);
         obj.setBoardPiecesOnMouseLocation();
-        obj.moveChessPiece(evt);
+        obj.moveChessPiece();
     }
 
     setBoardPiecesOnMouseLocation() {
@@ -128,7 +128,7 @@ class ChessBoard {
         }
     }
 
-    moveChessPiece(evt) {
+    moveChessPiece() {
         if( this.active_chess_piece == null ) {
             return;
         }
@@ -187,7 +187,7 @@ class ChessBoard {
             if( targetElement.getAttribute("isChessPiece") ) {
                 obj.active_chess_piece = targetElement;
                 console.log("targetElement.id = " + targetElement.id);
-                obj.moveChessPiece(evt);
+                obj.moveChessPiece();
                 obj.showAllowLocation()
                 break;
             }
