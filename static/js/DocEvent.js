@@ -160,8 +160,8 @@ class ChessBoard {
             pawn.style.left = parseInt(pawn.offsetLeft) - 16 + "px"
             
         */
-        const x = this.mouse_location[0] - w/2;
-        const y = this.mouse_location[1] - h/2;
+        const x = this.mouse_location[0] - w/2 + window.scrollX;
+        const y = this.mouse_location[1] - h/2 + window.scrollY;
 
         /*
             setting the HTML object's location
@@ -205,7 +205,12 @@ class ChessBoard {
             var rowLetter = this.boardIdRowMapping[i];
             for( var k = 1; k < 9; k++ ) {
                 var sq = document.getElementById(rowLetter + k);
-                sq.style.border = "solid 1px black";
+                if( sq ) {
+                    sq.style.border = "solid 1px black";
+                }
+                else {
+                    console.log("Failed get chess square " + (rowLetter + k));
+                }
             }
         }
     }
