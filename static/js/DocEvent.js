@@ -80,7 +80,7 @@ class ChessBoard {
     handleMouseMove(obj, evt) {
         obj.mouse_location = new Array(evt.clientX, evt.clientY);
         obj.setBoardPiecesOnMouseLocation();
-        obj.moveChessPiece();
+        obj.moveChessPiece(evt);
     }
 
     setBoardPiecesOnMouseLocation() {
@@ -101,7 +101,7 @@ class ChessBoard {
         }
     }
 
-    moveChessPiece() {
+    moveChessPiece(evt) {
         if( this.active_chess_piece == null ) {
             return;
         }
@@ -130,7 +130,8 @@ class ChessBoard {
             the x coordinate, subtract (move to the left) by half of the width length
             the y coordinate, subtract (move to the top) by half of the height length
 
-
+            pawn.style.left = parseInt(pawn.offsetLeft) - 16 + "px"
+            
         */
         const x = this.mouse_location[0] - w/2;
         const y = this.mouse_location[1] - h/2;
@@ -142,7 +143,6 @@ class ChessBoard {
         this.active_chess_piece.style.top = y + "px";
 
         console.log(this.active_chess_piece.id + " size (" + h + " x " + w + ")");
-        console.log("mouse location: (" + this.mouse_location[0] + ", " + this.mouse_location[1] + ")");
 
         console.log("move element: " + this.active_chess_piece.id + " to (" + x + ", " + y + ")");
         if (this.target_board_square) {
@@ -154,11 +154,13 @@ class ChessBoard {
 
     handleMouseDown(obj, evt) {
         console.log("mouse bt down")
+        console.log(evt);
         const all_target_element = document.elementsFromPoint(evt.clientX, evt.clientY);
         for( const targetElement of all_target_element) {
             if( targetElement.getAttribute("isChessPiece") ) {
                 obj.active_chess_piece = targetElement;
                 console.log("targetElement.id = " + targetElement.id);
+                obj.moveChessPiece(evt);
                 break;
             }
         }
