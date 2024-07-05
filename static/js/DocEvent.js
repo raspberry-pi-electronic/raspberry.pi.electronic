@@ -3,6 +3,16 @@
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements
 */
 
+class MouseEventHandlerObject {
+    func = null;
+    obj = null;
+
+    constructor(func, obj) {
+        this.func = func;
+        this.obj = obj;
+    }
+}
+
 class MouseEventHandler {
     /*
     the current mouse location:
@@ -11,10 +21,6 @@ class MouseEventHandler {
     */
 
     mouseHandlerList = [];
-
-    constructor() {
-        this.mouseHandlerList = [];
-    }
 
     handleMouseEvent(evt) {
         if( !this.mouseHandlerList ) {
@@ -27,12 +33,12 @@ class MouseEventHandler {
         }
     }
 
-    async invokeHandler( handler, evt ) {
+    invokeHandler( handler, evt ) {
         if( !handler ) {
             return;
         }
         try {
-            handler(evt);
+            handler.func(handler.obj, evt);
         } catch (error) {
             console.log("mouse handler error: ");
             console.log(handler);
@@ -59,46 +65,53 @@ class KeyboardEventHandler {
 
 class ChessBoard {
 
-    target_chess_piece = null;
+    active_chess_piece = null;
     target_board_square = null;
+    target_chess_piece = null;
     mouse_location = null;
 
     constructor() {
-        this.target_chess_piece = null;
+        this.active_chess_piece = null;
         this.target_board_square = null;
+        this.target_chess_piece = null;
         this.mouse_location = new Array(0, 0);
     }
     
-    handleMouseMove(evt) {
-        this.mouse_location = new Array(evt.clientX, evt.clientY);
-        this.setBoardPiecesOnMouseLocation();
-        this.mouseChessPiece();
+    handleMouseMove(obj, evt) {
+        obj.mouse_location = new Array(evt.clientX, evt.clientY);
+        obj.setBoardPiecesOnMouseLocation();
+        obj.moveChessPiece();
     }
 
     setBoardPiecesOnMouseLocation() {
     /*
          https://developer.mozilla.org/en-US/docs/Web/API/Document/elementsFromPoint
     */
-        const all_target_element = document.elementsFromPoint(mouse_location[0], mouse_location[1]);
+        const all_target_element = document.elementsFromPoint(this.mouse_location[0], this.mouse_location[1]);
         for( const targetElement of all_target_element) {
-            if( targetElement.getAttribute("isBoard") ) {
-                target_board_square = targetElement;
+            if( targetElement.getAttribute("isChessPiece") ) {
+                if((this.active_chess_piece == null) || (this.active_chess_piece.id != targetElement.id)) {
+                    this.target_chess_piece = targetElement;
+                }
             }
-            else if((this.target_chess_piece == null) || (this.target_chess_piece.id != targetElement.id)) {
+            else if( targetElement.getAttribute("isBoard") ) {
                 this.target_board_square = targetElement;
             }
+            // target_chess_piece
         }
     }
 
-    mouseChessPiece() {
-        if( this.target_chess_piece == null ) {
+    moveChessPiece() {
+        if( this.active_chess_piece == null ) {
             return;
         }
+
+        console.log("moving chess piece: " + this.active_chess_piece.id);
 
         /*
             setting the HTML object to absolute position
         */
-        target_chess_piece.style.position = "absolute";
+        this.active_chess_piece.style.position = "absolute";
 
         /*
             get the HTML object's height -- it contains a unit, such as 200 px
@@ -106,8 +119,8 @@ class ChessBoard {
 
             https://www.w3schools.com/jsref/prop_element_offsettop.asp
         */
-        h = parseInt(this.target_chess_piece.offsetHeight);
-        w = parseInt(this.target_chess_piece.offsetWidth);
+        const h = parseInt(this.active_chess_piece.offsetHeight);
+        const w = parseInt(this.active_chess_piece.offsetWidth);
 
         /*
             the current mouse location:
@@ -119,34 +132,41 @@ class ChessBoard {
 
 
         */
-        x = this.mouse_location[0] - w/2;
-        y = this.mouse_location[1] - h/2;
+        const x = this.mouse_location[0] - w/2;
+        const y = this.mouse_location[1] - h/2;
 
         /*
             setting the HTML object's location
         */
-        this.target_chess_piece.style.left = x + "px";
-        this.target_chess_piece.style.top = y + "px";
+        this.active_chess_piece.style.left = x + "px";
+        this.active_chess_piece.style.top = y + "px";
 
-        console.log(this.target_chess_piece.id + " size (" + h + " x " + w + ")");
+        console.log(this.active_chess_piece.id + " size (" + h + " x " + w + ")");
         console.log("mouse location: (" + this.mouse_location[0] + ", " + this.mouse_location[1] + ")");
 
-        console.log("move element: " + this.target_chess_piece.id + " to (" + x + ", " + y + ")");
+        console.log("move element: " + this.active_chess_piece.id + " to (" + x + ", " + y + ")");
         if (this.target_board_square) {
-            console.log("Chess piece " + this.target_chess_piece.id + " entered: " + this.target_board_square.id )
+            console.log("Chess piece " + this.active_chess_piece.id + " entered: " + this.target_board_square.id )
         }
     }
 
     /* ================================================ */
 
-    handleMouseDown(evt) {
+    handleMouseDown(obj, evt) {
         console.log("mouse bt down")
-        this.target_chess_piece = document.elementFromPoint(this.mouse_location[0], this.mouse_location[1]);
+        const all_target_element = document.elementsFromPoint(evt.clientX, evt.clientY);
+        for( const targetElement of all_target_element) {
+            if( targetElement.getAttribute("isChessPiece") ) {
+                obj.active_chess_piece = targetElement;
+                console.log("targetElement.id = " + targetElement.id);
+                break;
+            }
+        }
     }
 
-    handleMouseUp(evt) {
+    handleMouseUp(obj, evt) {
         console.log("mouse bt up")
-        this.target_chess_piece = null;
+        obj.active_chess_piece = null;
     }
 }
 
@@ -172,19 +192,19 @@ function setupEventHandlers() {
     }
 
     document.body.onmousemove = function(evt) {
-        console.log("mouse move")
-        console.log(evt);
+        //console.log("mouse move")
+        //console.log(evt);
         PageMouseEventHandlers.MOUSE_MOVE.handleMouseEvent(evt);
     }
 
     document.body.onmousedown = function(evt) {
-        console.log("mouse button down")
-        console.log(evt);
+        //console.log("mouse button down")
+        //console.log(evt);
         PageMouseEventHandlers.MOUSE_DOWN.handleMouseEvent(evt);
     }
     document.body.onmouseup = function(evt) {
-        console.log("mouse button up")
-        console.log(evt);
+        //console.log("mouse button up")
+        //console.log(evt);
         PageMouseEventHandlers.MOUSE_UP.handleMouseEvent(evt);
     }
 
@@ -195,7 +215,8 @@ function setupEventHandlers() {
 setTimeout( setupEventHandlers, 100 );
 
 const chessBoard = new ChessBoard();
-PageMouseEventHandlers.MOUSE_MOVE.addHandler(chessBoard.handleMouseMove)
-PageMouseEventHandlers.MOUSE_DOWN.addHandler(chessBoard.handleMouseDown)
-PageMouseEventHandlers.MOUSE_UP.addHandler(chessBoard.handleMouseUp)
+PageMouseEventHandlers.MOUSE_MOVE.addHandler(new MouseEventHandlerObject(chessBoard.handleMouseMove, chessBoard));
+PageMouseEventHandlers.MOUSE_DOWN.addHandler(new MouseEventHandlerObject(chessBoard.handleMouseDown, chessBoard));
+PageMouseEventHandlers.MOUSE_UP.addHandler(new MouseEventHandlerObject(chessBoard.handleMouseUp, chessBoard));
+
 
