@@ -345,18 +345,45 @@ class ChessBoard {
            javascript: define variable
            https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Grammar_and_types
         */
+
+        /*
+            setting the orgin square border to red
+        */
         this.target_board_square.style.border = "solid 1px red";
+
+        /*
+            getting the origin square's row and col value
+            ex:
+              col=1, row=1
+        */
         var col = this.target_board_square.getAttribute(ChessBoardAttributeKeys.col);
         var row = this.target_board_square.getAttribute(ChessBoardAttributeKeys.row);
 
+        /*
+            this is a required JavaScript thing.  By default value in attribute is a string.
+            we need to convert a string like "1" to integer like 1
+        */
         col = parseInt(col);
         row = parseInt(row);
 
-        console.log("start from : (" + row + ", " + col + ")");
+        console.log("start from : (" + row + ", " + col + ")");  // print on console
 
+        /*
+           ! -- means not
+           == means is equals to
+           = means assignment, equals to: ex: a = "some value"
+        */
         if( !this.active_chess_piece.isWhitePiece() ) {
             /*
                white piece moves down -- means + y direction
+
+               for other pices, you will need to take a look at around line 154
+                try to copy and change the value for
+                'isAtBottomEdge' method and
+                'isAtTopEdge' method to check
+                these:
+                   -- isAtLeftEdge
+                   -- isAtRightEdge
             */
             if( !this.target_board_square.isAtBottomEdge()) {
                 row = row + 1;
@@ -372,12 +399,44 @@ class ChessBoard {
             }
         }
 
-        console.log("move to : (" + row + ", " + col + ")");
+        console.log("move to : (" + row + ", " + col + ")"); // print to console
+
+        /*
+            chess board is id-ed by letter + integer. -- example: A1, H5
+            letter is row
+            integer is column
+
+            A3 -- row 1 and column 3
+
+            example: 
+               row is 5
+               then
+               this.boardIdRowMapping[row] will return 'E'
+
+        */
         var rowLetter = this.boardIdRowMapping[row];
+
+        /*
+            we are concatenate a string and an integer.
+
+            example:
+               rowLetter is 'E'
+               col is 4
+
+               then allowSquareId is "E4"
+        */
         var allowSquareId = rowLetter + col;
 
-        console.log("destination id: " + allowSquareId);
+        console.log("destination id: " + allowSquareId);  // debug to console
+
+        /*
+           we are creating a chess square using 'ChessBoardSquare' class.
+        */
         var allowSquare = new ChessBoardSquare(allowSquareId);
+
+        /*
+            setting the border color to orange
+        */
         allowSquare.style.border = "solid 1px orange";
     }
 
