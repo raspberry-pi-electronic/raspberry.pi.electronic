@@ -294,8 +294,6 @@ class ChessBoard {
         if (this.target_board_square) {
             console.log("Chess piece " + this.active_chess_piece.id + " entered: " + this.target_board_square.id )
         }
-
-        this.active_chess_piece.movedFromOrigin();
     }
 
     /* ================================================ */
@@ -309,7 +307,7 @@ class ChessBoard {
                 obj.active_chess_piece = new ChessPiece(null, targetElement);
             }
             else if( targetElement.getAttribute(ChessBoardAttributeKeys.is_board) ) {
-                obj.active_chess_square = targetElement;
+                obj.active_chess_square = new ChessBoardSquare(null, targetElement);
             }
         }
 
@@ -321,9 +319,14 @@ class ChessBoard {
 
     handleMouseUp(obj, evt) {
         console.log("mouse bt up")
+
+        if(obj.active_chess_square.id != obj.target_board_square.id) {
+            obj.active_chess_piece.movedFromOrigin();
+        }
+        obj.clearAllSquares();
+
         obj.active_chess_piece = null;
         obj.active_chess_square = null;
-        obj.clearAllSquares();
     }
 
     clearAllSquares() {
@@ -363,15 +366,15 @@ class ChessBoard {
         /*
             setting the orgin square border to red
         */
-        this.target_board_square.style.border = "solid 1px red";
+        this.active_chess_square.style.border = "solid 1px red";
 
         /*
             getting the origin square's row and col value
             ex:
               col=1, row=1
         */
-        var col = this.target_board_square.getAttribute(ChessBoardAttributeKeys.col);
-        var row = this.target_board_square.getAttribute(ChessBoardAttributeKeys.row);
+        var col = this.active_chess_square.getAttribute(ChessBoardAttributeKeys.col);
+        var row = this.active_chess_square.getAttribute(ChessBoardAttributeKeys.row);
 
         /*
             this is a required JavaScript thing.  By default value in attribute is a string.
@@ -399,7 +402,7 @@ class ChessBoard {
                    -- isAtLeftEdge
                    -- isAtRightEdge
             */
-            if( !this.target_board_square.isAtBottomEdge()) {
+            if( !this.active_chess_square.isAtBottomEdge()) {
                 row = row + 1;
             }
 
@@ -408,7 +411,7 @@ class ChessBoard {
             /*
                 black piece moves up -- means - y direction
             */
-            if( !this.target_board_square.isAtTopEdge() ) {
+            if( !this.active_chess_square.isAtTopEdge() ) {
                 row = row - 1;
             }
         }
@@ -455,10 +458,10 @@ class ChessBoard {
     }
 
     knightRules() {
-        this.target_board_square.style.border = "solid 1px red";
+        this.active_chess_square.style.border = "solid 1px red";
 
-        const col = parseInt(this.target_board_square.getAttribute(ChessBoardAttributeKeys.col));
-        const row = parseInt(this.target_board_square.getAttribute(ChessBoardAttributeKeys.row));
+        const col = parseInt(this.active_chess_square.getAttribute(ChessBoardAttributeKeys.col));
+        const row = parseInt(this.active_chess_square.getAttribute(ChessBoardAttributeKeys.row));
 
         var one_o_clock = [row - 2, col + 1];
         var two_o_clock = [row - 1, col + 2];
