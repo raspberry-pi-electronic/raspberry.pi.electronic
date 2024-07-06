@@ -72,8 +72,11 @@ class ChessPiece extends Piece {
     }
 
     isWhitePiece() {
-        var name = this.element.getAttribute(ChessBoardAttributeKeys.color);
-        return name == "white"
+        return this.getPieceColor() == "white"
+    }
+
+    getPieceColor() {
+        return this.element.getAttribute(ChessBoardAttributeKeys.color);
     }
 
     offsetHeight() {
@@ -129,6 +132,14 @@ class ChessBoardSquare extends Piece {
 
     isOccupied() {
         return  this.element.getAttribute(ChessBoardAttributeKeys.contains_piece) != "false";
+    }
+
+    isOccupiedBy(piece_color) {
+        piece_id = this.element.getAttribute(ChessBoardAttributeKeys.contains_piece);
+        if(piece_id == "false") {
+            return false;
+        }
+        return (new ChessPiece(piece_id).getPieceColor()) == piece_color;
     }
 }
 
@@ -436,11 +447,12 @@ class ChessBoard {
            we are creating a chess square using 'ChessBoardSquare' class.
         */
         var allowSquare = new ChessBoardSquare(allowSquareId);
-
-        /*
-            setting the border color to orange
-        */
-        allowSquare.style.border = "solid 1px orange";
+        if( !allowSquare.isOccupied() ) {
+            /*
+                setting the border color to orange
+            */
+            allowSquare.style.border = "solid 1px orange";
+        }
     }
 
     knightRules(row, col) {
