@@ -309,22 +309,6 @@ class ChessBoard {
     /* ==== write some rules here */
 
     showAllowLocation() {
-        if( this.active_chess_piece.isPawn() ) {
-            this.pawnRules();
-        }
-        else if(this.active_chess_piece.isKnight()) {
-            this.knightRules();
-        }
-    }
-
-    pawnRules() {
-        /*
-           simple rule, only one space
-
-           javascript: define variable
-           https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Grammar_and_types
-        */
-
         /*
             setting the orgin square border to red
         */
@@ -333,7 +317,7 @@ class ChessBoard {
         /*
             getting the origin square's row and col value
             ex:
-              col=1, row=1
+                col=1, row=1
         */
         var col = this.active_chess_square.getAttribute(ChessBoardAttributeKeys.col);
         var row = this.active_chess_square.getAttribute(ChessBoardAttributeKeys.row);
@@ -344,6 +328,22 @@ class ChessBoard {
         */
         col = parseInt(col);
         row = parseInt(row);
+
+        if( this.active_chess_piece.isPawn() ) {
+            this.pawnRules(row, col);
+        }
+        else if(this.active_chess_piece.isKnight()) {
+            this.knightRules(row, col);
+        }
+    }
+
+    pawnRules(row, col) {
+        /*
+           simple rule, only one space
+
+           javascript: define variable
+           https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Grammar_and_types
+        */
 
         /* console.log("start from : (" + row + ", " + col + ")");  // print on console */
 
@@ -419,12 +419,7 @@ class ChessBoard {
         allowSquare.style.border = "solid 1px orange";
     }
 
-    knightRules() {
-        this.active_chess_square.style.border = "solid 1px red";
-
-        const col = parseInt(this.active_chess_square.getAttribute(ChessBoardAttributeKeys.col));
-        const row = parseInt(this.active_chess_square.getAttribute(ChessBoardAttributeKeys.row));
-
+    knightRules(row, col) {
         var one_o_clock = [row - 2, col + 1];
         var two_o_clock = [row - 1, col + 2];
         var four_o_clock = [row + 1, col + 2];
@@ -488,6 +483,15 @@ class ChessBoard {
         }
 
     }
+
+    /* 
+    
+    complete the rest 
+    
+    reference:
+       line 68 -- isKnight()
+       line 315
+    */
 }
 
 
