@@ -63,6 +63,14 @@ class KeyboardEventHandler {
 
 /* ================================================ */
 
+class ChessBoardAttributeKeys {
+    static col = "col";
+    static row = "row";
+    static is_chess_piece = "is_chess_piece"
+    static at_origin = "at_origin"
+    static is_board = "is_board"
+}
+
 class Piece {
     element = null;
     style = null;
@@ -78,6 +86,10 @@ class Piece {
 
     getAttribute(name) {
         return this.element.getAttribute(name);
+    }
+
+    setAttribute(name, value) {
+        this.element.setAttribute(name, value);
     }
 }
 
@@ -114,6 +126,14 @@ class ChessPiece extends Piece {
     offsetWidth() {
         return this.element.offsetWidth;
     }
+
+    isAtOrigin() {
+        return this.element.getAttribute(ChessBoardAttributeKeys.at_origin) == "true";
+    }
+
+    movedFromOrigin() {
+        this.element.setAttribute(ChessBoardAttributeKeys.at_origin, "false");
+    }
 }
 
 class ChessBoardSquare extends Piece {
@@ -132,11 +152,11 @@ class ChessBoardSquare extends Piece {
     }
 
     isAtTopEdge() {
-        return this.element.getAttribute("row") == 1;
+        return this.element.getAttribute(ChessBoardAttributeKeys.row) == 1;
     }
 
     isAtBottomEdge() {
-        return this.element.getAttribute("row") == 8;
+        return this.element.getAttribute(ChessBoardAttributeKeys.row) == 8;
     }
 }
 
@@ -149,6 +169,11 @@ class ChessBoard {
        this will be the piece that gets moved
     */
     active_chess_piece = null;
+
+    /*
+        the square the active chess is originated
+    */
+    active_chess_square = null;
 
     /*
         this is the square on the board the mouse is moving into
@@ -181,6 +206,7 @@ class ChessBoard {
         this.active_chess_piece = null;
         this.target_board_square = null;
         this.target_chess_piece = null;
+        this.active_chess_square = null;
         this.mouse_location = new Array(0, 0);
     }
     
@@ -196,12 +222,12 @@ class ChessBoard {
         */
         const all_target_element = document.elementsFromPoint(this.mouse_location[0], this.mouse_location[1]);
         for( const targetElement of all_target_element) {
-            if( targetElement.getAttribute("isChessPiece") ) {
+            if( targetElement.getAttribute(ChessBoardAttributeKeys.is_chess_piece) ) {
                 if((this.active_chess_piece == null) || (this.active_chess_piece.id != targetElement.id)) {
                     this.target_chess_piece = new ChessPiece(null, targetElement);
                 }
             }
-            else if( targetElement.getAttribute("isBoard") ) {
+            else if( targetElement.getAttribute(ChessBoardAttributeKeys.is_board) ) {
                 this.target_board_square = new ChessBoardSquare(null, targetElement);
             }
         }
@@ -254,6 +280,8 @@ class ChessBoard {
         if (this.target_board_square) {
             console.log("Chess piece " + this.active_chess_piece.id + " entered: " + this.target_board_square.id )
         }
+
+        this.active_chess_piece.movedFromOrigin();
     }
 
     /* ================================================ */
@@ -263,19 +291,24 @@ class ChessBoard {
         console.log(evt);
         const all_target_element = document.elementsFromPoint(evt.clientX, evt.clientY);
         for( const targetElement of all_target_element) {
-            if( targetElement.getAttribute("isChessPiece") ) {
+            if( targetElement.getAttribute(ChessBoardAttributeKeys.is_chess_piece) ) {
                 obj.active_chess_piece = new ChessPiece(null, targetElement);
-                console.log("targetElement.id = " + targetElement.id);
-                obj.moveChessPiece();
-                obj.showAllowLocation()
-                break;
+            }
+            else if( targetElement.getAttribute(ChessBoardAttributeKeys.is_board) ) {
+                obj.active_chess_square = targetElement;
             }
         }
+
+        console.log("active_chess_piece.id = " + obj.active_chess_piece.id);
+        console.log("active_chess_square.id = " + obj.active_chess_square.id);
+        obj.moveChessPiece();
+        obj.showAllowLocation()
     }
 
     handleMouseUp(obj, evt) {
         console.log("mouse bt up")
         obj.active_chess_piece = null;
+        obj.active_chess_square = null;
         obj.clearAllSquares();
     }
 
@@ -313,8 +346,8 @@ class ChessBoard {
            https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Grammar_and_types
         */
         this.target_board_square.style.border = "solid 1px red";
-        var col = this.target_board_square.getAttribute("col");
-        var row = this.target_board_square.getAttribute("row");
+        var col = this.target_board_square.getAttribute(ChessBoardAttributeKeys.col);
+        var row = this.target_board_square.getAttribute(ChessBoardAttributeKeys.row);
 
         col = parseInt(col);
         row = parseInt(row);
