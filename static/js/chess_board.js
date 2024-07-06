@@ -3,6 +3,7 @@ class ChessBoardAttributeKeys {
     static is_board = "is_board"
     static col = "col";
     static row = "row";
+    static contains_piece = "contains_piece"
 
     static is_chess_piece = "is_chess_piece"
     static color = "color"
@@ -116,6 +117,18 @@ class ChessBoardSquare extends Piece {
 
     isAtBottomEdge() {
         return this.element.getAttribute(ChessBoardAttributeKeys.row) == 8;
+    }
+
+    setPiece(piece_id) {
+        this.element.setAttribute(ChessBoardAttributeKeys.contains_piece, piece_id);
+    }
+
+    removePiece() {
+        this.element.setAttribute(ChessBoardAttributeKeys.contains_piece, "false");
+    }
+
+    isOccupied() {
+        return  this.element.getAttribute(ChessBoardAttributeKeys.contains_piece) != "false";
     }
 }
 
@@ -279,16 +292,27 @@ class ChessBoard {
     handleMouseUp(obj, evt) {
         console.log("mouse bt up")
 
-        if( (obj.active_chess_piece != null) && (obj.target_board_square != null) && (obj.active_chess_square != null) ) {
-            if(obj.active_chess_square.id != obj.target_board_square.id) {
-                obj.active_chess_piece.movedFromOrigin();
-            }
-        }
-
+        obj.setMovedFromOrigin();
+        obj.setOccupiedSquare();
         obj.clearAllSquares();
 
         obj.active_chess_piece = null;
         obj.active_chess_square = null;
+    }
+
+    setOccupiedSquare() {
+        if( (this.active_chess_piece != null) && (this.target_board_square != null) && (this.active_chess_square != null) ) {
+            this.active_chess_square.removePiece();
+            this.target_board_square.setPiece(this.active_chess_piece.id);
+        }
+    }
+
+    setMovedFromOrigin() {
+        if( (this.active_chess_piece != null) && (this.target_board_square != null) && (this.active_chess_square != null) ) {
+            if(this.active_chess_square.id != this.target_board_square.id) {
+                this.active_chess_piece.movedFromOrigin();
+            }
+        }
     }
 
     clearAllSquares() {
