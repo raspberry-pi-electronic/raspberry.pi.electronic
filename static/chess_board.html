@@ -1,93 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script src="js/DocEvent.js"></script>
+    <script src="js/DocEvent.js"> </script>
+    <script src="js/chess_board.js"> </script>
     <!--
         https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements
         https://www.w3schools.com/jsref/event_onmousemove.asp
     -->
-    <script>
-        function enterBlock(obj) {
-            console.log("entered: " + obj.getAttribute("row") + "," + obj.getAttribute("col") )
-        }
-
-        function moveByKey(evt) {
-            /*
-                'document' is the whole web page
-                'getElementById' is a method to get the element by its id
-
-                 we have an element with id set to 'move_by_key'
-            */
-            element_to_be_moved = document.getElementById("move_by_key");
-
-            /*
-                https://www.w3schools.com/jsref/event_key_keycode.asp
-
-                the event object is passed in by javascript engine.
-                the name I gave is 'evt'
-
-                to get the key code: evt.keyCode
-
-                37, 38, 39, 40
-                <-  ^   ->   v
-            */
-
-            /*
-               from any element, we can get its location.
-
-               the location y is offsetTop
-               the location x is offsetLeft
-            */
-            y = element_to_be_moved.offsetTop;
-            x = element_to_be_moved.offsetLeft;
-
-            /*
-                in html we set element position with these values:
-                -- relative
-                ---- <div>top<div>
-                ---- <div>middle</div>
-                ---- <div>bottom</div>
-
-                ---- <span>left</span>
-                ---- <span>middle</span>
-                ---- <span>right</span>
-
-                -- aboslute
-                the element will be placed at the x and y you specified.
-            */
-            element_to_be_moved.style.position = "absolute";
-
-            switch( evt.keyCode ) {
-                case 37:
-                    /*
-                        to set the location of the element:
-                        element_to_be_moved.style.left = 5 + "px";
-                        element_to_be_moved.style.top = 5 + "px";
-                    */
-                    element_to_be_moved.style.left = x - 5 + "px";
-
-                    /*
-                       for a 'switch' statement,
-                       we need to have a 'break' at the end of the 'case'
-
-                       'break' means to break out of the 'switch' test
-                    */
-                    break;
-                case 38:
-                    element_to_be_moved.style.top = y - 5 + "px";
-                    break;
-                case 39:
-                    element_to_be_moved.style.left = x + 5 + "px";
-                    break;
-                case 40:
-                    element_to_be_moved.style.top = y + 5 + "px";
-                    break;
-            }
-
-            console.log(" -- move to location: (" + x + ", " + y + ")");
-        }
-    </script>
-
     <!--
          https://www.w3schools.com/html/html_classes.asp
          https://www.w3schools.com/howto/howto_css_disable_text_selection.asp
@@ -495,12 +414,8 @@
 
 <br>
 
-
 </body>
 
-<script>
-    //document.body.onkeydown = moveByKey;
-
-</script>
+<script> </script>
 
 </html>
