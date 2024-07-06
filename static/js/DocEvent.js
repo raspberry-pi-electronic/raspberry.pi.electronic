@@ -81,7 +81,16 @@ class Piece {
     }
 
     init() {
-        this.style = this.element.style;
+        if( this.element ) {
+            this.style = this.element.style;
+        }
+        else {
+            console.log("Piece does not exist")
+        }
+    }
+
+    exists() {
+        return this.element != null;
     }
 
     getAttribute(name) {
@@ -441,12 +450,73 @@ class ChessBoard {
     }
 
     knightRules() {
-        /*
-            this.active_chess_piece = null;
-            this.target_board_square = null;
-            this.target_chess_piece = null;
-            this.mouse_location = new Array(0, 0);
-        */
+        this.target_board_square.style.border = "solid 1px red";
+
+        const col = parseInt(this.target_board_square.getAttribute(ChessBoardAttributeKeys.col));
+        const row = parseInt(this.target_board_square.getAttribute(ChessBoardAttributeKeys.row));
+
+        var one_o_clock = [row - 2, col + 1];
+        var two_o_clock = [row - 1, col + 2];
+        var four_o_clock = [row + 1, col + 2];
+        var five_o_clock = [row + 2, col + 1];
+        var seven_o_clock = [row + 2, col - 1];
+        var eight_o_clock = [row + 1, col - 2];
+        var ten_o_clock = [row - 1, col - 2];
+        var eleven_o_clock = [row - 2, col - 1];
+
+        
+        var one_o_clock_id = this.boardIdRowMapping[one_o_clock[0]] + one_o_clock[1];
+        var two_o_clock_id = this.boardIdRowMapping[two_o_clock[0]] + two_o_clock[1];
+        var four_o_clock_id = this.boardIdRowMapping[four_o_clock[0]] + four_o_clock[1];
+        var five_o_clock_id = this.boardIdRowMapping[five_o_clock[0]] + five_o_clock[1];
+        var seven_o_clock_id = this.boardIdRowMapping[seven_o_clock[0]] + seven_o_clock[1];
+        var eight_o_clock_id = this.boardIdRowMapping[eight_o_clock[0]] + eight_o_clock[1];
+        var ten_o_clock_id = this.boardIdRowMapping[ten_o_clock[0]] + ten_o_clock[1];
+        var eleven_o_clock_id = this.boardIdRowMapping[eleven_o_clock[0]] + eleven_o_clock[1];
+        
+
+        var one_o_clock_square = new ChessBoardSquare(one_o_clock_id);
+        var two_o_clock_square = new ChessBoardSquare(two_o_clock_id);
+        var four_o_clock_square = new ChessBoardSquare(four_o_clock_id);
+        var five_o_clock_square = new ChessBoardSquare(five_o_clock_id);
+        var seven_o_clock_square = new ChessBoardSquare(seven_o_clock_id);
+        var eight_o_clock_square = new ChessBoardSquare(eight_o_clock_id);
+        var ten_o_clock_square = new ChessBoardSquare(ten_o_clock_id);
+        var eleven_o_clock_square = new ChessBoardSquare(eleven_o_clock_id);
+        
+
+        if( one_o_clock_square.exists()) {
+            one_o_clock_square.style.border = "solid 1px orange";
+        }
+
+        if( two_o_clock_square.exists()) {
+            two_o_clock_square.style.border = "solid 1px orange";
+        }
+
+        if( four_o_clock_square.exists()){
+            four_o_clock_square.style.border = "solid 1px orange";
+        }
+
+        if( five_o_clock_square.exists()) {
+            five_o_clock_square.style.border = "solid 1px orange";
+        }
+
+        if( seven_o_clock_square.exists()) {
+            seven_o_clock_square.style.border = "solid 1px orange";
+        }
+
+        if( eight_o_clock_square.exists()) {
+            eight_o_clock_square.style.border = "solid 1px orange";
+        }
+        
+        if( ten_o_clock_square.exists()) {
+            ten_o_clock_square.style.border = "solid 1px orange";
+        }
+
+        if( eleven_o_clock_square.exists()) {
+            eleven_o_clock_square.style.border = "solid 1px orange";
+        }
+
     }
 }
 
