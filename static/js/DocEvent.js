@@ -122,6 +122,11 @@ class ChessPiece extends Piece {
         return pieceId.indexOf("_pawn_") > -1
     }
 
+    isKnight() {
+        var pieceId = this.element.id;
+        return pieceId.indexOf("_knight_") > -1
+    }
+
     isWhitePiece() {
         var pieceId = this.element.id;
         console.log("piece id: " + pieceId);
@@ -342,7 +347,7 @@ class ChessBoard {
         if( this.active_chess_piece.isPawn() ) {
             this.pawnRules();
         }
-        else {
+        else if(this.active_chess_piece.isKnight()) {
             this.knightRules();
         }
     }
