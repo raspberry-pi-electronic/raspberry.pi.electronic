@@ -94,10 +94,18 @@ class ChessPiece extends Piece {
     movedFromOrigin() {
         this.element.setAttribute(ChessBoardAttributeKeys.at_origin, "false");
     }
+
+    setLocation(x, y) {
+        var h = this.element.offsetHeight / 2;
+        var w = this.element.offsetWidth / 2;
+        this.element.style.left = (x - w) + "px";
+        this.element.style.top = (y - h) + "px";
+    }
 }
 
 class ChessBoardSquare extends Piece {
     id = null;
+    location = null;
 
     constructor(id = null, element = null) {
         super(element);
@@ -112,6 +120,8 @@ class ChessBoardSquare extends Piece {
         if( !this.init() ) {
             console.log("Board square not found: " + id);
         }
+
+        this.location = null;
     }
 
     isAtTopEdge() {
@@ -140,6 +150,29 @@ class ChessBoardSquare extends Piece {
             return false;
         }
         return (new ChessPiece(piece_id).getPieceColor()) == piece_color;
+    }
+
+    getLocation() {
+        if( this.location ) {
+            return this.location;
+        }
+        var ele = this.element;
+        var maxLevel = 20;
+        var size = this.getSize();
+        this.location = [0 + size[0] / 2, 0 + size[1] / 2];
+        while( (ele.nodeName.toLowerCase() != "body") && (maxLevel > 0) ) {
+            if( ele.nodeName.toLowerCase() != "tr") {
+                this.location[0] += parseInt(ele.offsetLeft);
+                this.location[1] += parseInt(ele.offsetTop);
+            }
+            ele = ele.parentNode;
+            maxLevel--;
+        }
+        return this.location;
+    }
+
+    getSize() {
+        return [this.element.offsetWidth, this.element.offsetHeight];
     }
 }
 
@@ -284,6 +317,7 @@ class ChessBoard {
             }
             else if( targetElement.getAttribute(ChessBoardAttributeKeys.is_board) ) {
                 obj.active_chess_square = new ChessBoardSquare(null, targetElement);
+
             }
         }
 
@@ -313,8 +347,15 @@ class ChessBoard {
 
     setOccupiedSquare() {
         if( (this.active_chess_piece != null) && (this.target_board_square != null) && (this.active_chess_square != null) ) {
-            this.active_chess_square.removePiece();
-            this.target_board_square.setPiece(this.active_chess_piece.id);
+            if( this.target_board_square.isOccupied() ) {
+                var location = this.active_chess_square.getLocation();
+                console.log("moving chess back to: (" + location[0] + ", " + location[1] + ")");
+                this.active_chess_piece.setLocation(location[0], location[1]);
+            }
+            else {
+                this.active_chess_square.removePiece();
+                this.target_board_square.setPiece(this.active_chess_piece.id);
+            }
         }
     }
 
