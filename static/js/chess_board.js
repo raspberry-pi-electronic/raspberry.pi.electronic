@@ -3,13 +3,15 @@ class ChessBoardAttributeKeys {
     static is_board = "is_board"
     static col = "col";
     static row = "row";
-    static contains_piece = "contains_piece"
+    static contains_piece = "contains_piece";
+    static allowed_move_into = "allowed_move_into";
+    static allowed_to_take = "allowed_to_take";
 
-    static is_chess_piece = "is_chess_piece"
-    static color = "color"
-    static name = "name"
-    static suffix = "suffix"
-    static at_origin = "at_origin"
+    static is_chess_piece = "is_chess_piece";
+    static color = "color";
+    static name = "name";
+    static suffix = "suffix";
+    static at_origin = "at_origin";
 }
 
 class Piece {
@@ -131,6 +133,14 @@ class ChessBoardSquare extends Piece {
         return this.element.getAttribute(ChessBoardAttributeKeys.row) == 8;
     }
 
+    isAtRightEdge() {
+        return this.element.getAttribute(ChessBoardAttributeKeys.col) == 8;
+    }
+
+    isAtLeftEdge() {
+        return this.element.getAttribute(ChessBoardAttributeKeys.col) == 1;
+    }
+
     setPiece(piece_id) {
         this.element.setAttribute(ChessBoardAttributeKeys.contains_piece, piece_id);
     }
@@ -145,7 +155,6 @@ class ChessBoardSquare extends Piece {
 
     isOccupiedBy(piece_color) {
         var piece_id = this.element.getAttribute(ChessBoardAttributeKeys.contains_piece);
-        console.log("[DEBUG]: isOccupiedBy - piece_id: " + piece_id);
         if(piece_id == "false") {
             return false;
         }
@@ -374,6 +383,8 @@ class ChessBoard {
                 var sq = document.getElementById(rowLetter + k);
                 if( sq ) {
                     sq.style.border = "solid 1px black";
+                    sq.removeAttribute(ChessBoardAttributeKeys.allowed_move_into);
+                    sq.removeAttribute(ChessBoardAttributeKeys.allowed_to_take);
                 }
                 else {
                     console.log("Failed get chess square " + (rowLetter + k));
@@ -423,6 +434,11 @@ class ChessBoard {
 
         /* console.log("start from : (" + row + ", " + col + ")");  // print on console */
 
+        var move_to_row = row;
+        var move_to_col = col;
+        
+        var to_take_space = []
+
         /*
            ! -- means not
            == means is equals to
@@ -440,8 +456,15 @@ class ChessBoard {
                    -- isAtLeftEdge
                    -- isAtRightEdge
             */
-            if( !this.active_chess_square.isAtBottomEdge()) {
-                row = row + 1;
+            if( !this.active_chess_square.isAtBottomEdge() ) {
+                move_to_row = move_to_row + 1;
+
+                if( !this.active_chess_square.isAtRightEdge() ) {
+                    to_take_space.push([row + 1, col + 1]);
+                }
+                if( !this.active_chess_square.isAtLeftEdge() ) {
+                    to_take_space.push([row + 1, col - 1]);
+                }
             }
 
         }
@@ -450,7 +473,14 @@ class ChessBoard {
                 black piece moves up -- means - y direction
             */
             if( !this.active_chess_square.isAtTopEdge() ) {
-                row = row - 1;
+                move_to_row = move_to_row - 1;
+
+                if( !this.active_chess_square.isAtRightEdge() ) {
+                    to_take_space.push([row - 1, col + 1]);
+                }
+                if( !this.active_chess_square.isAtLeftEdge() ) {
+                    to_take_space.push([row - 1, col - 1]);
+                }
             }
         }
 
@@ -469,7 +499,7 @@ class ChessBoard {
                this.boardIdRowMapping[row] will return 'E'
 
         */
-        var rowLetter = this.boardIdRowMapping[row];
+        var rowLetter = this.boardIdRowMapping[move_to_row];
 
         /*
             we are concatenate a string and an integer.
@@ -493,6 +523,19 @@ class ChessBoard {
                 setting the border color to orange
             */
             allowSquare.style.border = "solid 1px orange";
+            allowSquare.setAttribute(ChessBoardAttributeKeys.allowed_move_into, "true");
+        }
+
+        /* space the pawn allowed to move into to take a piece */
+
+        for( var space_row_col of to_take_space ) {
+            var row_letter = this.boardIdRowMapping[space_row_col[0]];
+            var space_id = row_letter + space_row_col[1];
+            var space = new ChessBoardSquare(space_id);
+            if( space.isOccupied() && !space.isOccupiedBy(this.active_chess_piece.getPieceColor()) ) {
+                space.style.border = "solid 1px orange";
+                space.setAttribute(ChessBoardAttributeKeys.allowed_to_take, "true");
+            }
         }
     }
 
