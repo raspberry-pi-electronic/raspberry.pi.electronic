@@ -464,10 +464,8 @@ class ChessBoard {
 
         /* console.log("start from : (" + row + ", " + col + ")");  // print on console */
 
-        var move_to_row = row;
-        var move_to_col = col;
-        
-        var to_take_space = []
+        var move_to_row_list = [];
+        var to_take_row_col_list = []
 
         /*
            ! -- means not
@@ -487,13 +485,17 @@ class ChessBoard {
                    -- isAtRightEdge
             */
             if( !this.active_chess_square.isAtBottomEdge() ) {
-                move_to_row = move_to_row + 1;
+                move_to_row_list.push(row + 1);
+
+                if( this.active_chess_piece.isAtOrigin()) {
+                    move_to_row_list.push(row + 2);
+                }
 
                 if( !this.active_chess_square.isAtRightEdge() ) {
-                    to_take_space.push([row + 1, col + 1]);
+                    to_take_row_col_list.push([row + 1, col + 1]);
                 }
                 if( !this.active_chess_square.isAtLeftEdge() ) {
-                    to_take_space.push([row + 1, col - 1]);
+                    to_take_row_col_list.push([row + 1, col - 1]);
                 }
             }
 
@@ -503,64 +505,70 @@ class ChessBoard {
                 black piece moves up -- means - y direction
             */
             if( !this.active_chess_square.isAtTopEdge() ) {
-                move_to_row = move_to_row - 1;
+                move_to_row_list.push(row - 1);
+
+                if( this.active_chess_piece.isAtOrigin()) {
+                    move_to_row_list.push(row - 2);
+                }
 
                 if( !this.active_chess_square.isAtRightEdge() ) {
-                    to_take_space.push([row - 1, col + 1]);
+                    to_take_row_col_list.push([row - 1, col + 1]);
                 }
                 if( !this.active_chess_square.isAtLeftEdge() ) {
-                    to_take_space.push([row - 1, col - 1]);
+                    to_take_row_col_list.push([row - 1, col - 1]);
                 }
             }
         }
 
         /* console.log("move to : (" + row + ", " + col + ")"); // print to console */
 
-        /*
-            chess board is id-ed by letter + integer. -- example: A1, H5
-            letter is row
-            integer is column
-
-            A3 -- row 1 and column 3
-
-            example: 
-               row is 5
-               then
-               this.boardIdRowMapping[row] will return 'E'
-
-        */
-        var rowLetter = this.boardIdRowMapping[move_to_row];
-
-        /*
-            we are concatenate a string and an integer.
-
-            example:
-               rowLetter is 'E'
-               col is 4
-
-               then allowSquareId is "E4"
-        */
-        var allowSquareId = rowLetter + col;
-
-        /* console.log("destination id: " + allowSquareId);  // debug to console */
-
-        /*
-           we are creating a chess square using 'ChessBoardSquare' class.
-        */
-        var allowSquare = new ChessBoardSquare(allowSquareId);
-        if( !allowSquare.isOccupied() ) {
+        for(var move_to_row of move_to_row_list) {
             /*
-                setting the border color to orange
+                chess board is id-ed by letter + integer. -- example: A1, H5
+                letter is row
+                integer is column
+
+                A3 -- row 1 and column 3
+
+                example: 
+                row is 5
+                then
+                this.boardIdRowMapping[row] will return 'E'
+
             */
-            allowSquare.style.border = "solid 1px orange";
-            allowSquare.setAllowedToMoveInto();
+            var rowLetter = this.boardIdRowMapping[move_to_row];
+
+            /*
+                we are concatenate a string and an integer.
+
+                example:
+                rowLetter is 'E'
+                col is 4
+
+                then allowSquareId is "E4"
+            */
+            var allowSquareId = rowLetter + col;
+
+            /* console.log("destination id: " + allowSquareId);  // debug to console */
+
+            /*
+            we are creating a chess square using 'ChessBoardSquare' class.
+            */
+            var allowSquare = new ChessBoardSquare(allowSquareId);
+            if( !allowSquare.isOccupied() ) {
+                /*
+                    setting the border color to orange
+                */
+                allowSquare.style.border = "solid 1px orange";
+                allowSquare.setAllowedToMoveInto();
+            }
         }
 
         /* space the pawn allowed to move into to take a piece */
 
-        for( var space_row_col of to_take_space ) {
-            var row_letter = this.boardIdRowMapping[space_row_col[0]];
-            var space_id = row_letter + space_row_col[1];
+        for( var to_take_row_col of to_take_row_col_list ) {
+            var row_letter = this.boardIdRowMapping[to_take_row_col[0]];
+            var space_id = row_letter + to_take_row_col[1];
             var space = new ChessBoardSquare(space_id);
             if( space.isOccupied() && !space.isOccupiedBy(this.active_chess_piece.getPieceColor()) ) {
                 space.style.border = "solid 1px orange";
@@ -609,8 +617,8 @@ class ChessBoard {
     complete the rest 
     
     reference:
-       line 68 -- isKnight()
-       line 315
+       line 76 -- isKnight()
+       line 452 -- else if(this.active_chess_piece.isKnight()) {
     */
 }
 
