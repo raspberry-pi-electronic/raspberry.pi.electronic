@@ -570,68 +570,38 @@ class ChessBoard {
     }
 
     knightRules(row, col) {
-        var one_o_clock = [row - 2, col + 1];
-        var two_o_clock = [row - 1, col + 2];
-        var four_o_clock = [row + 1, col + 2];
-        var five_o_clock = [row + 2, col + 1];
-        var seven_o_clock = [row + 2, col - 1];
-        var eight_o_clock = [row + 1, col - 2];
-        var ten_o_clock = [row - 1, col - 2];
-        var eleven_o_clock = [row - 2, col - 1];
+        const row_col_array = [
+            [row - 2, col + 1],
+            [row - 1, col + 2],
+            [row + 1, col + 2],
+            [row + 2, col + 1],
+            [row + 2, col - 1],
+            [row + 1, col - 2],
+            [row - 1, col - 2],
+            [row - 2, col - 1]
+        ]
 
-        
-        var one_o_clock_id = this.boardIdRowMapping[one_o_clock[0]] + one_o_clock[1];
-        var two_o_clock_id = this.boardIdRowMapping[two_o_clock[0]] + two_o_clock[1];
-        var four_o_clock_id = this.boardIdRowMapping[four_o_clock[0]] + four_o_clock[1];
-        var five_o_clock_id = this.boardIdRowMapping[five_o_clock[0]] + five_o_clock[1];
-        var seven_o_clock_id = this.boardIdRowMapping[seven_o_clock[0]] + seven_o_clock[1];
-        var eight_o_clock_id = this.boardIdRowMapping[eight_o_clock[0]] + eight_o_clock[1];
-        var ten_o_clock_id = this.boardIdRowMapping[ten_o_clock[0]] + ten_o_clock[1];
-        var eleven_o_clock_id = this.boardIdRowMapping[eleven_o_clock[0]] + eleven_o_clock[1];
-        
+        /*
+           this is a 'for' loop, because it start with 'for'.
+           for some-variable until end
 
-        var one_o_clock_square = new ChessBoardSquare(one_o_clock_id);
-        var two_o_clock_square = new ChessBoardSquare(two_o_clock_id);
-        var four_o_clock_square = new ChessBoardSquare(four_o_clock_id);
-        var five_o_clock_square = new ChessBoardSquare(five_o_clock_id);
-        var seven_o_clock_square = new ChessBoardSquare(seven_o_clock_id);
-        var eight_o_clock_square = new ChessBoardSquare(eight_o_clock_id);
-        var ten_o_clock_square = new ChessBoardSquare(ten_o_clock_id);
-        var eleven_o_clock_square = new ChessBoardSquare(eleven_o_clock_id);
-        
-
-        if( one_o_clock_square.exists()) {
-            one_o_clock_square.style.border = "solid 1px orange";
+           for all index in row_col_array
+           index starts with 0.
+        */
+        for(const index in row_col_array) {
+            const board_id = this.boardIdRowMapping[row_col_array[index][0]] + row_col_array[index][1]  // array that is "E2:
+            const chess_square = new ChessBoardSquare(board_id);
+            if( chess_square.exists()) {
+                if( !chess_square.isOccupied() ) {
+                    chess_square.style.border = "solid 1px orange";
+                    chess_square.setAllowedToMoveInto();
+                }
+                if( chess_square.isOccupied() && !chess_square.isOccupiedBy(this.active_chess_piece.getPieceColor()) ) {
+                    chess_square.style.border = "solid 1px orange";
+                    chess_square.setAllowToTake();
+                }
+            }
         }
-
-        if( two_o_clock_square.exists()) {
-            two_o_clock_square.style.border = "solid 1px orange";
-        }
-
-        if( four_o_clock_square.exists()){
-            four_o_clock_square.style.border = "solid 1px orange";
-        }
-
-        if( five_o_clock_square.exists()) {
-            five_o_clock_square.style.border = "solid 1px orange";
-        }
-
-        if( seven_o_clock_square.exists()) {
-            seven_o_clock_square.style.border = "solid 1px orange";
-        }
-
-        if( eight_o_clock_square.exists()) {
-            eight_o_clock_square.style.border = "solid 1px orange";
-        }
-        
-        if( ten_o_clock_square.exists()) {
-            ten_o_clock_square.style.border = "solid 1px orange";
-        }
-
-        if( eleven_o_clock_square.exists()) {
-            eleven_o_clock_square.style.border = "solid 1px orange";
-        }
-
     }
 
     /* 
