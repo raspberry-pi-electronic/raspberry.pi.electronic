@@ -18,7 +18,6 @@ class Piece {
 
     constructor(element) {
         this.element = element;
-        
     }
 
     init() {
@@ -50,7 +49,7 @@ class ChessPiece extends Piece {
         super( element );
         if(id) {
             this.id = id;
-            this.elemenet = document.getElementById(id);
+            this.element = document.getElementById(id);
         }
         else {
             this.id = element.id;
@@ -72,7 +71,7 @@ class ChessPiece extends Piece {
     }
 
     isWhitePiece() {
-        return this.getPieceColor() == "white"
+        return this.getPieceColor() == "white";
     }
 
     getPieceColor() {
@@ -145,7 +144,8 @@ class ChessBoardSquare extends Piece {
     }
 
     isOccupiedBy(piece_color) {
-        piece_id = this.element.getAttribute(ChessBoardAttributeKeys.contains_piece);
+        var piece_id = this.element.getAttribute(ChessBoardAttributeKeys.contains_piece);
+        console.log("[DEBUG]: isOccupiedBy - piece_id: " + piece_id);
         if(piece_id == "false") {
             return false;
         }
@@ -347,7 +347,7 @@ class ChessBoard {
 
     setOccupiedSquare() {
         if( (this.active_chess_piece != null) && (this.target_board_square != null) && (this.active_chess_square != null) ) {
-            if( this.target_board_square.isOccupied() ) {
+            if( this.target_board_square.isOccupiedBy(this.active_chess_piece.getPieceColor()) ) {
                 var location = this.active_chess_square.getLocation();
                 console.log("moving chess back to: (" + location[0] + ", " + location[1] + ")");
                 this.active_chess_piece.setLocation(location[0], location[1]);
