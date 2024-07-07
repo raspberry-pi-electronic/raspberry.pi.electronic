@@ -372,7 +372,6 @@ class ChessBoard {
     handleMouseUp(obj, evt) {
         console.log("mouse bt up")
 
-        obj.setMovedFromOrigin();
         obj.setOccupiedSquare();
         obj.clearAllSquares();
 
@@ -389,6 +388,7 @@ class ChessBoard {
                 }
                 this.active_chess_square.removePiece();
                 this.target_board_square.setPiece(this.active_chess_piece.id);
+                this.setMovedFromOrigin();
             }
             else {
                 var location = this.active_chess_square.getLocation();
@@ -555,7 +555,10 @@ class ChessBoard {
             we are creating a chess square using 'ChessBoardSquare' class.
             */
             var allowSquare = new ChessBoardSquare(allowSquareId);
-            if( !allowSquare.isOccupied() ) {
+            if( allowSquare.isOccupied() ) {
+                break;
+            }
+            else {
                 /*
                     setting the border color to orange
                 */
