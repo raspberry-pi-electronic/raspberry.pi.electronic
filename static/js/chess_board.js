@@ -62,6 +62,12 @@ class ChessPiece extends Piece {
         }
     }
 
+    remove() {
+        this.element.parentNode.removeChild(this.element);
+        this.id = null;
+        this.element = null;
+    }
+
     isPawn() {
         var name = this.element.getAttribute(ChessBoardAttributeKeys.name);
         return name == "pawn"
@@ -145,12 +151,16 @@ class ChessBoardSquare extends Piece {
         this.element.setAttribute(ChessBoardAttributeKeys.contains_piece, piece_id);
     }
 
+    getPiece() {
+        return  this.element.getAttribute(ChessBoardAttributeKeys.contains_piece);
+    }
+
     removePiece() {
         this.element.setAttribute(ChessBoardAttributeKeys.contains_piece, "false");
     }
 
     isOccupied() {
-        return  this.element.getAttribute(ChessBoardAttributeKeys.contains_piece) != "false";
+        return  this.getPiece() != "false";
     }
 
     isOccupiedBy(piece_color) {
@@ -182,6 +192,22 @@ class ChessBoardSquare extends Piece {
 
     getSize() {
         return [this.element.offsetWidth, this.element.offsetHeight];
+    }
+
+    setAllowToTake() {
+        this.element.setAttribute(ChessBoardAttributeKeys.allowed_to_take, "true");
+    }
+
+    isAllowedToTake() {
+        return this.element.getAttribute(ChessBoardAttributeKeys.allowed_to_take);
+    }
+
+    setAllowedToMoveInto() {
+        this.element.setAttribute(ChessBoardAttributeKeys.allowed_move_into, "true");
+    }
+
+    isAllowedToMoveInto() {
+        return this.element.getAttribute(ChessBoardAttributeKeys.allowed_move_into);
     }
 }
 
@@ -356,14 +382,18 @@ class ChessBoard {
 
     setOccupiedSquare() {
         if( (this.active_chess_piece != null) && (this.target_board_square != null) && (this.active_chess_square != null) ) {
-            if( this.target_board_square.isOccupiedBy(this.active_chess_piece.getPieceColor()) ) {
+            if( this.target_board_square.isAllowedToMoveInto() || this.target_board_square.isAllowedToTake() ) {
+                if(this.target_board_square.isAllowedToTake()) {
+                    var piece_id = this.target_board_square.getPiece();
+                    (new ChessPiece(piece_id)).remove();
+                }
+                this.active_chess_square.removePiece();
+                this.target_board_square.setPiece(this.active_chess_piece.id);
+            }
+            else {
                 var location = this.active_chess_square.getLocation();
                 console.log("moving chess back to: (" + location[0] + ", " + location[1] + ")");
                 this.active_chess_piece.setLocation(location[0], location[1]);
-            }
-            else {
-                this.active_chess_square.removePiece();
-                this.target_board_square.setPiece(this.active_chess_piece.id);
             }
         }
     }
@@ -523,7 +553,7 @@ class ChessBoard {
                 setting the border color to orange
             */
             allowSquare.style.border = "solid 1px orange";
-            allowSquare.setAttribute(ChessBoardAttributeKeys.allowed_move_into, "true");
+            allowSquare.setAllowedToMoveInto();
         }
 
         /* space the pawn allowed to move into to take a piece */
@@ -534,7 +564,7 @@ class ChessBoard {
             var space = new ChessBoardSquare(space_id);
             if( space.isOccupied() && !space.isOccupiedBy(this.active_chess_piece.getPieceColor()) ) {
                 space.style.border = "solid 1px orange";
-                space.setAttribute(ChessBoardAttributeKeys.allowed_to_take, "true");
+                space.setAllowToTake();
             }
         }
     }
