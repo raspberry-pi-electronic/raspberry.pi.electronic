@@ -6,7 +6,7 @@
 
 Learn about how JavaScript mouse event works.
 
-https://raspberry-pi-electronic.github.io/raspberry.pi.electronic/static/chess_board.html
+[The Chess Board](https://raspberry-pi-electronic.github.io/raspberry.pi.electronic/static/chess_board.html)
 
 
 ### Seven Segment Display
