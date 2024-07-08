@@ -1,0 +1,15 @@
+direction = [up, right, down, left]
+
+start:
+	for each direction
+		loop until location at edge
+			move one square = (new location)
+			(new location) is not occupied
+				allowed to move
+			otherwise
+				location is occupied by opponent
+					allowed to take over square
+				done
+               
+
+
