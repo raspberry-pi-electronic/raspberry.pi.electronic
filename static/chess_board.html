@@ -39,7 +39,11 @@
 </head>
 <body>
 <div style="text-align:center">The Chess Board</div>
-<br>
+<div>
+    <div id="home_button" style="display:none;">
+        <a href="../">Home</a>
+    </div>
+</div>
 
 <table id="chess_board">
     <tr>
@@ -512,6 +516,14 @@
 
 </body>
 
-<script> </script>
+<script>
+
+(function() {
+    if(window===window.parent) {
+        document.getElementById("home_button").style.display = null;
+    }
+})();
+
+</script>
 
 </html>
