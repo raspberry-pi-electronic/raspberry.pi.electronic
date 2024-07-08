@@ -6,7 +6,7 @@
 
         function setPageContent(obj) {
             var f = document.getElementById("content_frame");
-            f.src = obj.href;
+            f.src = obj.getAttribute("url");
             return false;
         }
 
@@ -15,17 +15,19 @@
 <body>
 <div style="text-align: center;"><h2>Raspberry pi & Electronics</h2></div>
 
-<div id="menu">
-    <div><a href="index_content.html" onclick="setPageContent(this)">Home</a></div>
-    <div><a href="static/chess_board.html" onclick="setPageContent(this)">Chess Board</a></div>
+<div id="menu" style="float: left;">
+    <div><a href="javascript: return false;" url="index_content.html" onclick="setPageContent(this)">Home</a></div>
+    <div><a href="javascript: return false;" url="static/chess_board.html" onclick="setPageContent(this)">Chess Board</a></div>
 
     <div><br/></div>
     
-    <div><a href="https://raspberry-pi-electronic.blogspot.com/2024/06/the-grand-plan.html" onclick="setPageContent(this)">The blog</a></div>
+    <div><a href="https://raspberry-pi-electronic.blogspot.com/2024/06/the-grand-plan.html" target="my_blog">The blog</a></div>
 </div>
-<div id="content">
-    <iframe id="content_frame"></iframe>
+<div id="content" style="display:inline-block;padding-left:10px;">
+    <iframe id="content_frame" style="width:1200px; height:700px;"></iframe>
 </div>
+
+<div style="clear:both;"></div>
 
 </body>
 </html>
