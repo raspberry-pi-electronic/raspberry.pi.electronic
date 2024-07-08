@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Raspberry pi & Electronics</title>
+    <script>
+
+        function setPageContent(obj) {
+            var f = document.getElementById("content_frame");
+            f.src = obj.href;
+            return false;
+        }
+
+    </script>
+</head>
+<body>
+<div style="text-align: center;"><h2>Raspberry pi & Electronics</h2></div>
+
+<div id="menu">
+    <div><a href="index_content.html" onclick="setPageContent(this)">Home</a></div>
+    <div><a href="static/chess_board.html" onclick="setPageContent(this)">Chess Board</a></div>
+
+    <div><br/></div>
+    
+    <div><a href="https://raspberry-pi-electronic.blogspot.com/2024/06/the-grand-plan.html" onclick="setPageContent(this)">The blog</a></div>
+</div>
+<div id="content">
+    <iframe id="content_frame"></iframe>
+</div>
+
+</body>
+</html>
