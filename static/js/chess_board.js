@@ -1,4 +1,14 @@
 
+var boardIdRowMapping = {};
+const A = 'A'.charCodeAt(0);
+for( var i = -5; i < 1; i++ ) {
+    boardIdRowMapping[i] = "-";
+}
+for(var i = 0; i < 26; i++) {
+    boardIdRowMapping[ i + 1 ] = String.fromCharCode(A + i);
+}
+
+
 class ChessBoardAttributeKeys {
     static is_board = "is_board"
     static col = "col";
@@ -76,6 +86,11 @@ class ChessPiece extends Piece {
     isKnight() {
         var name = this.element.getAttribute(ChessBoardAttributeKeys.name);
         return name == "knight"
+    }
+
+    isRook() {
+        var name = this.element.getAttribute(ChessBoardAttributeKeys.name);
+        return name == "rook"
     }
 
     isWhitePiece() {
@@ -196,6 +211,7 @@ class ChessBoardSquare extends Piece {
 
     setAllowToTake() {
         this.element.setAttribute(ChessBoardAttributeKeys.allowed_to_take, "true");
+        this.element.style.border = "solid 1px orange";
     }
 
     isAllowedToTake() {
@@ -204,10 +220,47 @@ class ChessBoardSquare extends Piece {
 
     setAllowedToMoveInto() {
         this.element.setAttribute(ChessBoardAttributeKeys.allowed_move_into, "true");
+        this.element.style.border = "solid 1px orange";
     }
 
     isAllowedToMoveInto() {
         return this.element.getAttribute(ChessBoardAttributeKeys.allowed_move_into);
+    }
+
+    /*
+       subtract row by 1
+    */
+    moveUp() {
+        const row_value = this.element.getAttribute(ChessBoardAttributeKeys.row);
+        const col_value = this.element.getAttribute(ChessBoardAttributeKeys.col);
+        const row_int = parseInt(row_value) - 1;
+        const space_id = boardIdRowMapping[row_int] + col_value;
+        return new ChessBoardSquare(space_id);
+    }
+
+    moveDown() {
+        const row_value = this.element.getAttribute(ChessBoardAttributeKeys.row);
+        const col_value = this.element.getAttribute(ChessBoardAttributeKeys.col);
+        const row_int = parseInt(row_value) + 1;
+        const space_id = boardIdRowMapping[row_int] + col_value;
+        return new ChessBoardSquare(space_id);
+
+    }
+
+    moveLeft() {
+        const row_value = this.element.getAttribute(ChessBoardAttributeKeys.row);
+        const col_value = this.element.getAttribute(ChessBoardAttributeKeys.col);
+        const col_int = parseInt(col_value) - 1;
+        const space_id = boardIdRowMapping[row_value] + col_int;
+        return new ChessBoardSquare(space_id);
+    }
+
+    moveRight() {
+        const row_value = this.element.getAttribute(ChessBoardAttributeKeys.row);
+        const col_value = this.element.getAttribute(ChessBoardAttributeKeys.col);
+        const col_int = parseInt(col_value) + 1;
+        const space_id = boardIdRowMapping[row_value] + col_int;
+        return new ChessBoardSquare(space_id);
     }
 }
 
@@ -251,22 +304,12 @@ class ChessBoard {
     */
     mouse_location = null;
 
-    boardIdRowMapping = {};
-
     constructor() {
         this.active_chess_piece = null;
         this.target_board_square = null;
         this.target_chess_piece = null;
         this.active_chess_square = null;
         this.mouse_location = new Array(0, 0);
-
-        const A = 'A'.charCodeAt(0);
-        for( var i = -5; i < 1; i++ ) {
-            this.boardIdRowMapping[i] = "-";
-        }
-        for(var i = 0; i < 26; i++) {
-            this.boardIdRowMapping[ i + 1 ] = String.fromCharCode(A + i);
-        }
     }
     
     handleMouseMove(obj, evt) {
@@ -408,7 +451,7 @@ class ChessBoard {
 
     clearAllSquares() {
         for( var i = 1; i < 9; i++ ) {
-            var rowLetter = this.boardIdRowMapping[i];
+            var rowLetter = boardIdRowMapping[i];
             for( var k = 1; k < 9; k++ ) {
                 var sq = document.getElementById(rowLetter + k);
                 if( sq ) {
@@ -451,6 +494,9 @@ class ChessBoard {
         }
         else if(this.active_chess_piece.isKnight()) {
             this.knightRules(row, col);
+        }
+        else if(this.active_chess_piece.isRook()) {
+            this.rookRules(row, col);
         }
     }
 
@@ -533,10 +579,10 @@ class ChessBoard {
                 example: 
                 row is 5
                 then
-                this.boardIdRowMapping[row] will return 'E'
+                boardIdRowMapping[row] will return 'E'
 
             */
-            var rowLetter = this.boardIdRowMapping[move_to_row];
+            var rowLetter = boardIdRowMapping[move_to_row];
 
             /*
                 we are concatenate a string and an integer.
@@ -570,7 +616,7 @@ class ChessBoard {
         /* space the pawn allowed to move into to take a piece */
 
         for( var to_take_row_col of to_take_row_col_list ) {
-            var row_letter = this.boardIdRowMapping[to_take_row_col[0]];
+            var row_letter = boardIdRowMapping[to_take_row_col[0]];
             var space_id = row_letter + to_take_row_col[1];
             var space = new ChessBoardSquare(space_id);
             if( space.isOccupied() && !space.isOccupiedBy(this.active_chess_piece.getPieceColor()) ) {
@@ -600,7 +646,7 @@ class ChessBoard {
            index starts with 0.
         */
         for(const index in row_col_array) {
-            const board_id = this.boardIdRowMapping[row_col_array[index][0]] + row_col_array[index][1]  // array that is "E2:
+            const board_id = boardIdRowMapping[row_col_array[index][0]] + row_col_array[index][1]  // array that is "E2:
             const chess_square = new ChessBoardSquare(board_id);
             if( chess_square.exists()) {
                 if( !chess_square.isOccupied() ) {
@@ -614,6 +660,88 @@ class ChessBoard {
             }
         }
     }
+
+    rookRules(row, col){
+        const directionList = ["up","down","left","right"];
+        for( const direction of directionList) {
+            switch(direction) {
+                case "up":
+                    var next_square = this.active_chess_square;
+                    while( next_square.exists() ) {
+                        next_square = next_square.moveUp();
+                        if( next_square.exists() ) {
+                            if( next_square.isOccupied() ) {
+                                if( !next_square.isOccupiedBy(this.active_chess_piece.getPieceColor())) {
+                                    next_square.setAllowToTake();
+                                }
+                                break; // this break is to break the while loop
+                            }
+                            next_square.setAllowedToMoveInto();
+                        }
+                    }
+                    break;
+                case "down":
+                    console.log("Moving (" + this.active_chess_piece.id + ") down");
+                    var next_square = this.active_chess_square;
+                    while( next_square.exists() ) {
+                        console.log(" -- current location: " + next_square.id);
+                        next_square = next_square.moveDown();
+                        if( next_square.exists() ) {
+                            console.log(" -- next location: " + next_square.id);
+                            if( next_square.isOccupied() ) {
+                                if( !next_square.isOccupiedBy(this.active_chess_piece.getPieceColor())) {
+                                    next_square.setAllowToTake();
+                                    console.log(" ---- allowed to take over");
+                                }
+                                break; 
+                            }
+                            next_square.setAllowedToMoveInto();
+                            console.log(" ---- allowed to move into")
+                        }
+                    }
+                    
+                   break;
+                case "left":
+                    var next_square = this.active_chess_square;
+                    while( next_square.exists() ) {
+                        next_square = next_square.moveLeft();
+                        if( next_square.exists() ) {
+                            if( next_square.isOccupied() ) {
+                                if( !next_square.isOccupiedBy(this.active_chess_piece.getPieceColor())) {
+                                    next_square.setAllowToTake();
+                                }
+                                break;
+                            }
+                            next_square.setAllowedToMoveInto();
+                        }
+                    }
+                    
+                   break;
+                case "right":
+                    var next_square = this.active_chess_square;
+                    while( next_square.exists() ) {
+                        next_square = next_square.moveRight();
+                        if( next_square.exists() ) {
+                            if( next_square.isOccupied() ) {
+                                if( !next_square.isOccupiedBy(this.active_chess_piece.getPieceColor())) {
+                                    next_square.setAllowToTake();
+                                }
+                                break;
+                            }
+                            next_square.setAllowedToMoveInto();
+                        }
+                    }
+                    
+                   break;
+                }
+
+        }           
+    }
+
+
+
+
+
 
     /* 
     
@@ -632,4 +760,7 @@ const chessBoard = new ChessBoard();
 PageMouseEventHandlers.MOUSE_MOVE.addHandler(new MouseEventHandlerObject(chessBoard.handleMouseMove, chessBoard));
 PageMouseEventHandlers.MOUSE_DOWN.addHandler(new MouseEventHandlerObject(chessBoard.handleMouseDown, chessBoard));
 PageMouseEventHandlers.MOUSE_UP.addHandler(new MouseEventHandlerObject(chessBoard.handleMouseUp, chessBoard));
+
+
+
 
