@@ -93,10 +93,15 @@ class ChessPiece extends Piece {
         return name == "rook"
     }
 
+    isBishop() {
+        var name = this.element.getAttribute(ChessBoardAttributeKeys.name);
+        return name == "bishop"
+    }
+
     isWhitePiece() {
         return this.getPieceColor() == "white";
     }
-
+                                                                                                                                        
     getPieceColor() {
         return this.element.getAttribute(ChessBoardAttributeKeys.color);
     }
@@ -260,6 +265,42 @@ class ChessBoardSquare extends Piece {
         const col_value = this.element.getAttribute(ChessBoardAttributeKeys.col);
         const col_int = parseInt(col_value) + 1;
         const space_id = boardIdRowMapping[row_value] + col_int;
+        return new ChessBoardSquare(space_id);
+    }
+
+    moveNorthEast(){
+        const row_value = this.element.getAttribute(ChessBoardAttributeKeys.row);
+        const col_value = this.element.getAttribute(ChessBoardAttributeKeys.col);
+        const col_int = parseInt(col_value) + 1;
+        const row_int = parseInt(row_value) - 1;
+        const space_id = boardIdRowMapping [row_int] + col_int;
+        return new ChessBoardSquare(space_id);
+    }
+
+    moveSouthEast(){
+        const row_value = this.element.getAttribute(ChessBoardAttributeKeys.row);
+        const col_value = this.element.getAttribute(ChessBoardAttributeKeys.col);
+        const col_int = parseInt(col_value) + 1;
+        const row_int = parseInt(row_value) + 1;
+        const space_id = boardIdRowMapping [row_int] + col_int;
+        return new ChessBoardSquare(space_id);
+    }
+
+    moveSouthWest(){
+        const row_value = this.element.getAttribute(ChessBoardAttributeKeys.row);
+        const col_value = this.element.getAttribute(ChessBoardAttributeKeys.col);
+        const col_int = parseInt(col_value) - 1;
+        const row_int = parseInt(row_value) + 1;
+        const space_id = boardIdRowMapping [row_int] + col_int;
+        return new ChessBoardSquare(space_id);
+    }
+
+    moveNorthWest(){
+        const row_value = this.element.getAttribute(ChessBoardAttributeKeys.row);
+        const col_value = this.element.getAttribute(ChessBoardAttributeKeys.col);
+        const col_int = parseInt(col_value) - 1;
+        const row_int = parseInt(row_value) - 1;
+        const space_id = boardIdRowMapping [row_int] + col_int;
         return new ChessBoardSquare(space_id);
     }
 }
@@ -498,6 +539,9 @@ class ChessBoard {
         else if(this.active_chess_piece.isRook()) {
             this.rookRules(row, col);
         }
+        else if(this.active_chess_piece.isBishop()) {
+            this.bishopRules(row, col);
+        }
     }
 
     pawnRules(row, col) {
@@ -681,22 +725,17 @@ class ChessBoard {
                     }
                     break;
                 case "down":
-                    console.log("Moving (" + this.active_chess_piece.id + ") down");
                     var next_square = this.active_chess_square;
                     while( next_square.exists() ) {
-                        console.log(" -- current location: " + next_square.id);
                         next_square = next_square.moveDown();
                         if( next_square.exists() ) {
-                            console.log(" -- next location: " + next_square.id);
                             if( next_square.isOccupied() ) {
                                 if( !next_square.isOccupiedBy(this.active_chess_piece.getPieceColor())) {
                                     next_square.setAllowToTake();
-                                    console.log(" ---- allowed to take over");
                                 }
                                 break; 
                             }
                             next_square.setAllowedToMoveInto();
-                            console.log(" ---- allowed to move into")
                         }
                     }
                     
@@ -738,6 +777,98 @@ class ChessBoard {
         }           
     }
 
+    bishopRules(row, col){
+        const directionList = ["NorthEast", "SouthEast", "SouthWest", "NorthWest"]
+        console.log("moving the bishiop: " + this.active_chess_piece.id);
+        for( const direction of directionList) {
+            console.log(" -- moving in direction: " + direction);
+            console.log("direction " + direction)
+            switch(direction) {
+                case "NorthEast":
+                    console.log(" ** in NorthEast");
+                    var next_square = this.active_chess_square;
+                    while( next_square.exists() ) {
+                        console.log(" ** current square is: " + next_square.id);
+                        next_square = next_square.moveNorthEast();
+                        if( next_square.exists() ) {
+                            console.log(next_square.id + " square exists ");
+                            if( next_square.isOccupied() ) {
+                                console.log("!next_square is Occupied" )
+                                if( !next_square.isOccupiedBy(this.active_chess_piece.getPieceColor())) {
+                                    console.log("next square is not occupied by " + this.active_chess_piece.getPieceColor());
+                                    next_square.setAllowToTake();
+                                    console.log("piece is allow to take");
+                                }
+                                break;
+                            }
+                            next_square.setAllowedToMoveInto();
+                            console.log("piece is allowed to move into");
+                        }
+                        else {
+                            console.log("next square does not exist");
+                        }
+                    }
+                    break;
+                case "SouthEast":
+                    var next_square = this.active_chess_square;
+                    while( next_square.exists() ) {
+                        next_square = next_square.moveSouthEast();
+                        if( next_square.exists() ) {
+                            if( next_square.isOccupied() ) {
+                                if( !next_square.isOccupiedBy(this.active_chess_piece.getPieceColor())) {
+                                    next_square.setAllowToTake();
+                                }
+                                break; 
+                            }
+                            next_square.setAllowedToMoveInto();
+                        }
+                    }
+                    
+                   break;
+                case "SouthWest":
+                    var next_square = this.active_chess_square;
+                    while( next_square.exists() ) {
+                        next_square = next_square.moveSouthWest();
+                        if( next_square.exists() ) {
+                            if( next_square.isOccupied() ) {
+                                if( !next_square.isOccupiedBy(this.active_chess_piece.getPieceColor())) {
+                                    next_square.setAllowToTake();
+                                }
+                                break;
+                            }
+                            next_square.setAllowedToMoveInto();
+                        }
+                    }
+                    
+                   break;
+                case "NorthWest":
+                    var next_square = this.active_chess_square;
+                    while( next_square.exists() ) {
+                        next_square = next_square.moveNorthWest();
+                        if( next_square.exists() ) {
+                            if( next_square.isOccupied() ) {
+                                if( !next_square.isOccupiedBy(this.active_chess_piece.getPieceColor())) {
+                                    next_square.setAllowToTake();
+                                }
+                                break;
+                            }
+                            next_square.setAllowedToMoveInto();
+                        }
+                    }
+                    
+                   break;
+                }
+
+        }
+                    
+                   
+           
+    }
+
+
+    
+
+
 
 
 
@@ -760,7 +891,5 @@ const chessBoard = new ChessBoard();
 PageMouseEventHandlers.MOUSE_MOVE.addHandler(new MouseEventHandlerObject(chessBoard.handleMouseMove, chessBoard));
 PageMouseEventHandlers.MOUSE_DOWN.addHandler(new MouseEventHandlerObject(chessBoard.handleMouseDown, chessBoard));
 PageMouseEventHandlers.MOUSE_UP.addHandler(new MouseEventHandlerObject(chessBoard.handleMouseUp, chessBoard));
-
-
 
 
