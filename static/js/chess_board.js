@@ -103,6 +103,11 @@ class ChessPiece extends Piece {
         return name == "queen"
     }
 
+    isKing() {
+        var name = this.element.getAttribute(ChessBoardAttributeKeys.name);
+        return name == "king"
+    }
+
     isWhitePiece() {
         return this.getPieceColor() == "white";
     }
@@ -550,6 +555,9 @@ class ChessBoard {
         else if(this.active_chess_piece.isQueen()) {
             this.queenRules(row, col);
         }
+        else if(this.active_chess_piece.isKing()) {
+            this.kingRules(row, col)
+        }
         
     }
 
@@ -896,8 +904,6 @@ class ChessBoard {
 
 
 
-
-
     queenRules(row, col){
         const directionList = ["up","down","left","right"];
         const directionLists = ["NorthEast", "SouthEast", "SouthWest", "NorthWest"]
@@ -1074,23 +1080,38 @@ class ChessBoard {
 
    
 
+    kingRules(row, col){
+        const row_col_array = [
+            [row - 1, col - 0],
+            [row - 1, col + 1],
+            [row + 0, col + 1],
+            [row + 1, col + 1],
+            [row + 1, col + 0],
+            [row + 1, col - 1],
+            [row - 0, col - 1],
+            [row - 1, col - 1]
+        ] 
+
+
+        for(const index in row_col_array) {
+            const board_id = boardIdRowMapping[row_col_array[index][0]] + row_col_array[index][1]
+            const chess_square = new ChessBoardSquare(board_id);
+            if( chess_square.exists()) {
+                if( !chess_square.isOccupied() ) {
+                    chess_square.style.border = "solid 1px orange";
+                    chess_square.setAllowedToMoveInto();
+                }
+                if( chess_square.isOccupied() && !chess_square.isOccupiedBy(this.active_chess_piece.getPieceColor()) ) {
+                    chess_square.style.border = "solid 1px orange";
+                    chess_square.setAllowToTake();
+                }
+            }
+        }
+    }
 
     
 
 
-
-
-
-
-
-    /* 
-    
-    complete the rest 
-    
-    reference:
-       line 76 -- isKnight()
-            line 452 -- else if(this.active_chess_piece.isKnight()) {
-    */
 }
 
 
