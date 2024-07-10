@@ -542,6 +542,7 @@ class ChessBoard {
         else if(this.active_chess_piece.isBishop()) {
             this.bishopRules(row, col);
         }
+        
     }
 
     pawnRules(row, col) {
@@ -793,7 +794,7 @@ class ChessBoard {
                         if( next_square.exists() ) {
                             console.log(next_square.id + " square exists ");
                             if( next_square.isOccupied() ) {
-                                console.log("!next_square is Occupied" )
+                                console.log("next_square is Occupied" );
                                 if( !next_square.isOccupiedBy(this.active_chess_piece.getPieceColor())) {
                                     console.log("next square is not occupied by " + this.active_chess_piece.getPieceColor());
                                     next_square.setAllowToTake();
@@ -810,33 +811,53 @@ class ChessBoard {
                     }
                     break;
                 case "SouthEast":
+                    console.log(" ** in SouthEast");
                     var next_square = this.active_chess_square;
                     while( next_square.exists() ) {
+                        console.log(" ** current square is: " + next_square.id);
                         next_square = next_square.moveSouthEast();
                         if( next_square.exists() ) {
+                            console.log(next_square.id + " square exists ");
                             if( next_square.isOccupied() ) {
+                                console.log("next_square is Occupied" );
                                 if( !next_square.isOccupiedBy(this.active_chess_piece.getPieceColor())) {
+                                    console.log("next square is not occupied by " + this.active_chess_piece.getPieceColor());
                                     next_square.setAllowToTake();
+                                    console.log("piece is allow to take");
                                 }
                                 break; 
                             }
                             next_square.setAllowedToMoveInto();
+                            console.log("piece is allowed to move into");
+                        }
+                        else {
+                            console.log("next square does not exist");
                         }
                     }
                     
                    break;
                 case "SouthWest":
+                    console.log(" ** in SouthWest");
                     var next_square = this.active_chess_square;
                     while( next_square.exists() ) {
+                        console.log(" ** current square is: " + next_square.id);
                         next_square = next_square.moveSouthWest();
                         if( next_square.exists() ) {
+                            console.log(next_square.id + " square exists ");
                             if( next_square.isOccupied() ) {
+                                console.log("next_square is Occupied" );
                                 if( !next_square.isOccupiedBy(this.active_chess_piece.getPieceColor())) {
+                                    console.log("next square is not occupied by " + this.active_chess_piece.getPieceColor());
                                     next_square.setAllowToTake();
+                                    console.log("piece is allow to take");
                                 }
                                 break;
                             }
                             next_square.setAllowedToMoveInto();
+                            console.log("piece is allowed to move into");
+                        }
+                        else {
+                            console.log("next square does not exist");
                         }
                     }
                     
@@ -866,6 +887,10 @@ class ChessBoard {
     }
 
 
+
+   
+
+
     
 
 
@@ -880,7 +905,7 @@ class ChessBoard {
     
     reference:
        line 76 -- isKnight()
-       line 452 -- else if(this.active_chess_piece.isKnight()) {
+            line 452 -- else if(this.active_chess_piece.isKnight()) {
     */
 }
 
