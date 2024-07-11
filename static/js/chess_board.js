@@ -915,8 +915,6 @@ class ChessBoard {
            
     }
 
-
-
     queenRules(row, col){
         const directionList = ["up","down","left","right"];
         const directionLists = ["NorthEast", "SouthEast", "SouthWest", "NorthWest"]
@@ -1091,8 +1089,6 @@ class ChessBoard {
         }
     }
 
-   
-
     kingRules(row, col){
         const row_col_array = [
             [row - 1, col - 0],
@@ -1121,9 +1117,6 @@ class ChessBoard {
             }
         }
     }
-
-    
-
 
 }
 
