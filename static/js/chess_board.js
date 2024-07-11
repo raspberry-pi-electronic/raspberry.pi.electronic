@@ -22,6 +22,9 @@ class ChessBoardAttributeKeys {
     static name = "name";
     static suffix = "suffix";
     static at_origin = "at_origin";
+
+    static white_chess_grave_yard = "white_chess_grave_yard";
+    static black_chess_grave_yard = "black_chess_grave_yard";
 }
 
 class Piece {
@@ -74,6 +77,16 @@ class ChessPiece extends Piece {
 
     remove() {
         this.element.parentNode.removeChild(this.element);
+        this.element.style.position = "relative";
+        this.element.style.top = "0px";
+        this.element.style.left = "0px";
+        this.element.style.display = "block";
+        if( this.isWhitePiece() ) {
+            document.getElementById(ChessBoardAttributeKeys.white_chess_grave_yard).appendChild(this.element);
+        }
+        else {
+            document.getElementById(ChessBoardAttributeKeys.black_chess_grave_yard).appendChild(this.element);
+        }
         this.id = null;
         this.element = null;
     }
@@ -210,7 +223,7 @@ class ChessBoardSquare extends Piece {
         var size = this.getSize();
         this.location = [0 + size[0] / 2, 0 + size[1] / 2];
         while( (ele.nodeName.toLowerCase() != "body") && (maxLevel > 0) ) {
-            if( ele.nodeName.toLowerCase() != "tr") {
+            if( ele.nodeName.toLowerCase() != "tr" && ele.nodeName.toLowerCase() != "table") {
                 this.location[0] += parseInt(ele.offsetLeft);
                 this.location[1] += parseInt(ele.offsetTop);
             }
