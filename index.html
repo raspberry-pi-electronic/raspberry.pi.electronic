@@ -4,10 +4,15 @@
     <title>Raspberry pi & Electronics</title>
     <script>
 
+        var activeMenu = null;
         function setPageContent(obj) {
             var f = document.getElementById("content_frame");
             f.src = obj.getAttribute("url");
-            return false;
+            obj.parentNode.style.color="red";
+            if( activeMenu ) {
+                activeMenu.style.color="black";
+            }
+            activeMenu = obj.parentNode;
         }
 
     </script>
@@ -43,8 +48,11 @@
         <li><a href="javascript: return false;" url="docs/MAN74A-Fairchild.pdf" onclick="setPageContent(this)">7-segment display</a></li>
     </ul>
 
+    <div style="border-bottom:solid 1px black;"></div>
     <div><br/></div>
-    
+
+    <div><a href="https://github.com/raspberry-pi-electronic/raspberry.pi.electronic" target="the_source">The Source</a></div>
+
     <div><a href="https://raspberry-pi-electronic.blogspot.com/2024/06/the-grand-plan.html" target="my_blog">The blog</a></div>
 </div>
 <div id="content" style="display:inline-block;padding-left:10px;">
