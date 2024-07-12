@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Date Type Introduction</title>
+    <style>
+        .example {
+            color:blue;
+        }
+
+        .indent {
+            margin-left:5px;
+        }
+
+        .type {
+            font-weight: bold
+        }
+
+        .type_description {
+            font-style: italic;
+        }
+
+        .type_wrapper {
+            border:solid 1px black;
+            padding: 3px 3px 3px 3px;
+        }
+
+        .comment {
+            color:blue;font-style: italic;
+        }
+    </style>
+</head>
+<body>
+<div style="text-align: center;"><h2>Date Type Introduction</h2></div>
+
+<div class="type_wrapper">
+    <div class="type">String</div>
+    <div lass="indent">
+        A <span class="type_description">String</span> is a collection of letters and numbers.  
+        The data of the string are placed inside of double quotes <span class="type_description">""</span>
+    </div>
+    <div><br/></div>
+    <div class="indent">
+        <div>Example:</div>
+        <div class="indent example">
+            var a = "My name is Daniel"
+        </div>
+        <div class="indent example">
+            var a = "Today's date is: 2024/07/11"
+        </div>
+    </div>
+</div>
+
+<div><br/></div>
+
+<div class="type_wrapper">
+    <div class="type">Integer</div>
+    <div lass="indent">
+        An <span class="type_description">integer</span> is a number that has no decimal.
+        Any value after the decimal is dropped.
+    </div>
+    <div><br/></div>
+    <div class="indent">
+        <div>Example:</div>
+        <div class="indent example">
+            var a = 3
+        </div>
+        <div class="indent example">
+            var number = 12.34;
+        </div>
+        <div class="indent example">
+            var integer_value = parseInt(number);
+        </div>
+        <div class="indent comment">// the variable integer_value will contain 12</div>
+    </div>
+</div>
+
+<div><br/></div>
+
+<div class="type_wrapper">
+    <div class="type">Float</div>
+    <div lass="indent">
+        A <span class="type_description">float</span> or floating point number is 
+        number with decimal
+    </div>
+    <div><br/></div>
+    <div class="indent">
+        <div>Example:</div>
+        <div class="indent example">
+            var a = 3.14159
+        </div>
+    </div>
+</div>
+
+<div><br/></div>
+
+<div class="type_wrapper">
+    <span class="type">Array</span> <span>or</span> <span class="type">List</span>
+    <div lass="indent">
+        An <span class="type_description">array</span> or a <span class="type_description">list</span> is a way to store data squentially, but
+        users are able to access any data by its index -- reading, writing and inserting.
+    </div>
+    <div lass="indent">
+        Think of a stack of card.  Normally, you put or pull a card from the top of deck or bottom of the deck.
+    </div>
+    <div lass="indent">
+        To create an array, the data are placed between square brackets <span class="type_description">[]</span>
+    </div>
+    <div><br/></div>
+    <div class="indent">
+        <div>Example:</div>
+        <div class="indent example">
+            var a = [ "a", "b", 2, 4, 6 ];
+        </div>
+        <div class="indent example">
+            var b = new Array("a", "b", 2, 4, 6);
+        </div>
+    </div>
+    <div><br/></div>
+    <div class="indent">
+        <img src="img/poker_cards_3.png"/>
+    </div>
+    <div class="indent">
+        For a deck of card, above as an example.  Let say your deck of card originally the <b>King</b> is on top.
+        Then you place the <b>Queen</b> on top of the deck.  That's storing data into the array.
+    </div>
+    <div class="indent">
+        It also works on the reverse.  You remove the <b>King</b> from the deck.  That's reading the data from the array.
+    </div>
+    <div class="indent">
+        Also, on the oppersite end.  Data can be store and read from the bottom of the array.  
+        -- Taking a card from the bottom of the deck.
+    </div>
+</div>
+
+<div><br/></div>
+
+<div class="type_wrapper">
+    <span class="type">Dictionary</span>, <span class="type">Map</span> or <span class="type">Associative Array</span>
+    <div lass="indent">
+        A <span class="type_description">dictionary</span>, 
+        <span class="type_description">map</span> and 
+        <span class="type_description">associative array</span>
+        is to store data into a key and value pair.  Like a book of dictionary, you can look up a word to get it's definition.
+    </div>
+    <div lass="indent">
+        A dictionary/map/associated array data are placed in a pair of brances <span class="type_description">{}</span>.
+    </div>
+
+    <div><br/></div>
+    <div class="indent">
+        <div>Example:</div>
+        <div class="indent example">
+            var a = { };
+        </div>
+        <div class="indent example">or</div>
+        <div class="indent example">
+            var b = {
+                "1st grade": 33,
+                "2nd grade": 22,
+                "3rd grade": 23,
+                "4th grade": 30,
+                "5th grade": 33,
+                "6th grade": 26
+            }
+        </div>
+    </div>
+    <div><br/></div>
+
+    <div lass="indent">
+
+    </div>
+</div>
+
+<div><br/></div>
+<div><br/></div>
+<div>
+    Resources: <br/>
+    <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures" target="ext_source">Data Structure -- Mozilla</a>
+    <br/>
+    <a href="https://www.w3schools.com/js/js_datatypes.asp" target="ext_source">Data Structure -- w3schools</a>
+</div>
+<div><br/></div>
+<div><br/></div>
+
+</body>
+</html>
