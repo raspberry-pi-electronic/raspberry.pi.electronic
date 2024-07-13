@@ -266,6 +266,10 @@ class ChessBoardSquare extends Piece {
         return new ChessBoardSquare(space_id);
     }
 
+    static moveUp(piece) {
+        return piece.moveUp();
+    }
+
     moveDown() {
         const row_value = this.element.getAttribute(ChessBoardAttributeKeys.row);
         const col_value = this.element.getAttribute(ChessBoardAttributeKeys.col);
@@ -273,6 +277,10 @@ class ChessBoardSquare extends Piece {
         const space_id = boardIdRowMapping[row_int] + col_value;
         return new ChessBoardSquare(space_id);
 
+    }
+
+    static moveDown(piece) {
+        return piece.moveDown();
     }
 
     moveLeft() {
@@ -283,12 +291,20 @@ class ChessBoardSquare extends Piece {
         return new ChessBoardSquare(space_id);
     }
 
+    static moveLeft(piece) {
+        return piece.moveLeft();
+    }
+
     moveRight() {
         const row_value = this.element.getAttribute(ChessBoardAttributeKeys.row);
         const col_value = this.element.getAttribute(ChessBoardAttributeKeys.col);
         const col_int = parseInt(col_value) + 1;
         const space_id = boardIdRowMapping[row_value] + col_int;
         return new ChessBoardSquare(space_id);
+    }
+
+    static moveRight(piece) {
+        return piece.moveRight();
     }
 
     moveNorthEast(){
@@ -300,6 +316,10 @@ class ChessBoardSquare extends Piece {
         return new ChessBoardSquare(space_id);
     }
 
+    static moveNorthEast(piece) {
+        return piece.moveNorthEast();
+    }
+
     moveSouthEast(){
         const row_value = this.element.getAttribute(ChessBoardAttributeKeys.row);
         const col_value = this.element.getAttribute(ChessBoardAttributeKeys.col);
@@ -307,6 +327,10 @@ class ChessBoardSquare extends Piece {
         const row_int = parseInt(row_value) + 1;
         const space_id = boardIdRowMapping [row_int] + col_int;
         return new ChessBoardSquare(space_id);
+    }
+
+    static moveSouthEast(piece) {
+        return piece.moveSouthEast();
     }
 
     moveSouthWest(){
@@ -318,6 +342,10 @@ class ChessBoardSquare extends Piece {
         return new ChessBoardSquare(space_id);
     }
 
+    static moveSouthWest(piece) {
+        return piece.moveSouthWest();
+    }
+
     moveNorthWest(){
         const row_value = this.element.getAttribute(ChessBoardAttributeKeys.row);
         const col_value = this.element.getAttribute(ChessBoardAttributeKeys.col);
@@ -325,6 +353,10 @@ class ChessBoardSquare extends Piece {
         const row_int = parseInt(row_value) - 1;
         const space_id = boardIdRowMapping [row_int] + col_int;
         return new ChessBoardSquare(space_id);
+    }
+
+    static moveNorthWest(piece) {
+        return piece.moveNorthWest();
     }
 }
 
@@ -736,355 +768,88 @@ class ChessBoard {
     }
 
     rookRules(row, col){
-        const directionList = ["up","down","left","right"];
+        const directionList = [
+            ChessBoardSquare.moveUp, 
+            ChessBoardSquare.moveDown,
+            ChessBoardSquare.moveLeft,
+            ChessBoardSquare.moveRight
+        ];
         for( const direction of directionList) {
-            switch(direction) {
-                case "up":
-                    var next_square = this.active_chess_square;
-                    while( next_square.exists() ) {
-                        next_square = next_square.moveUp();
-                        if( next_square.exists() ) {
-                            if( next_square.isOccupied() ) {
-                                if( !next_square.isOccupiedBy(this.active_chess_piece.getPieceColor())) {
-                                    next_square.setAllowToTake();
-                                }
-                                break; // this break is to break the while loop
-                            }
-                            next_square.setAllowedToMoveInto();
+            var next_square = this.active_chess_square;
+            while( next_square.exists() ) {
+                next_square = direction(next_square);
+                if( next_square.exists() ) {
+                    if( next_square.isOccupied() ) {
+                        if( !next_square.isOccupiedBy(this.active_chess_piece.getPieceColor())) {
+                            next_square.setAllowToTake();
                         }
+                        break; // this break is to break the while loop
                     }
-                    break;
-                case "down":
-                    var next_square = this.active_chess_square;
-                    while( next_square.exists() ) {
-                        next_square = next_square.moveDown();
-                        if( next_square.exists() ) {
-                            if( next_square.isOccupied() ) {
-                                if( !next_square.isOccupiedBy(this.active_chess_piece.getPieceColor())) {
-                                    next_square.setAllowToTake();
-                                }
-                                break; 
-                            }
-                            next_square.setAllowedToMoveInto();
-                        }
-                    }
-                    
-                   break;
-                case "left":
-                    var next_square = this.active_chess_square;
-                    while( next_square.exists() ) {
-                        next_square = next_square.moveLeft();
-                        if( next_square.exists() ) {
-                            if( next_square.isOccupied() ) {
-                                if( !next_square.isOccupiedBy(this.active_chess_piece.getPieceColor())) {
-                                    next_square.setAllowToTake();
-                                }
-                                break;
-                            }
-                            next_square.setAllowedToMoveInto();
-                        }
-                    }
-                    
-                   break;
-                case "right":
-                    var next_square = this.active_chess_square;
-                    while( next_square.exists() ) {
-                        next_square = next_square.moveRight();
-                        if( next_square.exists() ) {
-                            if( next_square.isOccupied() ) {
-                                if( !next_square.isOccupiedBy(this.active_chess_piece.getPieceColor())) {
-                                    next_square.setAllowToTake();
-                                }
-                                break;
-                            }
-                            next_square.setAllowedToMoveInto();
-                        }
-                    }
-                    
-                   break;
+                    next_square.setAllowedToMoveInto();
                 }
-
+            }
         }           
     }
 
     bishopRules(row, col){
-        const directionList = ["NorthEast", "SouthEast", "SouthWest", "NorthWest"]
+        const directionList = [
+            ChessBoardSquare.moveNorthEast, 
+            ChessBoardSquare.moveSouthEast,
+            ChessBoardSquare.moveSouthWest,
+            ChessBoardSquare.moveNorthWest
+        ];
         console.log("moving the bishiop: " + this.active_chess_piece.id);
         for( const direction of directionList) {
-            console.log(" -- moving in direction: " + direction);
-            console.log("direction " + direction)
-            switch(direction) {
-                case "NorthEast":
-                    console.log(" ** in NorthEast");
-                    var next_square = this.active_chess_square;
-                    while( next_square.exists() ) {
-                        console.log(" ** current square is: " + next_square.id);
-                        next_square = next_square.moveNorthEast();
-                        if( next_square.exists() ) {
-                            console.log(next_square.id + " square exists ");
-                            if( next_square.isOccupied() ) {
-                                console.log("next_square is Occupied" );
-                                if( !next_square.isOccupiedBy(this.active_chess_piece.getPieceColor())) {
-                                    console.log("next square is not occupied by " + this.active_chess_piece.getPieceColor());
-                                    next_square.setAllowToTake();
-                                    console.log("piece is allow to take");
-                                }
-                                break;
-                            }
-                            next_square.setAllowedToMoveInto();
-                            console.log("piece is allowed to move into");
+            var next_square = this.active_chess_square;
+            while( next_square.exists() ) {
+                console.log(" ** current square is: " + next_square.id);
+                next_square = direction(next_square);
+                if( next_square.exists() ) {
+                    console.log(next_square.id + " square exists ");
+                    if( next_square.isOccupied() ) {
+                        console.log("next_square is Occupied" );
+                        if( !next_square.isOccupiedBy(this.active_chess_piece.getPieceColor())) {
+                            console.log("next square is not occupied by " + this.active_chess_piece.getPieceColor());
+                            next_square.setAllowToTake();
+                            console.log("piece is allow to take");
                         }
-                        else {
-                            console.log("next square does not exist");
-                        }
+                        break;
                     }
-                    break;
-                case "SouthEast":
-                    console.log(" ** in SouthEast");
-                    var next_square = this.active_chess_square;
-                    while( next_square.exists() ) {
-                        console.log(" ** current square is: " + next_square.id);
-                        next_square = next_square.moveSouthEast();
-                        if( next_square.exists() ) {
-                            console.log(next_square.id + " square exists ");
-                            if( next_square.isOccupied() ) {
-                                console.log("next_square is Occupied" );
-                                if( !next_square.isOccupiedBy(this.active_chess_piece.getPieceColor())) {
-                                    console.log("next square is not occupied by " + this.active_chess_piece.getPieceColor());
-                                    next_square.setAllowToTake();
-                                    console.log("piece is allow to take");
-                                }
-                                break; 
-                            }
-                            next_square.setAllowedToMoveInto();
-                            console.log("piece is allowed to move into");
-                        }
-                        else {
-                            console.log("next square does not exist");
-                        }
-                    }
-                    
-                   break;
-                case "SouthWest":
-                    console.log(" ** in SouthWest");
-                    var next_square = this.active_chess_square;
-                    while( next_square.exists() ) {
-                        console.log(" ** current square is: " + next_square.id);
-                        next_square = next_square.moveSouthWest();
-                        if( next_square.exists() ) {
-                            console.log(next_square.id + " square exists ");
-                            if( next_square.isOccupied() ) {
-                                console.log("next_square is Occupied" );
-                                if( !next_square.isOccupiedBy(this.active_chess_piece.getPieceColor())) {
-                                    console.log("next square is not occupied by " + this.active_chess_piece.getPieceColor());
-                                    next_square.setAllowToTake();
-                                    console.log("piece is allow to take");
-                                }
-                                break;
-                            }
-                            next_square.setAllowedToMoveInto();
-                            console.log("piece is allowed to move into");
-                        }
-                        else {
-                            console.log("next square does not exist");
-                        }
-                    }
-                    
-                   break;
-                case "NorthWest":
-                    var next_square = this.active_chess_square;
-                    while( next_square.exists() ) {
-                        next_square = next_square.moveNorthWest();
-                        if( next_square.exists() ) {
-                            if( next_square.isOccupied() ) {
-                                if( !next_square.isOccupiedBy(this.active_chess_piece.getPieceColor())) {
-                                    next_square.setAllowToTake();
-                                }
-                                break;
-                            }
-                            next_square.setAllowedToMoveInto();
-                        }
-                    }
-                    
-                   break;
+                    next_square.setAllowedToMoveInto();
+                    console.log("piece is allowed to move into");
                 }
-
+                else {
+                    console.log("next square does not exist");
+                }
+            }
         }
-                    
-                   
-           
     }
 
     queenRules(row, col){
-        const directionList = ["up","down","left","right"];
-        const directionLists = ["NorthEast", "SouthEast", "SouthWest", "NorthWest"]
+        const directionList = [
+            ChessBoardSquare.moveNorthEast, 
+            ChessBoardSquare.moveSouthEast,
+            ChessBoardSquare.moveSouthWest,
+            ChessBoardSquare.moveNorthWest,
+            ChessBoardSquare.moveUp, 
+            ChessBoardSquare.moveDown,
+            ChessBoardSquare.moveLeft,
+            ChessBoardSquare.moveRight
+        ];
         for( const direction of directionList) {
-            switch(direction) {
-                case "up":
-                    var next_square = this.active_chess_square;
-                    while( next_square.exists() ) {
-                        next_square = next_square.moveUp();
-                        if( next_square.exists() ) {
-                            if( next_square.isOccupied() ) {
-                                if( !next_square.isOccupiedBy(this.active_chess_piece.getPieceColor())) {
-                                    next_square.setAllowToTake();
-                                }
-                                break; // this break is to break the while loop
-                            }
-                            next_square.setAllowedToMoveInto();
+            var next_square = this.active_chess_square;
+            while( next_square.exists() ) {
+                next_square = direction(next_square);
+                if( next_square.exists() ) {
+                    if( next_square.isOccupied() ) {
+                        if( !next_square.isOccupiedBy(this.active_chess_piece.getPieceColor())) {
+                            next_square.setAllowToTake();
                         }
+                        break; // this break is to break the while loop
                     }
-                    break;
-                case "down":
-                    var next_square = this.active_chess_square;
-                    while( next_square.exists() ) {
-                        next_square = next_square.moveDown();
-                        if( next_square.exists() ) {
-                            if( next_square.isOccupied() ) {
-                                if( !next_square.isOccupiedBy(this.active_chess_piece.getPieceColor())) {
-                                    next_square.setAllowToTake();
-                                }
-                                break; 
-                            }
-                            next_square.setAllowedToMoveInto();
-                        }
-                    }
-                    
-                   break;
-                case "left":
-                    var next_square = this.active_chess_square;
-                    while( next_square.exists() ) {
-                        next_square = next_square.moveLeft();
-                        if( next_square.exists() ) {
-                            if( next_square.isOccupied() ) {
-                                if( !next_square.isOccupiedBy(this.active_chess_piece.getPieceColor())) {
-                                    next_square.setAllowToTake();
-                                }
-                                break;
-                            }
-                            next_square.setAllowedToMoveInto();
-                        }
-                    }
-                    
-                   break;
-                case "right":
-                    var next_square = this.active_chess_square;
-                    while( next_square.exists() ) {
-                        next_square = next_square.moveRight();
-                        if( next_square.exists() ) {
-                            if( next_square.isOccupied() ) {
-                                if( !next_square.isOccupiedBy(this.active_chess_piece.getPieceColor())) {
-                                    next_square.setAllowToTake();
-                                }
-                                break;
-                            }
-                            next_square.setAllowedToMoveInto();
-                        }
-                    }
-                    
-                   break;
+                    next_square.setAllowedToMoveInto();
                 }
-
-        }
-
-        for( const direction of directionLists) {
-            console.log(" -- moving in direction: " + direction);
-            console.log("direction " + direction)
-            switch(direction) {
-                case "NorthEast":
-                    console.log(" ** in NorthEast");
-                    var next_square = this.active_chess_square;
-                    while( next_square.exists() ) {
-                        console.log(" ** current square is: " + next_square.id);
-                        next_square = next_square.moveNorthEast();
-                        if( next_square.exists() ) {
-                            console.log(next_square.id + " square exists ");
-                            if( next_square.isOccupied() ) {
-                                console.log("next_square is Occupied" );
-                                if( !next_square.isOccupiedBy(this.active_chess_piece.getPieceColor())) {
-                                    console.log("next square is not occupied by " + this.active_chess_piece.getPieceColor());
-                                    next_square.setAllowToTake();
-                                    console.log("piece is allow to take");
-                                }
-                                break;
-                            }
-                            next_square.setAllowedToMoveInto();
-                            console.log("piece is allowed to move into");
-                        }
-                        else {
-                            console.log("next square does not exist");
-                        }
-                    }
-                    break;
-                case "SouthEast":
-                    console.log(" ** in SouthEast");
-                    var next_square = this.active_chess_square;
-                    while( next_square.exists() ) {
-                        console.log(" ** current square is: " + next_square.id);
-                        next_square = next_square.moveSouthEast();
-                        if( next_square.exists() ) {
-                            console.log(next_square.id + " square exists ");
-                            if( next_square.isOccupied() ) {
-                                console.log("next_square is Occupied" );
-                                if( !next_square.isOccupiedBy(this.active_chess_piece.getPieceColor())) {
-                                    console.log("next square is not occupied by " + this.active_chess_piece.getPieceColor());
-                                    next_square.setAllowToTake();
-                                    console.log("piece is allow to take");
-                                }
-                                break; 
-                            }
-                            next_square.setAllowedToMoveInto();
-                            console.log("piece is allowed to move into");
-                        }
-                        else {
-                            console.log("next square does not exist");
-                        }
-                    }
-                    
-                   break;
-                case "SouthWest":
-                    console.log(" ** in SouthWest");
-                    var next_square = this.active_chess_square;
-                    while( next_square.exists() ) {
-                        console.log(" ** current square is: " + next_square.id);
-                        next_square = next_square.moveSouthWest();
-                        if( next_square.exists() ) {
-                            console.log(next_square.id + " square exists ");
-                            if( next_square.isOccupied() ) {
-                                console.log("next_square is Occupied" );
-                                if( !next_square.isOccupiedBy(this.active_chess_piece.getPieceColor())) {
-                                    console.log("next square is not occupied by " + this.active_chess_piece.getPieceColor());
-                                    next_square.setAllowToTake();
-                                    console.log("piece is allow to take");
-                                }
-                                break;
-                            }
-                            next_square.setAllowedToMoveInto();
-                            console.log("piece is allowed to move into");
-                        }
-                        else {
-                            console.log("next square does not exist");
-                        }
-                    }
-                    
-                   break;
-                case "NorthWest":
-                    var next_square = this.active_chess_square;
-                    while( next_square.exists() ) {
-                        next_square = next_square.moveNorthWest();
-                        if( next_square.exists() ) {
-                            if( next_square.isOccupied() ) {
-                                if( !next_square.isOccupiedBy(this.active_chess_piece.getPieceColor())) {
-                                    next_square.setAllowToTake();
-                                }
-                                break;
-                            }
-                            next_square.setAllowedToMoveInto();
-                        }
-                    }
-                    
-                   break;
-                }
+            }
 
         }
     }
