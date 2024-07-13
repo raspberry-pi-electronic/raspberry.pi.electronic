@@ -400,6 +400,8 @@ class ChessBoard {
     */
     mouse_location = null;
 
+    static white_piece_move = true;
+
     constructor() {
         this.active_chess_piece = null;
         this.target_board_square = null;
@@ -497,6 +499,20 @@ class ChessBoard {
 
         if( obj.active_chess_piece != null ) {
             console.log("active_chess_piece.id = " + obj.active_chess_piece.id);
+            if( obj.active_chess_piece.isWhitePiece() ) {
+                if(!ChessBoard.white_piece_move) {
+                    obj.active_chess_piece = null;
+                    obj.active_chess_square = null;
+                    return;
+                }
+            }
+            else {
+                if(ChessBoard.white_piece_move) {
+                    obj.active_chess_piece = null;
+                    obj.active_chess_square = null;
+                    return;
+                }
+            }
             obj.moveChessPiece();
         }
 
@@ -528,6 +544,7 @@ class ChessBoard {
                 this.active_chess_square.removePiece();
                 this.target_board_square.setPiece(this.active_chess_piece.id);
                 this.setMovedFromOrigin();
+                ChessBoard.white_piece_move = ! ChessBoard.white_piece_move;
             }
             else {
                 var location = this.active_chess_square.getLocation();
@@ -546,6 +563,9 @@ class ChessBoard {
     }
 
     clearAllSquares() {
+        if(this.active_chess_piece == null) {
+            return;
+        }
         for( var i = 1; i < 9; i++ ) {
             var rowLetter = boardIdRowMapping[i];
             for( var k = 1; k < 9; k++ ) {
