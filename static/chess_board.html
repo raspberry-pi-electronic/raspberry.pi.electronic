@@ -13,8 +13,8 @@
     -->
     <style>
         .chess_board {
-            width:60px;
-            height: 60px;
+            width:65px;
+            height: 65px;
             border: 1px solid black;
             text-align: center;
             vertical-align: middle;
@@ -33,6 +33,45 @@
         .player_2 {
             color: blue;
         }
+
+        .chess_piece {
+            width: 60px;
+            height: 60px;
+            background-image: url('img/2d-pieces-s.jpeg');
+        }
+
+        .white_rook {
+            background-position: -270px -40px;
+        }
+
+        .white_knight {
+            background-position: -267px -130px;
+        }
+
+        .white_bishop {
+            background-position: -37px -210px;
+        }
+
+        .white_pawn {
+            background-position: -264px -210px;
+        }
+
+        .black_rook {
+            background-position: -330px -40px;
+        }
+
+        .black_knight {
+            background-position: -332px -132px;
+        }
+
+        .black_bishop {
+            background-position: -100px -210px;
+        }
+
+        .black_pawn {
+            background-position: -326px -210px;
+        }
+
     </style>
     <meta charset="UTF-8">
     <title>The Chess Board</title>
@@ -49,182 +88,168 @@
     <table id="chess_board">
         <tr>
             <td id="A1" is_board="true" col="1" row="1" class="chess_board" contains_piece="black_rook_1">
-                <span class="disable_high_light player_1"
+                <div class="disable_high_light player_1 chess_piece black_rook"
                     is_chess_piece="true"
                     at_origin="true"
                     color="black"
                     name="rook"
                     suffix="1"
                     id="black_rook_1">
-                    Rook
-                </span>
+                </div>
             </td>
             <td id="A2" is_board="true" col="2" row="1" class="chess_board" contains_piece="black_knight_1">
-                <span class="disable_high_light player_1"
+                <div class="disable_high_light player_1 chess_piece black_knight"
                     is_chess_piece="true"
                     at_origin="true"
                     color="black"
                     name="knight"
                     suffix="1"
                     id="black_knight_1">
-                    Knight
-                </span>
+                </div>
             </td>
             <td id="A3" is_board="true" col="3" row="1" class="chess_board" contains_piece="black_bishop_1">
-                <span class="disable_high_light player_1"
+                <div class="disable_high_light player_1 chess_piece black_bishop"
                     is_chess_piece="true"
                     at_origin="true"
                     color="black"
                     name="bishop"
                     suffix="1"
                     id="black_bishop_1">
-                    Bishop
-                </span>
+                </div>
             </td>
             <td id="A4" is_board="true" col="4" row="1" class="chess_board" contains_piece="black_queen">
-                <span class="disable_high_light player_1"
+                <div style="background-position: -98px -129px;"
+                    class="disable_high_light player_1 chess_piece"
                     is_chess_piece="true"
                     at_origin="true"
                     color="black"
                     name="queen"
                     suffix=""
                     id="black_queen">
-                    Queen
-                </span>
+                </div>
             </td>
             <td id="A5" is_board="true" col="5" row="1" class="chess_board" contains_piece="black_king">
-                <span class="disable_high_light player_1"
+                <div style="background-position: -96px -40px;"
+                    class="disable_high_light player_1 chess_piece"
                     is_chess_piece="true"
                     at_origin="true"
                     color="black"
                     name="king"
                     suffix=""
                     id="black_king">
-                    King
-                </span>
+                </div>
             </td>
             <td id="A6" is_board="true" col="6" row="1" class="chess_board" contains_piece="black_bishop_2">
-                <span class="disable_high_light player_1"
+                <div class="disable_high_light player_1 chess_piece black_bishop"
                     is_chess_piece="true"
                     at_origin="true"
                     color="black"
                     name="bishop"
                     suffix="2"
                     id="black_bishop_2">
-                    bishop
-                </span>
+                </div>
             </td>
             <td id="A7" is_board="true" col="7" row="1" class="chess_board" contains_piece="black_knight_2">
-                <span class="disable_high_light player_1"
+                <div class="disable_high_light player_1 chess_piece black_knight"
                     is_chess_piece="true"
                     at_origin="true"
                     color="black"
                     name="knight"
                     suffix="2"
                     id="black_knight_2">
-                    Knight
-                </span>
+                </div>
             </td>
             <td id="A8" is_board="true" col="8" row="1" class="chess_board" contains_piece="black_rook_2">
-                <span class="disable_high_light player_1"
+                <div class="disable_high_light player_1 chess_piece black_rook"
                     is_chess_piece="true"
                     at_origin="true"
                     color="black"
                     name="rook"
                     suffix="2"
                     id="black_rook_2">
-                    Rook
-                </span>
+                </div>
             </td>
         </tr>
         <tr>
             <td id="B1"  is_board="true" col="1" row="2" class="chess_board" contains_piece="black_pawn_1">
-                <span class="disable_high_light player_1"
+                <div class="disable_high_light player_1 chess_piece black_pawn"
                     is_chess_piece="true"
                     at_origin="true"
                     color="black"
                     name="pawn"
                     suffix="1"
                     id="black_pawn_1">
-                    Pawn
-                </span>
+                </div>
             </td>
             <td id="B2" is_board="true" col="2" row="2" class="chess_board" contains_piece="black_pawn_2">
-                <span class="disable_high_light player_1"
+                <div class="disable_high_light player_1 chess_piece black_pawn"
                     is_chess_piece="true"
                     at_origin="true"
                     color="black"
                     name="pawn"
                     suffix="2"
                     id="black_pawn_2">
-                    Pawn
-                </span>
+                </div>
             </td>
             <td id="B3" is_board="true" col="3" row="2" class="chess_board" contains_piece="black_pawn_3">
-                <span class="disable_high_light player_1"
+                <div class="disable_high_light player_1 chess_piece black_pawn"
                     is_chess_piece="true"
                     at_origin="true"
                     color="black"
                     name="pawn"
                     suffix="3"
                     id="black_pawn_3">
-                    Pawn
-                </span>
+                </div>
             </td>
             <td id="B4" is_board="true" col="4" row="2" class="chess_board" contains_piece="black_pawn_4">
-                <span class="disable_high_light player_1"
+                <div class="disable_high_light player_1 chess_piece black_pawn"
                     is_chess_piece="true"
                     at_origin="true"
                     color="black"
                     name="pawn"
                     suffix="4"
                     id="black_pawn_4">
-                    Pawn
-                </span>
+                </div>
             </td>
             <td id="B5" is_board="true" col="5" row="2" class="chess_board" contains_piece="black_pawn_5">
-                <span class="disable_high_light player_1"
+                <div class="disable_high_light player_1 chess_piece black_pawn"
                     is_chess_piece="true"
                     at_origin="true"
                     color="black"
                     name="pawn"
                     suffix="5"
                     id="black_pawn_5">
-                    Pawn
-                </span>
+                </div>
             </td>
             <td id="B6" is_board="true" col="6" row="2" class="chess_board" contains_piece="black_pawn_6">
-                <span class="disable_high_light player_1"
+                <div class="disable_high_light player_1 chess_piece black_pawn"
                     is_chess_piece="true"
                     at_origin="true"
                     color="black"
                     name="pawn"
                     suffix="6"
                     id="black_pawn_6">
-                    Pawn
-                </span>
+                </div>
             </td>
             <td id="B7" is_board="true" col="7" row="2" class="chess_board" contains_piece="black_pawn_7">
-                <span class="disable_high_light player_1"
+                <div class="disable_high_light player_1 chess_piece black_pawn"
                     is_chess_piece="true"
                     at_origin="true"
                     color="black"
                     name="pawn"
                     suffix="7"
                     id="black_pawn_7">
-                    Pawn
-                </span>
+                </div>
             </td>
             <td id="B8" is_board="true" col="8" row="2" class="chess_board" contains_piece="black_pawn_8">
-                <span class="disable_high_light player_1"
+                <div class="disable_high_light player_1 chess_piece black_pawn"
                     is_chess_piece="true"
                     at_origin="true"
                     color="black"
                     name="pawn"
                     suffix="8"
                     id="black_pawn_8">
-                    Pawn
-                </span>
+                </div>
             </td>
         </tr>
 
@@ -334,181 +359,168 @@
         </tr>
         <tr>
             <td id="G1" is_board="true" col="1" row="7" class="chess_board" contains_piece="white_pawn_1">
-                <span class="disable_high_light player_2"
+                <div class="disable_high_light player_2 chess_piece white_pawn"
                     is_chess_piece="true"
                     at_origin="true"
                     color="white"
                     name="pawn"
                     suffix="1"
                     id="white_pawn_1">
-                    Pawn
-                </span>
+                </div>
             </td>
             <td id="G2" is_board="true" col="2" row="7" class="chess_board" contains_piece="white_pawn_2">
-                <span class="disable_high_light player_2"
+                <div class="disable_high_light player_2 chess_piece white_pawn"
                     is_chess_piece="true"
                     at_origin="true"
                     color="white"
                     name="pawn"
                     suffix="2"
                     id="white_pawn_2">
-                    Pawn
-                </span>
+                </div>
             </td>
             <td id="G3" is_board="true" col="3" row="7" class="chess_board" contains_piece="white_pawn_3">
-                <span class="disable_high_light player_2"
+                <div class="disable_high_light player_2 chess_piece white_pawn"
                     is_chess_piece="true"
                     at_origin="true"
                     color="white"
                     name="pawn"
                     suffix="3"
                     id="white_pawn_3">
-                    Pawn
-                </span>
+                </div>
             </td>
             <td id="G4" is_board="true" col="4" row="7" class="chess_board" contains_piece="white_pawn_4">
-                <span class="disable_high_light player_2"
+                <div class="disable_high_light player_2 chess_piece white_pawn"
                     is_chess_piece="true"
                     at_origin="true"
                     color="white"
                     name="pawn"
                     suffix="4"
                     id="white_pawn_4">
-                    Pawn
-                </span>
+                </div>
             </td>
             <td id="G5" is_board="true" col="5" row="7" class="chess_board" contains_piece="white_pawn_5">
-                <span class="disable_high_light player_2"
+                <div class="disable_high_light player_2 chess_piece white_pawn"
                     is_chess_piece="true"
                     at_origin="true"
                     color="white"
                     name="pawn"
                     suffix="5"
                     id="white_pawn_5">
-                    Pawn
-                </span>
+                </div>
             </td>
             <td id="G6" is_board="true" col="6" row="7" class="chess_board" contains_piece="white_pawn_6">
-                <span class="disable_high_light player_2"
+                <div class="disable_high_light player_2 chess_piece white_pawn"
                     is_chess_piece="true"
                     at_origin="true"
                     color="white"
                     name="pawn"
                     suffix="6"
                     id="white_pawn_6">
-                    Pawn
-                </span>
+                </div>
             </td>
             <td id="G7" is_board="true" col="7" row="7" class="chess_board" contains_piece="white_pawn_7">
-                <span class="disable_high_light player_2"
+                <div class="disable_high_light player_2 chess_piece white_pawn"
                     is_chess_piece="true"
                     at_origin="true"
                     color="white"
                     name="pawn"
                     suffix="7"
                     id="white_pawn_7">
-                    Pawn
-                </span>
+                </div>
             </td>
             <td id="G8" is_board="true" col="8" row="7" class="chess_board" contains_piece="white_pawn_8">
-                <span class="disable_high_light player_2"
+                <div class="disable_high_light player_2 chess_piece white_pawn"
                     is_chess_piece="true"
                     at_origin="true"
                     color="white"
                     name="pawn"
                     suffix="8"
                     id="white_pawn_8">
-                    Pawn
-                </span>
+                </div>
             </td>
         <tr>
             <td id="H1"is_board="true" col="1" row="8" class="chess_board" contains_piece="white_rook_1">
-                <span class="disable_high_light player_2"
+                <div class="disable_high_light player_2 chess_piece white_rook"
                     is_chess_piece="true"
                     at_origin="true"
                     color="white"
                     name="rook"
                     suffix="1"
                     id="white_rook_1">
-                    Rook
-                </span>
+                </div>
             </td>
             <td id="H2" is_board="true" col="2" row="8" class="chess_board" contains_piece="white_knight_1">
-                <span class="disable_high_light player_2"
+                <div style="background-position: -267px -130px;"
+                    class="disable_high_light player_2 chess_piece white_knight"
                     is_chess_piece="true"
                     at_origin="true"
                     color="white"
                     name="knight"
                     suffix="1"
                     id="white_knight_1">
-                    Knight
-                </span>
+                </div>
             </td>
             <td id="H3" is_board="true" col="3" row="8" class="chess_board" contains_piece="white_bishop_1">
-                <span class="disable_high_light player_2"
+                <div class="disable_high_light player_2 chess_piece white_bishop"
                     is_chess_piece="true"
                     at_origin="true"
                     color="white"
                     name="bishop"
                     suffix="1"
                     id="white_bishop_1">
-                    Bishop
-                </span>
+                </div>
             </td>
             <td id="H4" is_board="true" col="4" row="8" class="chess_board" contains_piece="white_queen">
-                <span class="disable_high_light player_2"
+                <div style="background-position: -36px -129px;"
+                    class="disable_high_light player_2 chess_piece"
                     is_chess_piece="true"
                     at_origin="true"
                     color="white"
                     name="queen"
                     suffix=""
                     id="white_queen">
-                    Queen
-                </span>
+                </div>
             </td>
             <td id="H5" is_board="true" col="5" row="8" class="chess_board" contains_piece="white_king">
-                <span class="disable_high_light player_2"
+                <div style="background-position: -34px -40px;"
+                    class="disable_high_light player_2 chess_piece"
                     is_chess_piece="true"
                     at_origin="true"
                     color="white"
                     name="king"
                     suffix=""
                     id="white_king">
-                    King
-                </span>
+                </div>
             </td>
             <td id="H6" is_board="true" col="6" row="8" class="chess_board" contains_piece="white_bishop_2">
-                <span class="disable_high_light player_2"
+                <div class="disable_high_light player_2 chess_piece white_bishop"
                     is_chess_piece="true"
                     at_origin="true"
                     color="white"
                     name="bishop"
                     suffix="2"
                     id="white_bishop_2">
-                    bishop
-                </span>
+                </div>
             </td>
             <td id="H7" is_board="true" col="7" row="8" class="chess_board" contains_piece="white_knight_2">
-                <span class="disable_high_light player_2"
+                <div class="disable_high_light player_2 chess_piece white_knight"
                     is_chess_piece="true"
                     at_origin="true"
                     color="white"
                     name="knight"
                     suffix="2"
                     id="white_knight_2">
-                    Knight
-                </span>
+                </div>
             </td>
             <td id="H8" is_board="true" col="8" row="8" class="chess_board" contains_piece="white_rook_2">
-                <span class="disable_high_light player_2"
+                <div class="disable_high_light player_2 chess_piece white_rook"
                     is_chess_piece="true"
                     at_origin="true"
                     color="white"
                     name="rook"
                     suffix="2"
                     id="white_rook_2">
-                    Rook
-                </span>
+                </div>
             </td>
         </tr>
     </table>
