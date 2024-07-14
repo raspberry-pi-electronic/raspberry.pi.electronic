@@ -90,10 +90,25 @@ function setupEventHandlers() {
         //console.log(evt);
         PageMouseEventHandlers.MOUSE_DOWN.handleMouseEvent(evt);
     }
+
     document.body.onmouseup = function(evt) {
         //console.log("mouse button up")
         //console.log(evt);
         PageMouseEventHandlers.MOUSE_UP.handleMouseEvent(evt);
+    }
+
+    document.body.ontouchstart = function(evt) {
+        evt.preventDefault();
+        PageMouseEventHandlers.MOUSE_DOWN.handleMouseEvent(evt);
+    }
+
+    document.body.ontouchend = function(evt) {
+        PageMouseEventHandlers.MOUSE_UP.handleMouseEvent(evt);
+    }
+
+    document.body.ontouchmove = function(evt) {
+        evt.preventDefault();
+        PageMouseEventHandlers.MOUSE_MOVE.handleMouseEvent(evt);
     }
 
     console.log("document mouse event handler configured");

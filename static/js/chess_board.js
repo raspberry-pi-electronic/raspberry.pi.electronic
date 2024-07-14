@@ -1004,4 +1004,3 @@ PageMouseEventHandlers.MOUSE_DOWN.addHandler(new MouseEventHandlerObject(chessBo
 PageMouseEventHandlers.MOUSE_UP.addHandler(new MouseEventHandlerObject(chessBoard.handleMouseUp, chessBoard));
 PageMouseEventHandlers.MOUSE_UP.addHandler(new MouseEventHandlerObject(graveYard.handleMouseClick, graveYard));
 
-
