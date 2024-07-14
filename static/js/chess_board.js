@@ -157,6 +157,11 @@ class ChessPiece extends Piece {
     }
 
     setLocation(x, y) {
+        this.element.style.position = "absolute";
+        this.element.style.marginLeft = null; 
+        this.element.setAttribute(ChessBoardAttributeKeys.is_chess_piece, "true");
+        this.element.removeAttribute(ChessBoardAttributeKeys.grave_yeard_piece);
+
         var h = this.element.offsetHeight / 2;
         var w = this.element.offsetWidth / 2;
         this.element.style.left = (x - w) + "px";
@@ -201,8 +206,10 @@ class ChessBoardSquare extends Piece {
         return this.element.getAttribute(ChessBoardAttributeKeys.col) == 1;
     }
 
-    setPiece(piece_id) {
-        this.element.setAttribute(ChessBoardAttributeKeys.contains_piece, piece_id);
+    setPiece(piece) {
+        this.element.setAttribute(ChessBoardAttributeKeys.contains_piece, piece.id);
+        var location = this.getLocation();
+        piece.setLocation(location[0], location[1]);
     }
 
     getPiece() {
@@ -562,7 +569,7 @@ class ChessBoard {
                     (new ChessPiece(piece_id)).remove();
                 }
                 this.active_chess_square.removePiece();
-                this.target_board_square.setPiece(this.active_chess_piece.id);
+                this.target_board_square.setPiece(this.active_chess_piece);
                 this.setMovedFromOrigin();
                 ChessBoard.white_piece_move = ! ChessBoard.white_piece_move;
                 return true;
@@ -973,22 +980,14 @@ class GraveYard {
         if( !pawn_location_id ) {
             return;
         }
-        
+
         active_chess_piece.parentNode.removeAttribute(ChessBoardAttributeKeys.pawn_location);
         const pawn_location = new ChessBoardSquare(pawn_location_id);
         const pawn_id = pawn_location.getPiece();
+        pawn_location.setPiece(active_chess_piece);
+
         const pawn = new ChessPiece(pawn_id);
         pawn.remove();
-
-        var location = pawn_location.getLocation();
-        active_chess_piece.style.position = "absolute";
-        active_chess_piece.style.marginLeft = null; 
-        active_chess_piece.setAttribute(ChessBoardAttributeKeys.is_chess_piece, "true");
-        active_chess_piece.removeAttribute(ChessBoardAttributeKeys.grave_yeard_piece);
-        active_chess_piece.setLocation(location[0], location[1]);
-
-        pawn_location.setPiece(active_chess_piece.id);
-
     }
 }
 
