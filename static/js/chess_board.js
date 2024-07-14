@@ -25,11 +25,14 @@ class ChessBoardAttributeKeys {
 
     static white_chess_grave_yard = "white_chess_grave_yard";
     static black_chess_grave_yard = "black_chess_grave_yard";
+    static pawn_location = "pawn_location";
+    static grave_yeard_piece = "grave_yeard_piece";
 }
 
 class Piece {
     element = null;
     style = null;
+    parentNode = null;
 
     constructor(element) {
         this.element = element;
@@ -38,6 +41,7 @@ class Piece {
     init() {
         if( this.element ) {
             this.style = this.element.style;
+            this.parentNode = this.element.parentNode;
             return true;
         }
         console.log("Piece does not exist")
@@ -54,6 +58,10 @@ class Piece {
 
     setAttribute(name, value) {
         this.element.setAttribute(name, value);
+    }
+
+    removeAttribute(name) {
+        this.element.removeAttribute(name);
     }
 }
 
@@ -81,6 +89,9 @@ class ChessPiece extends Piece {
         this.element.style.top = "0px";
         this.element.style.left = "0px";
         this.element.style.display = "block";
+        this.element.style.marginLeft = "5px"; 
+        this.element.removeAttribute(ChessBoardAttributeKeys.is_chess_piece);
+        this.element.setAttribute(ChessBoardAttributeKeys.grave_yeard_piece, "true");
         if( this.isWhitePiece() ) {
             document.getElementById(ChessBoardAttributeKeys.white_chess_grave_yard).appendChild(this.element);
         }
@@ -358,6 +369,13 @@ class ChessBoardSquare extends Piece {
     static moveNorthWest(piece) {
         return piece.moveNorthWest();
     }
+
+    replacePawn(replacementPiece) {
+        if( !this.isPawn() ) {
+            return;
+        }
+        // update here
+    }
 }
 
 /* ================================================ */
@@ -527,9 +545,11 @@ class ChessBoard {
     handleMouseUp(obj, evt) {
         console.log("mouse bt up")
 
-        obj.setOccupiedSquare();
+        if( obj.setOccupiedSquare() ) {
+            obj.replacePawn();
+        }
         obj.clearAllSquares();
-
+        
         obj.active_chess_piece = null;
         obj.active_chess_square = null;
     }
@@ -545,12 +565,33 @@ class ChessBoard {
                 this.target_board_square.setPiece(this.active_chess_piece.id);
                 this.setMovedFromOrigin();
                 ChessBoard.white_piece_move = ! ChessBoard.white_piece_move;
+                return true;
             }
-            else {
-                var location = this.active_chess_square.getLocation();
-                console.log("moving chess back to: (" + location[0] + ", " + location[1] + ")");
-                this.active_chess_piece.setLocation(location[0], location[1]);
+
+            var location = this.active_chess_square.getLocation();
+            console.log("moving chess back to: (" + location[0] + ", " + location[1] + ")");
+            this.active_chess_piece.setLocation(location[0], location[1]);
+        }
+        return false;
+    }
+
+    replacePawn() {
+        if( !this.active_chess_piece.isPawn() ) {
+            return;
+        }
+
+        if( this.active_chess_piece.isWhitePiece() ) {
+            if( this.target_board_square.isAtTopEdge() ) {
+                console.log(this.active_chess_piece.id + " at edge: " + this.target_board_square.id);
+                const graveYard = document.getElementById(ChessBoardAttributeKeys.white_chess_grave_yard);
+                graveYard.setAttribute(ChessBoardAttributeKeys.pawn_location, this.target_board_square.id);
             }
+            return;
+        }
+        if( this.target_board_square.isAtBottomEdge() ) {
+            console.log(this.active_chess_piece.id + " at edge: " + this.target_board_square.id);
+            const graveYard = document.getElementById(ChessBoardAttributeKeys.black_chess_grave_yard);
+            graveYard.setAttribute(ChessBoardAttributeKeys.pawn_location, this.target_board_square.id);
         }
     }
 
@@ -905,12 +946,61 @@ class ChessBoard {
 
 }
 
+/* ================================================ */
+
+class GraveYard {
+
+    constructor() {
+
+    }
+    
+    handleMouseClick(obj, evt) {
+        var active_chess_piece = null;
+        const all_target_element = document.elementsFromPoint(evt.clientX, evt.clientY);
+        for( const targetElement of all_target_element) {
+            if( targetElement.getAttribute(ChessBoardAttributeKeys.grave_yeard_piece) ) {
+                active_chess_piece = new ChessPiece(null, targetElement);
+                console.log("Gray yard piece clicked: " + active_chess_piece.id);
+                break;
+            }
+        }
+
+        if( !active_chess_piece ) {
+            return;
+        }
+
+        const pawn_location_id = active_chess_piece.parentNode.getAttribute(ChessBoardAttributeKeys.pawn_location);
+        if( !pawn_location_id ) {
+            return;
+        }
+        
+        active_chess_piece.parentNode.removeAttribute(ChessBoardAttributeKeys.pawn_location);
+        const pawn_location = new ChessBoardSquare(pawn_location_id);
+        const pawn_id = pawn_location.getPiece();
+        const pawn = new ChessPiece(pawn_id);
+        pawn.remove();
+
+        var location = pawn_location.getLocation();
+        active_chess_piece.style.position = "absolute";
+        active_chess_piece.style.marginLeft = null; 
+        active_chess_piece.setAttribute(ChessBoardAttributeKeys.is_chess_piece, "true");
+        active_chess_piece.removeAttribute(ChessBoardAttributeKeys.grave_yeard_piece);
+        active_chess_piece.setLocation(location[0], location[1]);
+
+        pawn_location.setPiece(active_chess_piece.id);
+
+    }
+}
+
 
 /* ================================================ */
 
 const chessBoard = new ChessBoard();
+const graveYard = new GraveYard();
+
 PageMouseEventHandlers.MOUSE_MOVE.addHandler(new MouseEventHandlerObject(chessBoard.handleMouseMove, chessBoard));
 PageMouseEventHandlers.MOUSE_DOWN.addHandler(new MouseEventHandlerObject(chessBoard.handleMouseDown, chessBoard));
 PageMouseEventHandlers.MOUSE_UP.addHandler(new MouseEventHandlerObject(chessBoard.handleMouseUp, chessBoard));
+PageMouseEventHandlers.MOUSE_UP.addHandler(new MouseEventHandlerObject(graveYard.handleMouseClick, graveYard));
 
 
