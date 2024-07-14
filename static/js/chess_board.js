@@ -523,6 +523,7 @@ class ChessBoard {
         }
 
         if( obj.active_chess_piece != null ) {
+            obj.active_chess_piece.style.zIndex = 999;
             console.log("active_chess_piece.id = " + obj.active_chess_piece.id);
             if( obj.active_chess_piece.isWhitePiece() ) {
                 if(!ChessBoard.white_piece_move) {
@@ -553,6 +554,7 @@ class ChessBoard {
         console.log("mouse bt up")
 
         if( obj.setOccupiedSquare() ) {
+            obj.active_chess_piece.style.zIndex = null;
             obj.replacePawn();
         }
         obj.clearAllSquares();
