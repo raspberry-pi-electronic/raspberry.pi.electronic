@@ -20,6 +20,10 @@
             vertical-align: middle;
         }
 
+        .chess_square_black {
+            background-color: black;
+        }
+
         .disable_high_light {
             cursor:default; 
             user-select: none; 
@@ -37,7 +41,7 @@
         .chess_piece {
             width: 60px;
             height: 60px;
-            background-image: url('img/2d-pieces-s.jpeg');
+            background-image: url('img/2d-pieces-s.png');
         }
 
         .white_rook {
@@ -97,7 +101,7 @@
                     id="black_rook_1">
                 </div>
             </td>
-            <td id="A2" is_board="true" col="2" row="1" class="chess_board" contains_piece="black_knight_1">
+            <td id="A2" is_board="true" col="2" row="1" class="chess_board chess_square_black" contains_piece="black_knight_1">
                 <div class="disable_high_light player_1 chess_piece black_knight"
                     is_chess_piece="true"
                     at_origin="true"
@@ -117,7 +121,7 @@
                     id="black_bishop_1">
                 </div>
             </td>
-            <td id="A4" is_board="true" col="4" row="1" class="chess_board" contains_piece="black_queen">
+            <td id="A4" is_board="true" col="4" row="1" class="chess_board chess_square_black" contains_piece="black_queen">
                 <div style="background-position: -98px -129px;"
                     class="disable_high_light player_1 chess_piece"
                     is_chess_piece="true"
@@ -139,7 +143,7 @@
                     id="black_king">
                 </div>
             </td>
-            <td id="A6" is_board="true" col="6" row="1" class="chess_board" contains_piece="black_bishop_2">
+            <td id="A6" is_board="true" col="6" row="1" class="chess_board chess_square_black" contains_piece="black_bishop_2">
                 <div class="disable_high_light player_1 chess_piece black_bishop"
                     is_chess_piece="true"
                     at_origin="true"
@@ -159,7 +163,7 @@
                     id="black_knight_2">
                 </div>
             </td>
-            <td id="A8" is_board="true" col="8" row="1" class="chess_board" contains_piece="black_rook_2">
+            <td id="A8" is_board="true" col="8" row="1" class="chess_board chess_square_black" contains_piece="black_rook_2">
                 <div class="disable_high_light player_1 chess_piece black_rook"
                     is_chess_piece="true"
                     at_origin="true"
@@ -171,7 +175,7 @@
             </td>
         </tr>
         <tr>
-            <td id="B1"  is_board="true" col="1" row="2" class="chess_board" contains_piece="black_pawn_1">
+            <td id="B1"  is_board="true" col="1" row="2" class="chess_board chess_square_black" contains_piece="black_pawn_1">
                 <div class="disable_high_light player_1 chess_piece black_pawn"
                     is_chess_piece="true"
                     at_origin="true"
@@ -191,7 +195,7 @@
                     id="black_pawn_2">
                 </div>
             </td>
-            <td id="B3" is_board="true" col="3" row="2" class="chess_board" contains_piece="black_pawn_3">
+            <td id="B3" is_board="true" col="3" row="2" class="chess_board chess_square_black" contains_piece="black_pawn_3">
                 <div class="disable_high_light player_1 chess_piece black_pawn"
                     is_chess_piece="true"
                     at_origin="true"
@@ -211,7 +215,7 @@
                     id="black_pawn_4">
                 </div>
             </td>
-            <td id="B5" is_board="true" col="5" row="2" class="chess_board" contains_piece="black_pawn_5">
+            <td id="B5" is_board="true" col="5" row="2" class="chess_board chess_square_black" contains_piece="black_pawn_5">
                 <div class="disable_high_light player_1 chess_piece black_pawn"
                     is_chess_piece="true"
                     at_origin="true"
@@ -231,7 +235,7 @@
                     id="black_pawn_6">
                 </div>
             </td>
-            <td id="B7" is_board="true" col="7" row="2" class="chess_board" contains_piece="black_pawn_7">
+            <td id="B7" is_board="true" col="7" row="2" class="chess_board chess_square_black" contains_piece="black_pawn_7">
                 <div class="disable_high_light player_1 chess_piece black_pawn"
                     is_chess_piece="true"
                     at_origin="true"
@@ -257,48 +261,48 @@
             <td id="C1" is_board="true" col="1" row="3" class="chess_board" contains_piece="false">
 
             </td>
-            <td id="C2" is_board="true" col="2" row="3" class="chess_board" contains_piece="false">
+            <td id="C2" is_board="true" col="2" row="3" class="chess_board chess_square_black" contains_piece="false">
 
             </td>
             <td id="C3" is_board="true" col="3" row="3" class="chess_board" contains_piece="false">
 
             </td>
-            <td id="C4" is_board="true" col="4" row="3" class="chess_board" contains_piece="false">
+            <td id="C4" is_board="true" col="4" row="3" class="chess_board chess_square_black" contains_piece="false">
 
             </td>
             <td id="C5" is_board="true" col="5" row="3" class="chess_board" contains_piece="false">
 
             </td>
-            <td id="C6" is_board="true" col="6" row="3" class="chess_board" contains_piece="false">
+            <td id="C6" is_board="true" col="6" row="3" class="chess_board chess_square_black" contains_piece="false">
 
             </td>
             <td id="C7" is_board="true" col="7" row="3" class="chess_board" contains_piece="false">
 
             </td>
-            <td id="C8" is_board="true" col="8" row="3" class="chess_board" contains_piece="false">
+            <td id="C8" is_board="true" col="8" row="3" class="chess_board chess_square_black" contains_piece="false">
 
             </td>
         </tr>
         <tr>
-            <td id="D1" is_board="true" col="1" row="4" class="chess_board" contains_piece="false">
+            <td id="D1" is_board="true" col="1" row="4" class="chess_board chess_square_black" contains_piece="false">
 
             </td>
             <td id="D2" is_board="true" col="2" row="4" class="chess_board" contains_piece="false">
 
             </td>
-            <td id="D3" is_board="true" col="3" row="4" class="chess_board" contains_piece="false">
+            <td id="D3" is_board="true" col="3" row="4" class="chess_board chess_square_black" contains_piece="false">
 
             </td>
             <td id="D4" is_board="true" col="4" row="4" class="chess_board" contains_piece="false">
 
             </td>
-            <td id="D5" is_board="true" col="5" row="4" class="chess_board" contains_piece="false">
+            <td id="D5" is_board="true" col="5" row="4" class="chess_board chess_square_black" contains_piece="false">
 
             </td>
             <td id="D6" is_board="true" col="6" row="4" class="chess_board" contains_piece="false">
 
             </td>
-            <td id="D7" is_board="true" col="7" row="4" class="chess_board" contains_piece="false">
+            <td id="D7" is_board="true" col="7" row="4" class="chess_board chess_square_black" contains_piece="false">
 
             </td>
             <td id="D8" is_board="true" col="8" row="4" class="chess_board" contains_piece="false">
@@ -309,48 +313,48 @@
             <td id="E1" is_board="true" col="1" row="5" class="chess_board" contains_piece="false">
 
             </td>
-            <td id="E2" is_board="true" col="2" row="5" class="chess_board" contains_piece="false">
+            <td id="E2" is_board="true" col="2" row="5" class="chess_board chess_square_black" contains_piece="false">
 
             </td>
             <td id="E3" is_board="true" col="3" row="5" class="chess_board" contains_piece="false">
 
             </td>
-            <td id="E4" is_board="true" col="4" row="5" class="chess_board" contains_piece="false">
+            <td id="E4" is_board="true" col="4" row="5" class="chess_board chess_square_black" contains_piece="false">
 
             </td>
             <td id="E5" is_board="true" col="5" row="5" class="chess_board" contains_piece="false">
 
             </td>
-            <td id="E6" is_board="true" col="6" row="5" class="chess_board" contains_piece="false">
+            <td id="E6" is_board="true" col="6" row="5" class="chess_board chess_square_black" contains_piece="false">
 
             </td>
             <td id="E7" is_board="true" col="7" row="5" class="chess_board" contains_piece="false">
 
             </td>
-            <td id="E8" is_board="true" col="8" row="5" class="chess_board" contains_piece="false">
+            <td id="E8" is_board="true" col="8" row="5" class="chess_board chess_square_black" contains_piece="false">
 
             </td>
         </tr>
         <tr>
-            <td id="F1" is_board="true" col="1" row="6" class="chess_board" contains_piece="false">
+            <td id="F1" is_board="true" col="1" row="6" class="chess_board chess_square_black" contains_piece="false">
 
             </td>
             <td id="F2" is_board="true" col="2" row="6" class="chess_board" contains_piece="false">
 
             </td>
-            <td id="F3" is_board="true" col="3" row="6" class="chess_board" contains_piece="false">
+            <td id="F3" is_board="true" col="3" row="6" class="chess_board chess_square_black" contains_piece="false">
 
             </td>
             <td id="F4" is_board="true" col="4" row="6" class="chess_board" contains_piece="false">
 
             </td>
-            <td id="F5" is_board="true" col="5" row="6" class="chess_board" contains_piece="false">
+            <td id="F5" is_board="true" col="5" row="6" class="chess_board chess_square_black" contains_piece="false">
 
             </td>
             <td id="F6" is_board="true" col="6" row="6" class="chess_board" contains_piece="false">
 
             </td>
-            <td id="F7" is_board="true" col="7" row="6" class="chess_board" contains_piece="false">
+            <td id="F7" is_board="true" col="7" row="6" class="chess_board chess_square_black" contains_piece="false">
 
             </td>
             <td id="F8" is_board="true" col="8" row="6" class="chess_board" contains_piece="false">
@@ -368,7 +372,7 @@
                     id="white_pawn_1">
                 </div>
             </td>
-            <td id="G2" is_board="true" col="2" row="7" class="chess_board" contains_piece="white_pawn_2">
+            <td id="G2" is_board="true" col="2" row="7" class="chess_board chess_square_black" contains_piece="white_pawn_2">
                 <div class="disable_high_light player_2 chess_piece white_pawn"
                     is_chess_piece="true"
                     at_origin="true"
@@ -388,7 +392,7 @@
                     id="white_pawn_3">
                 </div>
             </td>
-            <td id="G4" is_board="true" col="4" row="7" class="chess_board" contains_piece="white_pawn_4">
+            <td id="G4" is_board="true" col="4" row="7" class="chess_board chess_square_black" contains_piece="white_pawn_4">
                 <div class="disable_high_light player_2 chess_piece white_pawn"
                     is_chess_piece="true"
                     at_origin="true"
@@ -408,7 +412,7 @@
                     id="white_pawn_5">
                 </div>
             </td>
-            <td id="G6" is_board="true" col="6" row="7" class="chess_board" contains_piece="white_pawn_6">
+            <td id="G6" is_board="true" col="6" row="7" class="chess_board chess_square_black" contains_piece="white_pawn_6">
                 <div class="disable_high_light player_2 chess_piece white_pawn"
                     is_chess_piece="true"
                     at_origin="true"
@@ -428,7 +432,7 @@
                     id="white_pawn_7">
                 </div>
             </td>
-            <td id="G8" is_board="true" col="8" row="7" class="chess_board" contains_piece="white_pawn_8">
+            <td id="G8" is_board="true" col="8" row="7" class="chess_board chess_square_black" contains_piece="white_pawn_8">
                 <div class="disable_high_light player_2 chess_piece white_pawn"
                     is_chess_piece="true"
                     at_origin="true"
@@ -439,7 +443,7 @@
                 </div>
             </td>
         <tr>
-            <td id="H1"is_board="true" col="1" row="8" class="chess_board" contains_piece="white_rook_1">
+            <td id="H1"is_board="true" col="1" row="8" class="chess_board chess_square_black" contains_piece="white_rook_1">
                 <div class="disable_high_light player_2 chess_piece white_rook"
                     is_chess_piece="true"
                     at_origin="true"
@@ -460,7 +464,7 @@
                     id="white_knight_1">
                 </div>
             </td>
-            <td id="H3" is_board="true" col="3" row="8" class="chess_board" contains_piece="white_bishop_1">
+            <td id="H3" is_board="true" col="3" row="8" class="chess_board chess_square_black" contains_piece="white_bishop_1">
                 <div class="disable_high_light player_2 chess_piece white_bishop"
                     is_chess_piece="true"
                     at_origin="true"
@@ -481,7 +485,7 @@
                     id="white_queen">
                 </div>
             </td>
-            <td id="H5" is_board="true" col="5" row="8" class="chess_board" contains_piece="white_king">
+            <td id="H5" is_board="true" col="5" row="8" class="chess_board chess_square_black" contains_piece="white_king">
                 <div style="background-position: -34px -40px;"
                     class="disable_high_light player_2 chess_piece"
                     is_chess_piece="true"
@@ -502,7 +506,7 @@
                     id="white_bishop_2">
                 </div>
             </td>
-            <td id="H7" is_board="true" col="7" row="8" class="chess_board" contains_piece="white_knight_2">
+            <td id="H7" is_board="true" col="7" row="8" class="chess_board chess_square_black" contains_piece="white_knight_2">
                 <div class="disable_high_light player_2 chess_piece white_knight"
                     is_chess_piece="true"
                     at_origin="true"
@@ -527,10 +531,10 @@
 </div>
 
 <div id="chess_grave_yard" style="margin-top: 2px;border:solid 1px black;display:inline-block;margin-left:30px;">
-    <div id="white_chess_grave_yard" style="height:264px;width:100px;overflow-y: scroll;">
+    <div id="white_chess_grave_yard" style="height:282px;width:100px;overflow-y: scroll;">
         <div style="border-bottom:solid 1px black;text-align: center;">White</div>
     </div>
-    <div id="black_chess_grave_yard" style="height:260px;width:100px;overflow-y:scroll;">
+    <div id="black_chess_grave_yard" style="height:282px;width:100px;overflow-y:scroll;">
         <div style="border-bottom:solid 1px black;border-top:solid 1px black;text-align: center;">Black</div>
     </div>
 </div>
