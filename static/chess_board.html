@@ -83,9 +83,12 @@
 <body class="disable_high_light">
 <div style="text-align:center;">The Chess Board</div>
 <div>
-    <div id="home_button" style="display:none;">
-        <a href="../">Home</a>
-    </div>
+    <span id="home_button" style="display:none;">
+        <button onclick="top.location='https://raspberry-pi-electronic.github.io/raspberry.pi.electronic/'">Home</button> | 
+    </span>
+    <span id="undo">
+        <button id="undo_button" onclick="ChessBoard.undo()">↶ Undo</button>
+    </span>
 </div>
 
 <div id="chess_board_wrapper" style="display:inline-block;float:left;">

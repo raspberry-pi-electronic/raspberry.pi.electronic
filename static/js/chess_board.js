@@ -426,6 +426,15 @@ class ChessBoard {
     mouse_location = null;
 
     static white_piece_move = true;
+
+    /*
+        [
+            active_chess_piece.id,
+            active_chess_square.id,
+            target_board_square.id,
+            captured_piece.id
+        ];
+    */
     static chess_moves = [];
 
     constructor() {
@@ -434,6 +443,25 @@ class ChessBoard {
         this.target_chess_piece = null;
         this.active_chess_square = null;
         this.mouse_location = new Array(0, 0);
+    }
+
+    static undo() {
+        var move = ChessBoard.chess_moves.pop();
+        if(!move) {
+            return;
+        }
+        const active_chess_piece = new ChessPiece(move[0]);
+        const active_chess_square =  new ChessBoardSquare(move[1]);
+        const target_board_square = new ChessBoardSquare(move[2]);
+
+        active_chess_square.setPiece(active_chess_piece);
+        target_board_square.removePiece();
+        
+        if( move[3] ) {
+            const captured_piece = new ChessPiece(move[3]);
+            target_board_square.setPiece(captured_piece);
+        }
+
     }
     
     handleMouseMove(obj, evt) {
