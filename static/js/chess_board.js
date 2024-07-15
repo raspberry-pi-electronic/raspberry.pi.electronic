@@ -153,7 +153,15 @@ class ChessPiece extends Piece {
     }
 
     movedFromOrigin() {
-        this.element.setAttribute(ChessBoardAttributeKeys.at_origin, "false");
+        if(this.isAtOrigin()) {
+            this.element.setAttribute(ChessBoardAttributeKeys.at_origin, "false");
+            return true;
+        }
+        return false;
+    }
+
+    restoredAtOrigin() {
+        this.element.setAttribute(ChessBoardAttributeKeys.at_origin, "true");
     }
 
     setLocation(x, y) {
@@ -432,7 +440,8 @@ class ChessBoard {
             active_chess_piece.id,
             active_chess_square.id,
             target_board_square.id,
-            captured_piece.id
+            captured_piece.id,
+            moved_from_origin // true/false
         ];
     */
     static chess_moves = [];
@@ -462,6 +471,10 @@ class ChessBoard {
             target_board_square.setPiece(captured_piece);
         }
 
+        if( move[4] ) {
+            active_chess_piece.restoredAtOrigin();
+        }
+        ChessBoard.white_piece_move = ! ChessBoard.white_piece_move;
     }
     
     handleMouseMove(obj, evt) {
@@ -611,7 +624,12 @@ class ChessBoard {
                 chessMoves.push(piece_id);
                 this.active_chess_square.removePiece();
                 this.target_board_square.setPiece(this.active_chess_piece);
-                this.setMovedFromOrigin();
+                if( this.setMovedFromOrigin() ) {
+                    chessMoves.push(true);
+                }
+                else {
+                    chessMoves.push(false);
+                }
                 ChessBoard.white_piece_move = ! ChessBoard.white_piece_move;
             }
             else {
@@ -646,9 +664,10 @@ class ChessBoard {
     setMovedFromOrigin() {
         if( (this.active_chess_piece != null) && (this.target_board_square != null) && (this.active_chess_square != null) ) {
             if(this.active_chess_square.id != this.target_board_square.id) {
-                this.active_chess_piece.movedFromOrigin();
+                return this.active_chess_piece.movedFromOrigin();
             }
         }
+        return false;
     }
 
     clearAllSquares() {
