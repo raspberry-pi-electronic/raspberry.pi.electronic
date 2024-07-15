@@ -89,7 +89,7 @@ class ChessPiece extends Piece {
         this.element.style.top = "0px";
         this.element.style.left = "0px";
         this.element.style.display = "block";
-        this.element.style.marginLeft = "5px"; 
+        this.element.style.marginLeft = "5px";
         this.element.removeAttribute(ChessBoardAttributeKeys.is_chess_piece);
         this.element.setAttribute(ChessBoardAttributeKeys.grave_yeard_piece, "true");
         if( this.isWhitePiece() ) {
@@ -98,6 +98,9 @@ class ChessPiece extends Piece {
         else {
             document.getElementById(ChessBoardAttributeKeys.black_chess_grave_yard).appendChild(this.element);
         }
+        this.element.classList.remove("chess_piece");
+        this.element.classList.add("chess_piece_s");
+
         this.id = null;
         this.element = null;
     }
