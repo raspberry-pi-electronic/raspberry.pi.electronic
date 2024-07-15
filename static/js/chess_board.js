@@ -384,13 +384,6 @@ class ChessBoardSquare extends Piece {
     static moveNorthWest(piece) {
         return piece.moveNorthWest();
     }
-
-    replacePawn(replacementPiece) {
-        if( !this.isPawn() ) {
-            return;
-        }
-        // update here
-    }
 }
 
 /* ================================================ */
