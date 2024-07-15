@@ -103,6 +103,7 @@ function setupEventHandlers() {
     }
 
     document.body.ontouchend = function(evt) {
+        evt.preventDefault();
         PageMouseEventHandlers.MOUSE_UP.handleMouseEvent(evt);
     }
 

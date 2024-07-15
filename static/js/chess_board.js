@@ -426,6 +426,7 @@ class ChessBoard {
     mouse_location = null;
 
     static white_piece_move = true;
+    static chess_moves = [];
 
     constructor() {
         this.active_chess_piece = null;
@@ -553,9 +554,11 @@ class ChessBoard {
     handleMouseUp(obj, evt) {
         console.log("mouse bt up")
 
-        if( obj.setOccupiedSquare() ) {
+        const chessMoves = obj.setOccupiedSquare();
+        if( chessMoves ) {
             obj.active_chess_piece.style.zIndex = null;
             obj.replacePawn();
+            ChessBoard.chess_moves.push( chessMoves );
         }
         obj.clearAllSquares();
         
@@ -564,24 +567,32 @@ class ChessBoard {
     }
 
     setOccupiedSquare() {
+        var chessMoves = null;
         if( (this.active_chess_piece != null) && (this.target_board_square != null) && (this.active_chess_square != null) ) {
             if( this.target_board_square.isAllowedToMoveInto() || this.target_board_square.isAllowedToTake() ) {
+                chessMoves = [
+                    this.active_chess_piece.id,
+                    this.active_chess_square.id,
+                    this.target_board_square.id
+                ];
+                var piece_id = "";
                 if(this.target_board_square.isAllowedToTake()) {
-                    var piece_id = this.target_board_square.getPiece();
+                    piece_id = this.target_board_square.getPiece();
                     (new ChessPiece(piece_id)).remove();
                 }
+                chessMoves.push(piece_id);
                 this.active_chess_square.removePiece();
                 this.target_board_square.setPiece(this.active_chess_piece);
                 this.setMovedFromOrigin();
                 ChessBoard.white_piece_move = ! ChessBoard.white_piece_move;
-                return true;
             }
-
-            var location = this.active_chess_square.getLocation();
-            console.log("moving chess back to: (" + location[0] + ", " + location[1] + ")");
-            this.active_chess_piece.setLocation(location[0], location[1]);
+            else {
+                var location = this.active_chess_square.getLocation();
+                console.log("moving chess back to: (" + location[0] + ", " + location[1] + ")");
+                this.active_chess_piece.setLocation(location[0], location[1]);
+            }
         }
-        return false;
+        return chessMoves;
     }
 
     replacePawn() {
