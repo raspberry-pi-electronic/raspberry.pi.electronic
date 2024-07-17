@@ -33,6 +33,7 @@ class Piece {
     element = null;
     style = null;
     parentNode = null;
+    classList = null;
 
     constructor(element) {
         this.element = element;
@@ -42,6 +43,7 @@ class Piece {
         if( this.element ) {
             this.style = this.element.style;
             this.parentNode = this.element.parentNode;
+            this.classList = this.element.classList;
             return true;
         }
         console.log("Piece does not exist")
@@ -218,6 +220,8 @@ class ChessBoardSquare extends Piece {
     }
 
     setPiece(piece) {
+        piece.classList.remove("chess_piece_s");
+        piece.classList.add("chess_piece");
         this.element.setAttribute(ChessBoardAttributeKeys.contains_piece, piece.id);
         var location = this.getLocation();
         piece.setLocation(location[0], location[1]);
