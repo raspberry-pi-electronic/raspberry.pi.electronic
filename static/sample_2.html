@@ -9,8 +9,14 @@
         we use this to comment the code -- to document it
         */
         function clickedButton(element) {
-            output_box = document.getElementById("output_box_1");
+            var output_box = document.getElementById("output_box_1");
             output_box.innerHTML = "I am " +  element.getAttribute("name");
+        }
+
+        function replaceInputText(element) {
+            var input_box = document.getElementById("input_box_1");
+            var n = parseInt(element.getAttribute("number"));
+            input_box.value = parseInt(input_box.value) + n;
         }
     </script>
 </head>
@@ -25,7 +31,7 @@
 <p>
     To change a mouse pointer, use style name <span style="font-style: italic;">cursor</span>
     <br/><br/>
-    <textarea style="width:400px; height:25px;">
+    <textarea style="width:600px; height:25px;">
 <div style="cursor:pointer;">A block with a fingle pointing mouse</div>
     </textarea>
 </p>
@@ -42,7 +48,7 @@
     <span style="font-style: italic;">font-weight</span>,
     <span style="font-style: italic;">font-style</span>,
     <br/><br/>
-    <textarea style="width:500px; height:75px;">
+    <textarea style="width:700px; height:75px;">
 <div style="font-size: 30px;">A 30px font </div>
 <div style="font-family:'Courier New', Courier, monospace">Courier New</div>
 <div style="font-style: italic">italic</div>
@@ -56,7 +62,7 @@
 <br/><br/>
 
 <div>
-    <textarea style="width:500px; height:100px;display: inline-block; float: left;" >
+    <textarea style="width:500px; height:150px;display: inline-block; float: left;" >
     <script>
 function clickedButton(element) {
     output_box = document.getElementById("output_box_1");
@@ -94,7 +100,7 @@ function clickedButton(element) {
     <span style="font-style: italic;">onmouseover</span>,
     <span style="font-style: italic;">onmouseout</span>,
     <br/>
-    <textarea style="width:600px; height:25px;">
+    <textarea style="width:800px; height:25px;">
 <div name="Bob" style="cursor:pointer;" onclick="clickedButton(this)">Click this element</div>
     </textarea>
 </p>
@@ -103,14 +109,43 @@ function clickedButton(element) {
 <br/>
 
 <div id="output_box_1">I will be replaced</div>
+<br/>
+<textarea style="width:800px; height:25px;">
+<div id="output_box_1">I will be replaced</div>
+</textarea>
 
+<br/><br/>
 
+<div style="border-bottom:solid 1px black;"></div>
 
+<div>
+    <textarea style="width:500px; height:150px;display: inline-block; float: left;" >
+    <script>
+function replaceInputText(element) {
+    var input_box = document.getElementById("input_box_1");
+    var n = parseInt(element.getAttribute("number"));
+    input_box.value = parseInt(input_box.value) + n;
+}
+</script>
+    </textarea>
+</div>
 
+<div style="clear: both;"></div>
 
+<br/><br/>
+<input id="input_box_1" style="width:200px;" value="8" />
+<br/>
+<textarea style="width:800px; height:25px;">
+<input id="input_box_1" style="width:200px;" value="8" />
+</textarea>
 
+<br/><br>
+<div style="border: solid 1px red; cursor: pointer;" number="3" onclick="replaceInputText(this)">+ 3</div>
 
-
+<br/>
+<textarea style="width:830px; height: 30px;">
+<div style="border: solid 1px red; cursor: pointer;" number="3" onclick="replaceInputText(this)">+ 3</div>
+</textarea>
 
 
 
