@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>a wed page</title>
+    <script>
+        /*
+        the text here will be ignored by the computer
+        we use this to comment the code -- to document it
+        */
+        function clickedButton(element) {
+            output_box = document.getElementById("output_box_1");
+            output_box.innerHTML = "I am " +  element.getAttribute("name");
+        }
+    </script>
+</head>
+<body>
+
+
+<div style="text-align: center;border-bottom: solid 1px black;"><h1>Style</h1></div>
+<br/>
+
+<div style="cursor:pointer;">A block with a fingle pointing mouse</div>
+<br/>
+<p>
+    To change a mouse pointer, use style name <span style="font-style: italic;">cursor</span>
+    <br/><br/>
+    <textarea style="width:400px; height:25px;">
+<div style="cursor:pointer;">A block with a fingle pointing mouse</div>
+    </textarea>
+</p>
+
+<br/>
+
+<div style="font-size: 30px;">A 30px font </div>
+<div style="font-family:'Courier New', Courier, monospace">Courier New</div>
+<div style="font-style: italic">italic</div>
+<p>
+    To change a font, use style name 
+    <span style="font-style: italic;">font</span>,
+    <span style="font-style: italic;">font-family</span>,
+    <span style="font-style: italic;">font-weight</span>,
+    <span style="font-style: italic;">font-style</span>,
+    <br/><br/>
+    <textarea style="width:500px; height:75px;">
+<div style="font-size: 30px;">A 30px font </div>
+<div style="font-family:'Courier New', Courier, monospace">Courier New</div>
+<div style="font-style: italic">italic</div>
+    </textarea>
+</p>
+
+<br/>
+
+<div style="text-align: center;border-bottom: solid 1px black;"><h1>Element Events</h1></div>
+
+<br/><br/>
+
+<div>
+    <textarea style="width:500px; height:100px;display: inline-block; float: left;" >
+    <script>
+function clickedButton(element) {
+    output_box = document.getElementById("output_box_1");
+    output_box.innerHTML = "I am " +  element.getAttribute("name");
+}
+</script>
+    </textarea>
+    <span style="vertical-align: top;">
+        <div style="">
+        The script here has a function named <span style="font-style: italic;">clickedButton</span> that takes one parameter.
+        The parameter we defined is the element you clicked on.
+        <br/><br/>
+        In JavaScript, the whole web page is called a <span style="font-style: italic;">document</span>.  The document is an object
+        -- remember an object is a block of code that contains variables and functions -- which contains a method named
+        <span style="font-style: italic;">getElementById</span>.  By providing the <span style="font-style: italic;">id</span>
+        of the element, it will return an object of that element.
+        <br/><br/>
+
+        </div>
+    </span>
+</div>
+
+<div style="clear: both;"></div>
+
+<br/><br/>
+
+
+<div name="Bob" style="cursor:pointer;border:solid 1px black" onclick="clickedButton(this)">Click this element</div>
+<p>
+    To handle an event such as mouse click, you will need to add event handlers.  An event handler is a HTML defined attribute
+    that the browser will perform actions.
+    <br/>
+    Some typical events are: 
+    <span style="font-style: italic;">onclick</span>,
+    <span style="font-style: italic;">onmouseover</span>,
+    <span style="font-style: italic;">onmouseout</span>,
+    <br/>
+    <textarea style="width:600px; height:25px;">
+<div name="Bob" style="cursor:pointer;" onclick="clickedButton(this)">Click this element</div>
+    </textarea>
+</p>
+
+
+<br/>
+
+<div id="output_box_1">I will be replaced</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+<br/><br/><br/><br/><br/><br/><br/><br/><br/>
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+
+
+
+
+<!--
+
+onclick
+onmousedown
+onmouseup
+
+onkeydown
+onkeyup
+onkeypress
+
+-->
+
+
+
+</body>
+</html>
