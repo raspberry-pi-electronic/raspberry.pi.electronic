@@ -151,8 +151,96 @@ function replaceInputText(element) {
 
 
 
-<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+<div style="cursor:pointer;">hand</div>
+
+<div style="font-size: 30px;">A 30px font </div>
+<div style="font-family:'Courier New', Courier, monospace">Courier New</div>
+<div style="font-style: italic">italic life</div>
+
+<script>
+    function replaceInputText(element) {
+        var input_box = document.getElementById("input_box_2");
+        var n = parseInt(element.getAttribute("number"));
+        input_box.value = parseInt(input_box.value) + n;
+    }
+    </script>
+    <input id="input_box_2" style="width:200px;" value="0" />
+
+    <span style="border: solid 1px red; cursor: pointer;" number="10" onclick="replaceInputText(this)">+10</span>
+    <span style="border: solid 1px red; cursor: pointer;" number="20" onclick="replaceInputText(this)">+20</span>
+    <span style="border: solid 1px red; cursor: pointer;" number="30" onclick="replaceInputText(this)">+30</span>
+    <br/>
+    <script>
+        function replaceInputText2(element) {
+            var input_box = document.getElementById("input_box_3");
+            var n = parseInt(element.getAttribute("number"));
+            input_box.value = parseInt(input_box.value) - n;
+        }
+        </script>
+        <input id="input_box_3" style="width:200px;" value="0" />
+        <span style="border: solid 1px red; cursor: pointer;" number="0" onclick="replaceInputText2(this)">-0</span>
+        <span style="border: solid 1px red; cursor: pointer;" number="1" onclick="replaceInputText2(this)">-1</span>
+        <span style="border: solid 1px red; cursor: pointer;" number="2" onclick="replaceInputText2(this)">-2</span>
+        <span style="border: solid 1px red; cursor: pointer;" number="3" onclick="replaceInputText2(this)">-3</span>
+        <span style="border: solid 1px red; cursor: pointer;" number="4" onclick="replaceInputText2(this)">-4</span>
+        <span style="border: solid 1px red; cursor: pointer;" number="5" onclick="replaceInputText2(this)">-5</span>
+        <span style="border: solid 1px red; cursor: pointer;" number="6" onclick="replaceInputText2(this)">-6</span>
+        <span style="border: solid 1px red; cursor: pointer;" number="7" onclick="replaceInputText2(this)">-7</span>
+        <span style="border: solid 1px red; cursor: pointer;" number="8" onclick="replaceInputText2(this)">-8</span>
+        <span style="border: solid 1px red; cursor: pointer;" number="9" onclick="replaceInputText2(this)">-9</span>
+
+
+
+
+
+
+
 <br/><br/><br/><br/><br/><br/><br/><br/><br/>
+<br/><br/>
+<div style="border-bottom: solid 1px black;font-size: 30px;text-align:center">Calculator</div>
+
+<br/><br/>
+
+<div style="position:relative; left: 600px;">
+    <div>
+        <span><button>0</button></span>
+        <span><button>1</button></span>
+        <span><button>2</button></span>
+        <span><button>3</button></span>
+        <span><button>4</button></span>
+    </div>
+
+    <div>
+        <span><button>5</button></span>
+        <span><button>6</button></span>
+        <span><button>7</button></span>
+        <span><button>8</button></span>
+        <span><button>9</button></span>
+    </div>
+
+    <div>
+        <span><button>÷</button></span>
+        <span><button>×</button></span>
+        <span><button>+</button></span>
+        <span><button>-</button></span>
+        <span><button>=</button></span>
+    </div>
+    <div style="color:rgb(255, 0, 247);border: 2px;">NUMBERS</div>
+</div>
+<script>
+    function replaceInputText5(element) {
+        var input_box = document.getElementById("input_box_4");
+        var n = parseInt(element.getAttribute("number"));
+        input_box.value = parseInt(input_box.value) + n;
+    }
+    </script>
+    <input id="input_box_4" style="width:200px;" value="0" />
+
+    <span style="border: solid 1px blueviolet; cursor: pointer;" number="1" onclick="replaceInputText5(this)">1</span>
+
+
 <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
