@@ -173,12 +173,25 @@ function replaceInputText(element) {
     <span style="border: solid 1px red; cursor: pointer;" number="30" onclick="replaceInputText(this)">+30</span>
     <br/>
     <script>
+        var previous_num = 0;
+        var current_name = 0;
+
         function replaceInputText2(element) {
             var input_box = document.getElementById("input_box_3");
             var n = parseInt(element.getAttribute("number"));
             input_box.value = parseInt(input_box.value) - n;
+            previous_num = n;
         }
-        </script>
+
+        function reapeatPrevious() {
+            var input_box = document.getElementById("input_box_3");
+            input_box.value = parseInt(input_box.value) - previous_num;
+        }
+
+        function add1(){
+            current_num = previous_num - 1
+        }
+    </script>
         <input id="input_box_3" style="width:200px;" value="0" />
         <span style="border: solid 1px red; cursor: pointer;" number="0" onclick="replaceInputText2(this)">-0</span>
         <span style="border: solid 1px red; cursor: pointer;" number="1" onclick="replaceInputText2(this)">-1</span>
@@ -190,55 +203,131 @@ function replaceInputText(element) {
         <span style="border: solid 1px red; cursor: pointer;" number="7" onclick="replaceInputText2(this)">-7</span>
         <span style="border: solid 1px red; cursor: pointer;" number="8" onclick="replaceInputText2(this)">-8</span>
         <span style="border: solid 1px red; cursor: pointer;" number="9" onclick="replaceInputText2(this)">-9</span>
+        <span style="border: solid 1px red; cursor: pointer;" onclick="reapeatPrevious()">-Repeat</span>
+        <span style="border: solid 1px red; cursor: pointer;" onclick="add1()">hehehe</span>
+        
 
+<div style="clear: both;"></div>
+<br/><br/>
+<br/><br/>
+<div style="border-bottom: solid 1px black;font-size: 30px;text-align:center">Practice</div>
 
+<br/><br/>
 
+<div>Task 1</div>
+<ol>
+    <li>Create an element with an attribute named <span style="font-style: italic;">color</span> 
+        and a value of <span style="font-style: italic;">black</span></li>
+    <li>Create an element with an id of <span style="font-style: italic;">sample_color_1</span> </li>
+    <li>Write a JavaScript function that takes one argument</li>
+    <ul>
+        <li>For this task, just an empty function</li>
+        <li>The function does nothing</li>
+    </ul>
+</ol>
 
+<br/>
+<div>Task 2</div>
+<ol>
+    <li>Update your 1st task's element above to call a function you created on task 3 on the click event</li>
+    <ul>
+        <li>The on click event should call your function with the instance of the element you clicked on 
+            -- the <span style="font-style: italic;color:red">this</span> keyword</li>
+    </ul>
+    <li>Update your function created on task 3 above to:
+        <ol>
+            <li>
+                Get the element's attribute of <span style="font-style: italic;">color</span></li>
+            </li>
+            <li>
+                From the element clicked on, get the attribute <span style="font-style: italic;">sample_color_1</span>
+            </li>
+        </ol>
+        
+    <li>Update your function to set the border of your element</li>
+    <ul>
+        <li>
+            if task 2.1 you named your variable <span style="font-style: italic;color:red">color</span>
+        </li>
+        <li>
+            if task 2.2, you named your variable <span style="font-style: italic;color:red">sample_color_1</span>,
+            then write this: <span style="font-style: italic;color:red">sample_color_1.style.color = "solid 1px " + color</span>
+        </li>
+    </ul>
+</ol>
 
+<br/>
+<div>Task 3</div>
+<ol>
+    <li>Create an element with an id of <span style="font-style: italic;">sample_value_1</span> </li>
+    <li>Update the your function</li>
+    <ul>
+        <li>Save the user click count</li>
+        <ul>
+            <li>Create a variable outside of the function</li>
+            <li>Initialize it to zero -- 0</li>
+            <li>Inside the function, increase the variable value by one: 
+                <span style="font-style: italic;">variable_name = variable_name + 1</span>
+            </li>
+        </ul>
+        <li>Dispaly the click count on the element you created: <span style="font-style: italic;">sample_value_1</span></li>
+    </ul>
+</ol>
 
 
 <br/><br/><br/><br/><br/><br/><br/><br/><br/>
-<br/><br/>
+
+<div style="border-bottom: solid 1px black;font-size: 30px;text-align:center">Solution</div>
+<br/><br/><br/><br/><br/><br/><br/><br/><br/>
+<div style="color: black;">black</div>
+<sample_color_1 =  
+
+
+
+
+
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+<br/><br/><br/><br/><br/><br/><br/><br/><br/>
 <div style="border-bottom: solid 1px black;font-size: 30px;text-align:center">Calculator</div>
 
 <br/><br/>
 
 <div style="position:relative; left: 600px;">
     <div>
-        <span><button>0</button></span>
-        <span><button>1</button></span>
-        <span><button>2</button></span>
-        <span><button>3</button></span>
-        <span><button>4</button></span>
+        <span><button style="border: solid 1px rgb(255, 0, 0); cursor: pointer;" number="3" onclick="replaceInputText10(this)">0</button></span>
+        <span><button style="border: solid 1px rgb(255, 0, 0); cursor: pointer;" number="3" onclick="replaceInputText10(this)">1</button></span>
+        <span><button style="border: solid 1px rgb(255, 0, 0); cursor: pointer;" number="3" onclick="replaceInputText10(this)">2</button></span>
+        <span><button style="border: solid 1px rgb(255, 0, 0); cursor: pointer;" number="3" onclick="replaceInputText10(this)">3</button></span>
+        <span><button style="border: solid 1px rgb(255, 0, 0); cursor: pointer;" number="3" onclick="replaceInputText10(this)">4</button></span>
     </div>
 
     <div>
-        <span><button>5</button></span>
-        <span><button>6</button></span>
-        <span><button>7</button></span>
-        <span><button>8</button></span>
-        <span><button>9</button></span>
+        <span><button style="border: solid 1px rgb(255, 0, 0); cursor: pointer;" number="3" onclick="replaceInputText10(this)">5</button></span>
+        <span><button style="border: solid 1px rgb(255, 0, 0); cursor: pointer;" number="3" onclick="replaceInputText10(this)">6</button></span>
+        <span><button style="border: solid 1px rgb(255, 0, 0); cursor: pointer;" number="3" onclick="replaceInputText10(this)">7</button></span>
+        <span><button style="border: solid 1px rgb(255, 0, 0); cursor: pointer;" number="3" onclick="replaceInputText10(this)">8</button></span>
+        <span><button style="border: solid 1px rgb(255, 0, 0); cursor: pointer;" number="3" onclick="replaceInputText10(this)">9</button></span>
     </div>
 
     <div>
         <span><button>÷</button></span>
-        <span><button>×</button></span>
+        <span><button>x</button></span>
         <span><button>+</button></span>
         <span><button>-</button></span>
         <span><button>=</button></span>
     </div>
-    <div style="color:rgb(255, 0, 247);border: 2px;">NUMBERS</div>
-</div>
-<script>
-    function replaceInputText5(element) {
-        var input_box = document.getElementById("input_box_4");
-        var n = parseInt(element.getAttribute("number"));
-        input_box.value = parseInt(input_box.value) + n;
-    }
-    </script>
     <input id="input_box_4" style="width:200px;" value="0" />
 
-    <span style="border: solid 1px blueviolet; cursor: pointer;" number="1" onclick="replaceInputText5(this)">1</span>
+    <script>
+        function replaceInputText(element) {
+            var input_box = document.getElementById("input_box_10");
+            var n = parseInt(element.getAttribute("number"));
+            input_box.value = parseInt(input_box.value) - n;
+        }
+        <input id="input_box_10" style="width:200px;" value="0" />
+        </script>
+
+
 
 
 <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
