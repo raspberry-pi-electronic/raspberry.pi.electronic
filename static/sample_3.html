@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>a wed page</title>
+    <script>
+        var a = 5;
+
+        function func1(){
+            var n = func2(1,9);
+            
+            console.log("a + b = " + n);
+        }
+
+        function func2(a,b){
+            var n = a + b;
+            return n;
+        }
+
+        function func3(){
+            var x = func4(2,3,4);
+            console.log("c * d * e = " + x)
+        }
+
+        function func4(c,d,e){
+            var x = c * d * e;
+            return x;
+        }
+
+        function mouse(){
+            var id = document.getElementById("device");
+            id.innerHTML = 8;
+        }
+
+        function out(){
+            var id = document.getElementById("device");
+            id.innerHTML = "hi";
+        }
+
+        function swim(){
+            var id = document.getElementById("device");
+            id.innerHTML = "swim";
+        }
+
+        function landofstories(){
+            var id = document.getElementById("device");
+            var d = document.getElementById("bye");
+            id.innerHTML = d.getAttribute("book");
+        }
+
+        function landofstories2(d){
+            var id = document.getElementById("device");
+            id.innerHTML = d.getAttribute("book");
+        }
+
+        function showComputer(d) {
+            var id = document.getElementById("device");
+            id.innerHTML = d.getAttribute("computer");
+        }
+
+    </script>
+</head>
+<body>
+
+    <div id="device"></div>
+    <div onmouseover="mouse()" onmouseout="out()" onclick="swim()">hello</div>
+
+    <div style="border-bottom: solid 1px black;"></div>
+
+    <span id="bye" book="Harry potter" onclick="landofstories()">Targus</span>
+    <span id="bye2" book="Tom and Jerry" onclick="landofstories2(this)">Targus</span>
+
+    <div style="border-bottom: solid 1px black;"></div>
+
+    <ul>
+        <li computer="Mac" onclick="showComputer(this)">Mac</li>
+        <li computer="Lenovo" onclick="showComputer(this)">Lenovo</li>
+        <li computer="Dell" onclick="showComputer(this)">Dell</li>
+    </ul>
+
+</body>
+</html>

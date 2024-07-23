@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>a wed page</title>
+    <title>∑π∑π</title>
     <script>
         /*
         the text here will be ignored by the computer
@@ -229,12 +229,12 @@ function replaceInputText(element) {
 <br/>
 <div>Task 2</div>
 <ol>
-    <li>Update your 1st task's element above to call a function you created on task 3 on the click event</li>
+    <li>Update your task 1.1 element above to call a function you created on task 1.3 on the click event</li>
     <ul>
         <li>The on click event should call your function with the instance of the element you clicked on 
             -- the <span style="font-style: italic;color:red">this</span> keyword</li>
     </ul>
-    <li>Update your function created on task 3 above to:
+    <li>Update your function created on task 1.3 above to:
         <ol>
             <li>
                 Get the element's attribute of <span style="font-style: italic;">color</span></li>
@@ -260,7 +260,7 @@ function replaceInputText(element) {
 <div>Task 3</div>
 <ol>
     <li>Create an element with an id of <span style="font-style: italic;">sample_value_1</span> </li>
-    <li>Update the your function</li>
+    <li>Update your function you have created in 1.3</li>
     <ul>
         <li>Save the user click count</li>
         <ul>
@@ -279,8 +279,18 @@ function replaceInputText(element) {
 
 <div style="border-bottom: solid 1px black;font-size: 30px;text-align:center">Solution</div>
 <br/><br/><br/><br/><br/><br/><br/><br/><br/>
-<div style="color: black;">black</div>
-<sample_color_1 =  
+<div style="color: black;"onclick="color1;">black</div>
+
+<div id="sample_color_1">id sample_color_1</div>
+
+<script style="color: blue;"onclick="sample_color_1";border="solid 2px red;" >
+    function color1(){
+        sample_color_1.style.color = "solid 1px " + color
+    }
+</script>
+
+
+
 
 
 
